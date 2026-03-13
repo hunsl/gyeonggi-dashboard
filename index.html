@@ -2806,50 +2806,63 @@ function renderChecklist(course) {
     });
 }
 
-// 날짜 변경 핸들러 (시작일 입력 시 종료일 자동 설정)
+// 날짜 변경 핸들러 (시작일 입력 시 종료일 자동 설정) 여기 아래 수정
 window.handleDateChange = async function(index, field, value) {
     const course = courses.find(c => c.id === currentCourseId);
     if (!course) return;
     
-    // 로컬 상태 업데이트
+    // 로컬 상태 즉시 업데이트
     course.checklist[index][field] = value;
     
     // 시작일을 입력했는데 종료일이 비어있으면 자동으로 같은 날짜로 설정
     if (field === 'startDate' && value && !course.checklist[index].endDate) {
         course.checklist[index].endDate = value;
         
-        // UI 업데이트
+        // PC 화면 UI 업데이트
         const endDateInput = document.getElementById(`end-${index}`);
         if (endDateInput) {
             endDateInput.value = value;
         }
         
-        // Firestore 업데이트 (두 필드 모두)
-        debouncedSave(currentCourseId, {
-            [`checklist.${index}.startDate`]: value,
-            [`checklist.${index}.endDate`]: value
-        });
-    } else {
-        // 일반 업데이트
-        debouncedSave(currentCourseId, {
-            [`checklist.${index}.${field}`]: value
-        });
+        // 모바일 화면 UI 업데이트
+        const mobEndDateInput = document.getElementById(`mob-end-${index}`);
+        if (mobEndDateInput) {
+            mobEndDateInput.value = value;
+        }
     }
+
+    // 🚨 핵심: Firestore 배열 전체 덮어쓰기
+    debouncedSave(currentCourseId, {
+        checklist: course.checklist
+    });
 };
 
 window.updateChecklist = async function(index, field, value) {
     const course = courses.find(c => c.id === currentCourseId);
     if (!course) return;
     
-    // 로컬 상태 즉시 업데이트 (UI 반응성)
+    // 로컬 상태 즉시 업데이트
     course.checklist[index][field] = value;
     
-    // 디바운싱된 Firestore 업데이트 (부분 업데이트)
+    // 체크박스 클릭 시 프로그레스 바 즉시 반영
+    if (field === 'isCompleted') {
+        const progress = calcProgress(course);
+        const progressBar = document.getElementById('course-progress-bar');
+        const progressText = document.getElementById('course-progress-text');
+        
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (progressText) progressText.textContent = progress + '%';
+        
+        // 상단 헤더의 전체 평균 진행률 즉시 반영
+        const headerAvgProgress = document.getElementById('header-avg-progress');
+        if (headerAvgProgress) headerAvgProgress.textContent = overallProgress() + '%';
+    }
+
+    // 🚨 핵심: Firestore 배열 전체 덮어쓰기
     debouncedSave(currentCourseId, {
-        [`checklist.${index}.${field}`]: value
+        checklist: course.checklist
     });
 }
-
 window.addChecklistItem = async function() {
     const course = courses.find(c => c.id === currentCourseId);
     if (!course) return;
@@ -3194,4 +3207,5 @@ document.addEventListener('keydown', function(e) {
     </div>
 </body>
 </html>
+
 
