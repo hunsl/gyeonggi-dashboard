@@ -2676,6 +2676,7 @@ window.selectCourse = function(courseId) {
 function updateCourseDisplay(course) {
     document.getElementById('course-detail').style.display = 'block';
     // 과정 선택 카드를 숨기지 않고 그대로 유지 — 상세 패널이 아래에 펼쳐짐
+    // 패널이 display:block으로 렌더링된 후 스크롤되도록 한 프레임 대기
     setTimeout(() => {
         const panel = document.getElementById('course-detail');
         if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
