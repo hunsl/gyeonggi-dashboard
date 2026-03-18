@@ -852,73 +852,77 @@ body {
 .course-picker {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 10px;
 }
 .course-pill {
     position: relative;
     border: 2px solid transparent;
     border-radius: 14px;
-    padding: 12px 10px 10px;
+    padding: 16px 12px 12px;
     cursor: pointer;
     background: white;
     text-align: center;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 .course-pill::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 4px;
+    height: 5px;
     border-radius: 14px 14px 0 0;
 }
 .course-pill:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.14);
 }
 .course-pill.active {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
 }
 .course-pill.active::after {
-    content: '▼';
+    content: '▼ 선택됨';
     position: absolute;
-    bottom: -2px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.6em;
-    line-height: 1;
+    bottom: 0; left: 0; right: 0;
+    font-size: 0.62em;
+    font-weight: 700;
+    padding: 2px 0;
+    background: currentColor;
+    color: white;
+    border-radius: 0 0 12px 12px;
+    line-height: 1.6;
 }
 .course-pill-short {
-    font-size: 0.82em;
+    font-size: 0.9em;
     font-weight: 800;
     color: #1E293B;
-    line-height: 1.3;
-    margin-bottom: 6px;
+    line-height: 1.35;
+    margin-bottom: 8px;
     word-break: keep-all;
 }
 .course-pill-period {
-    font-size: 0.68em;
-    color: #94A3B8;
-    font-weight: 500;
+    font-size: 0.72em;
+    color: #64748B;
+    font-weight: 600;
     margin-bottom: 6px;
 }
 .course-pill-prog {
-    height: 4px;
+    height: 5px;
     background: #E2E8F0;
-    border-radius: 2px;
+    border-radius: 3px;
     overflow: hidden;
     margin: 0 2px;
 }
 .course-pill-prog-fill {
     height: 100%;
-    border-radius: 2px;
+    border-radius: 3px;
     transition: width 0.4s ease;
 }
 .course-pill-pct {
-    font-size: 0.65em;
-    font-weight: 700;
-    margin-top: 3px;
+    font-size: 0.72em;
+    font-weight: 800;
+    margin-top: 4px;
 }
 
 /* 과정 상세 패널 */
@@ -1000,7 +1004,9 @@ body {
 
 /* ====== 과정 상세 패널 ====== */
 .course-detail-panel {
-    margin-top: 10px;
+    margin-top: 16px;
+    border-top: 3px solid #06B6D4;
+    padding-top: 4px;
     animation: slideDown 0.25s ease;
 }
 @keyframes slideDown {
@@ -1217,15 +1223,15 @@ body {
     .course-detail-panel { padding-bottom: 80px; }
 
     .course-picker { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    .course-pill { padding: 10px 6px 8px; border-radius: 12px; }
-    .course-pill-short { font-size: 0.75em; }
+    .course-pill { padding: 13px 8px 20px; border-radius: 12px; }
+    .course-pill-short { font-size: 0.8em; }
     .course-detail-title { font-size: 0.92em; }
     .detail-section-body { padding: 12px 14px; }
     .stat-rate-value { font-size: 1.5em; }
 }
 @media (max-width: 390px) {
     .course-picker { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-    .course-pill-short { font-size: 0.7em; }
+    .course-pill-short { font-size: 0.75em; }
 }
 
 /* 학사관리시스템 탭 */
@@ -1382,9 +1388,9 @@ body {
                             <span style="font-size: 1.15em;">⚙️</span>
                             <span>면접 관리</span>
                         </a>
-                        <a href="https://sanghun.pythonanywhere.com/haccp" target="_blank" title="HACCP 전문인력 양성 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #0891B2; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
-                            <span style="font-size: 1.15em;">🔬</span>
-                            <span>HACCP</span>
+                        <a href="https://sanghun.pythonanywhere.com/haccp" target="_blank" title="선발 관리 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #0891B2; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
+                            <span style="font-size: 1.15em;">🎯</span>
+                            <span>선발 관리</span>
                         </a>
                         <button onclick="openManual()" title="2026년 경기북부 업무매뉴얼 보기" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #0891B2; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center; cursor: pointer;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
                             <span style="font-size: 1.15em;">📘</span>
@@ -2669,8 +2675,11 @@ window.selectCourse = function(courseId) {
 
 function updateCourseDisplay(course) {
     document.getElementById('course-detail').style.display = 'block';
-    const selectCard = document.getElementById('course-select-card');
-    if (selectCard) selectCard.style.display = 'none';
+    // 과정 선택 카드를 숨기지 않고 그대로 유지 — 상세 패널이 아래에 펼쳐짐
+    setTimeout(() => {
+        const panel = document.getElementById('course-detail');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
 
     // 모바일 저장바 표시
     const saveBar = document.getElementById('mobile-save-bar');
@@ -3141,8 +3150,7 @@ window.backToCourseSelect = function() {
     if (saveBar) saveBar.style.display = 'none';
     currentCourseId = null;
     populateCourseSelect();
-    const selectCard = document.getElementById('course-select-card');
-    if (selectCard) selectCard.style.display = 'block';
+    // 선택 카드는 항상 표시 상태이므로 별도 조작 불필요
 }
 
 // 이전/다음 과정 이동
