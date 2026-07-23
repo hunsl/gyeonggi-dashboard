@@ -6,6 +6,15 @@
     <title>🎓 2026 경기북부 직업교육 통합 관리 솔루션 (실시간 공유)</title>
     <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+.integration-guide-list {
+    display:grid; gap:12px; margin-top:10px;
+}
+.integration-guide-item {
+    background:linear-gradient(135deg,#F0F9FF 0%,#ECFEFF 100%);
+    border:1px solid #BAE6FD; border-radius:10px; padding:12px;
+}
+.integration-guide-item h3 { margin:0 0 6px; font-size:1em; color:#0E7490; }
+.integration-guide-item p { margin:0; font-size:0.88em; color:#334155; line-height:1.5; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     background-color: #F1F5F9;
@@ -153,11 +162,12 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 .card {
-    background: white;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FBFF 100%);
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.10);
     margin-bottom: 16px;
     overflow: hidden;
+    border: 1px solid #DBEAFE;
 }
 .card-header {
     padding: 14px 18px;
@@ -1435,13 +1445,13 @@ body {
 /* ====== 외부 시스템 허브 ====== */
 .ext-sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; padding: 16px; }
 .ext-sys-card {
-    background: white; border-radius: 14px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FBFF 100%); border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(8,145,178,0.12);
     overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1.5px solid #E2E8F0; text-decoration: none;
+    border: 1.5px solid #BFDBFE; text-decoration: none;
     display: flex; flex-direction: column; cursor: pointer;
 }
-.ext-sys-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); border-color: #BAE6FD; }
+.ext-sys-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(8,145,178,0.20); border-color: #7DD3FC; }
 .ext-sys-card-header { padding: 16px 14px 10px; display: flex; align-items: center; gap: 12px; }
 .ext-sys-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; flex-shrink: 0; }
 .ext-sys-name { font-size: 0.95em; font-weight: 800; color: #1E293B; line-height: 1.2; }
@@ -1451,6 +1461,14 @@ body {
 .ext-sys-stat:last-child { border-bottom: none; }
 .ext-sys-stat-val { font-weight: 700; color: #334155; }
 .ext-sys-card-footer { padding: 10px 14px; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); display: flex; align-items: center; justify-content: space-between; font-size: 0.82em; font-weight: 700; color: #0891B2; }
+.stat-quick-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.stat-quick-btn {
+    border:none; border-radius:8px; cursor:pointer;
+    padding:7px 10px; font-size:0.78em; font-weight:700;
+    background:linear-gradient(135deg,#E0F2FE 0%,#BAE6FD 100%);
+    color:#0C4A6E; box-shadow:0 2px 6px rgba(8,145,178,0.15);
+}
+.stat-quick-btn:hover { transform:translateY(-1px); box-shadow:0 5px 12px rgba(8,145,178,0.22); }
 
 /* 반응형 */
 @media (max-width: 1200px) { .kpi-summary { grid-template-columns: repeat(4, 1fr); } }
@@ -1563,6 +1581,20 @@ body {
             <!-- ★ KPI 총괄 요약 -->
             <div id="kpi-summary-section" style="margin-bottom:16px;"></div>
 
+            <!-- ★ 외부 시스템 허브 -->
+            <div class="card" style="margin-bottom:16px;">
+                <div class="card-header" style="background:linear-gradient(135deg,#ECFEFF 0%,#CFFAFE 50%,#FFFFFF 100%);border-bottom:1px solid #E2E8F0;padding:12px 18px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:32px;height:32px;background:linear-gradient(135deg,#0891B2,#0E7490);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;box-shadow:0 2px 6px rgba(8,145,178,0.3);">🔗</div>
+                        <div>
+                            <h2 style="margin:0;font-size:1.1em;color:#0E7490;line-height:1.3;">외부 시스템 허브</h2>
+                            <span style="font-size:0.75em;color:#0891B2;font-weight:500;">연계 시스템 바로가기 & 현황</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="ext-sys-section" class="ext-sys-grid"></div>
+            </div>
+
             <!-- ★ 과정별 진행현황 보드 -->
             <div class="card" style="margin-bottom:16px;">
                 <div class="card-header overview" style="display:flex;justify-content:space-between;align-items:center;">
@@ -1578,20 +1610,6 @@ body {
                     <h2>🏆 사후관리 성과 현황 (수료율 · 취업률)</h2>
                 </div>
                 <div id="postmgmt-section" class="postmgmt-grid"></div>
-            </div>
-
-            <!-- ★ 외부 시스템 허브 -->
-            <div class="card" style="margin-bottom:16px;">
-                <div class="card-header" style="background:linear-gradient(135deg,#ECFEFF 0%,#CFFAFE 50%,#FFFFFF 100%);border-bottom:1px solid #E2E8F0;padding:12px 18px;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="width:32px;height:32px;background:linear-gradient(135deg,#0891B2,#0E7490);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;box-shadow:0 2px 6px rgba(8,145,178,0.3);">🔗</div>
-                        <div>
-                            <h2 style="margin:0;font-size:1.1em;color:#0E7490;line-height:1.3;">외부 시스템 허브</h2>
-                            <span style="font-size:0.75em;color:#0891B2;font-weight:500;">연계 시스템 바로가기 & 현황</span>
-                        </div>
-                    </div>
-                </div>
-                <div id="ext-sys-section" class="ext-sys-grid"></div>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px;">
@@ -1846,16 +1864,21 @@ body {
                             <div class="form-group"><label>정원 (명)</label><input type="number" id="stat-capacity" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                             <div class="form-group"><label>접수 현황</label><input type="number" id="stat-applications" class="form-input" placeholder="0" min="0"></div>
                             <div class="form-group"><label>면접 참여</label><input type="number" id="stat-interviews" class="form-input" placeholder="0" min="0"></div>
-                            <div class="form-group"><label>면접 합격</label><input type="number" id="stat-passed" class="form-input" placeholder="0" min="0"></div>
+                            <div class="form-group"><label>면접 합격</label><input type="number" id="stat-passed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                             <div class="form-group"><label>교육 참여</label><input type="number" id="stat-enrolled" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                             <div class="form-group"><label>중도 탈락</label><input type="number" id="stat-dropouts" class="form-input" placeholder="0" min="0"></div>
                             <div class="form-group"><label>수료 인원</label><input type="number" id="stat-completed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                             <div class="form-group"><label>취업 인원</label><input type="number" id="stat-employed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                         </div>
+                        <div class="stat-quick-actions">
+                            <button type="button" class="stat-quick-btn" onclick="fillFromInterviewPassed()">⚡ 면접합격값으로 참여 인원 채우기</button>
+                            <button type="button" class="stat-quick-btn" onclick="autoCalculateDropouts()">⚡ 중도탈락 자동 계산</button>
+                            <button type="button" class="stat-quick-btn" onclick="pasteStatisticsLine()">📋 한 줄 붙여넣기</button>
+                        </div>
                         <!-- 자동계산 수료율·취업률 -->
                         <div class="stat-rate-box">
                             <div class="stat-rate-item">
-                                <div class="stat-rate-label">📊 수료율</div>
+                                <div class="stat-rate-label">📊 수료율 <small style="font-size:0.72em;color:#64748B;">(면접합격 기준)</small></div>
                                 <div class="stat-rate-value" id="auto-completion-rate" style="color:#0891B2;">—</div>
                             </div>
                             <div class="stat-rate-item">
@@ -2344,15 +2367,15 @@ function renderKPISummary() {
         else statusCounts.planning++;
     });
 
-    let totalEnrolled = 0, totalCompleted = 0, totalEmployed = 0;
+    let totalPassed = 0, totalCompleted = 0, totalEmployed = 0;
     courses.forEach(c => {
         const s = c.statistics || {};
-        totalEnrolled  += s.enrolled  || 0;
+        totalPassed    += s.passed    || 0;
         totalCompleted += s.completed || 0;
         totalEmployed  += s.employed  || 0;
     });
 
-    const crRate = totalEnrolled  > 0 ? Math.round(totalCompleted / totalEnrolled  * 100) : 0;
+    const crRate = totalPassed    > 0 ? Math.round(totalCompleted / totalPassed    * 100) : 0;
     const erRate = totalCompleted > 0 ? Math.round(totalEmployed  / totalCompleted * 100) : 0;
     const issueCount = courses.filter(c => c.specialNotes && c.specialNotes.trim() !== '').length;
 
@@ -2395,7 +2418,7 @@ function renderKPISummary() {
                 <div class="kpi-icon">🎓</div>
                 <div class="kpi-value">${crRate}%</div>
                 <div class="kpi-label">전체 수료율</div>
-                <div class="kpi-sublabel">${totalCompleted} / ${totalEnrolled}명</div>
+                <div class="kpi-sublabel">${totalCompleted} / ${totalPassed}명 (면접합격 기준)</div>
             </div>
             <div class="kpi-card ${erClass}">
                 <div class="kpi-icon">💼</div>
@@ -2424,14 +2447,14 @@ function renderCourseProgressBoard() {
         const progress = calcProgress(course);
         const st = getStatusTag(course.status || 'planning');
         const stats = course.statistics || {};
-        const enrolled  = stats.enrolled  || 0;
+        const passed    = stats.passed    || 0;
         const completed = stats.completed || 0;
         const employed  = stats.employed  || 0;
         const capacity  = stats.capacity  || 0;
         const hasIssue  = course.specialNotes && course.specialNotes.trim() !== '';
 
         const progressColor = progress === 100 ? '#059669' : progress >= 70 ? '#0891B2' : progress >= 40 ? '#F59E0B' : '#DC2626';
-        const crRate = enrolled  > 0 ? Math.round(completed / enrolled  * 100) : 0;
+        const crRate = passed    > 0 ? Math.round(completed / passed    * 100) : 0;
         const erRate = completed > 0 ? Math.round(employed  / completed * 100) : 0;
         const crColor = crRate >= 80 ? '#059669' : crRate > 0 ? '#F59E0B' : '#94A3B8';
         const erColor = erRate >= 80 ? '#059669' : erRate > 0 ? '#F59E0B' : '#94A3B8';
@@ -2495,13 +2518,14 @@ function renderPostManagementKPIs() {
 
     courses.forEach(course => {
         const s = course.statistics || {};
+        const passed    = s.passed    || 0;
         const enrolled  = s.enrolled  || 0;
         const completed = s.completed || 0;
         const employed  = s.employed  || 0;
-        if (enrolled === 0 && completed === 0) return;
+        if (passed === 0 && completed === 0) return;
         hasData = true;
 
-        const crRate = enrolled  > 0 ? Math.round(completed / enrolled  * 100) : 0;
+        const crRate = passed    > 0 ? Math.round(completed / passed    * 100) : 0;
         const erRate = completed > 0 ? Math.round(employed  / completed * 100) : 0;
         const crColor = crRate >= 80 ? '#059669' : crRate >= 50 ? '#D97706' : crRate > 0 ? '#DC2626' : '#94A3B8';
         const erColor = erRate >= 80 ? '#059669' : erRate >= 50 ? '#D97706' : erRate > 0 ? '#DC2626' : '#94A3B8';
@@ -2520,7 +2544,7 @@ function renderPostManagementKPIs() {
                         <div class="postmgmt-rate-label">
                             <span>📊 수료율</span>
                             <span class="postmgmt-rate-value" style="color:${crColor};">${crRate > 0 ? crRate + '%' : '집계 전'}
-                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${enrolled}명)</small>
+                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${passed}명, 합격 기준)</small>
                             </span>
                         </div>
                         <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${crRate}%;background:${crBar};"></div></div>
@@ -2562,6 +2586,7 @@ function renderExternalSystemsHub() {
         { icon: '👥', color: '#0891B2', name: '면접위원 평가', desc: '면접위원용 평가 입력 시스템', url: 'https://sanghun.pythonanywhere.com/', stats: [{ l: '역할', v: '면접위원' }, { l: '기능', v: '평가 입력' }] },
         { icon: '⚙️', color: '#0E7490', name: '면접 관리',     desc: '면접 관리자 시스템',          url: 'https://sanghun.pythonanywhere.com/admin', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '면접 관리' }] },
         { icon: '🎯', color: '#7C3AED', name: '선발 관리',     desc: '교육생 선발 관리',            url: 'https://sanghun.pythonanywhere.com/haccp', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '선발 처리' }] },
+        { icon: '🔄', color: '#2563EB', name: '연동 가이드',   desc: '다른 시스템 연동 방법 안내',   url: null, onclick: 'openIntegrationGuide()', stats: [{ l: '방식', v: 'API/CSV' }, { l: '상태', v: '연동 가능' }] },
         { icon: '🎓', color: '#059669', name: '학사관리',      desc: '교육과정 학사 관리 시스템',    url: 'https://hunsl.github.io/ggjf-edu-lms/', stats: [{ l: '대상', v: '교육생' }, { l: '기능', v: '출결·성적' }] },
         { icon: '😊', color: '#DB2777', name: '교육만족도',    desc: '교육 만족도 조사 시스템',      url: 'https://satisfaction-survey-tawny.vercel.app/login', stats: [{ l: '대상', v: '수료생' }, { l: '기능', v: '만족도 조사' }] },
         { icon: '🏆', color: '#D97706', name: '학습동아리',    desc: '학습동아리 활동 평가',         url: 'https://club-eval.vercel.app/admin', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '동아리 평가' }] },
@@ -2673,9 +2698,10 @@ function renderOverview() {
     courses.forEach(course => {
         const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 };
         const capacity = stats.capacity || 0;
+        const passed = stats.passed || 0;
         const completed = stats.completed || 0;
         const employed = stats.employed || 0;
-        const completionRate = capacity > 0 ? Math.round((completed / capacity) * 100) : 0;
+        const completionRate = passed > 0 ? Math.round((completed / passed) * 100) : 0;
         const employmentRate = completed > 0 ? Math.round((employed / completed) * 100) : 0;
         
         const row = statsTbody.insertRow();
@@ -3514,11 +3540,11 @@ window.toggleSection = function(header) {
 
 // 수료율·취업률 자동계산
 window.calcRates = function() {
-    const enrolled  = parseInt(document.getElementById('stat-enrolled')?.value)  || 0;
+    const passed    = parseInt(document.getElementById('stat-passed')?.value)    || 0;
     const completed = parseInt(document.getElementById('stat-completed')?.value) || 0;
     const employed  = parseInt(document.getElementById('stat-employed')?.value)  || 0;
 
-    const completionRate = enrolled > 0 ? Math.round(completed / enrolled * 100) : null;
+    const completionRate = passed > 0 ? Math.round(completed / passed * 100) : null;
     const employmentRate = completed > 0 ? Math.round(employed / completed * 100) : null;
 
     const crEl = document.getElementById('auto-completion-rate');
@@ -3532,6 +3558,38 @@ window.calcRates = function() {
         erEl.style.color = employmentRate >= 80 ? '#059669' : employmentRate >= 50 ? '#D97706' : employmentRate !== null ? '#DC2626' : '#94A3B8';
     }
 }
+
+window.fillFromInterviewPassed = function() {
+    const passedEl = document.getElementById('stat-passed');
+    const enrolledEl = document.getElementById('stat-enrolled');
+    if (!passedEl || !enrolledEl) return;
+    enrolledEl.value = passedEl.value || '0';
+    calcRates();
+};
+
+window.autoCalculateDropouts = function() {
+    const enrolled = parseInt(document.getElementById('stat-enrolled')?.value) || 0;
+    const completed = parseInt(document.getElementById('stat-completed')?.value) || 0;
+    const dropoutsEl = document.getElementById('stat-dropouts');
+    if (!dropoutsEl) return;
+    dropoutsEl.value = Math.max(enrolled - completed, 0);
+};
+
+window.pasteStatisticsLine = function() {
+    const input = prompt('정원,접수,면접,합격,참여,탈락,수료,취업 순서로 숫자를 붙여넣으세요.\n예: 20,25,22,20,19,1,18,12');
+    if (!input) return;
+    const values = input.split(/[,\t]/).map(v => parseInt(v.trim(), 10));
+    if (values.length !== 8 || values.some(v => Number.isNaN(v) || v < 0)) {
+        alert('형식이 올바르지 않습니다. 숫자 8개를 콤마(,) 또는 탭으로 입력해 주세요.');
+        return;
+    }
+    const ids = ['stat-capacity', 'stat-applications', 'stat-interviews', 'stat-passed', 'stat-enrolled', 'stat-dropouts', 'stat-completed', 'stat-employed'];
+    ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.value = Math.max(values[i], 0);
+    });
+    calcRates();
+};
 
 // 진행상태 선택
 let currentStatus = 'planning';
@@ -3724,8 +3782,22 @@ window.openManual = function() {
     document.body.style.overflow = 'hidden';
 };
 
+window.openIntegrationGuide = function() {
+    const modal = document.getElementById('integration-guide-modal');
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+};
+
 window.closeManual = function() {
     const modal = document.getElementById('manual-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+};
+
+window.closeIntegrationGuide = function() {
+    const modal = document.getElementById('integration-guide-modal');
+    if (!modal) return;
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
 };
@@ -3734,6 +3806,7 @@ window.closeManual = function() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeManual();
+        closeIntegrationGuide();
     }
 });
     </script>
@@ -3748,7 +3821,31 @@ document.addEventListener('keydown', function(e) {
             <iframe id="manual-iframe" class="manual-iframe"></iframe>
         </div>
     </div>
+
+    <div id="integration-guide-modal" class="manual-modal" onclick="if(event.target === this) closeIntegrationGuide()">
+        <div class="manual-content" style="max-width:860px;height:auto;max-height:90%;">
+            <div class="manual-header">
+                <h2>🔄 다른 시스템 연동 가이드</h2>
+                <button class="manual-close" onclick="closeIntegrationGuide()" title="닫기 (ESC)">×</button>
+            </div>
+            <div style="padding:20px;overflow:auto;">
+                <p style="color:#334155;font-size:0.95em;line-height:1.6;">외부 시스템 데이터는 아래 3가지 방식으로 연동할 수 있습니다.</p>
+                <div class="integration-guide-list">
+                    <div class="integration-guide-item">
+                        <h3>1) API 연동 (권장)</h3>
+                        <p>외부 시스템에서 과정별 인원(접수·면접·합격·수료·취업)을 JSON으로 제공하면, 본 대시보드에서 자동 동기화가 가능합니다.</p>
+                    </div>
+                    <div class="integration-guide-item">
+                        <h3>2) CSV 업로드/붙여넣기</h3>
+                        <p>정기적으로 CSV를 내려받아 본 대시보드의 한 줄 붙여넣기 기능으로 빠르게 반영할 수 있습니다.</p>
+                    </div>
+                    <div class="integration-guide-item">
+                        <h3>3) 웹훅 기반 실시간 반영</h3>
+                        <p>면접·선발 시스템에서 상태 변경 시 웹훅을 호출해 Firestore 값을 즉시 업데이트하는 방식입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
-
