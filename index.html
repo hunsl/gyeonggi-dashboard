@@ -2319,6 +2319,17 @@ window.switchTab = function(tab) {
 }
 
 // ===== 메인 대시보드 고도화: KPI 총괄 요약 =====
+
+// HTML 특수문자 이스케이프 (인라인 렌더링 시 XSS 방지)
+function escHtml(str) {
+    return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 function renderKPISummary() {
     const el = document.getElementById('kpi-summary-section');
     if (!el || !courses || courses.length === 0) return;
@@ -2431,10 +2442,10 @@ function renderCourseProgressBoard() {
                  onclick="goToCourse(${course.id})"
                  style="border-top:4px solid ${course.color};">
                 <div class="course-board-card-top" style="background:linear-gradient(135deg,${lightBg} 0%,#FAFAFA 100%);">
-                    <div class="course-board-card-name">${course.name}</div>
+                    <div class="course-board-card-name">${escHtml(course.name)}</div>
                     <div class="course-board-card-meta">
                         <span class="status-tag ${st.cls}" style="font-size:0.66em;padding:2px 7px;">${st.icon} ${st.label}</span>
-                        <span style="font-size:0.7em;color:#64748B;font-weight:500;">${course.period || ''}</span>
+                        <span style="font-size:0.7em;color:#64748B;font-weight:500;">${escHtml(course.period || '')}</span>
                         ${hasIssue ? '<span class="course-board-issue-badge">⚠️ 특이사항</span>' : ''}
                     </div>
                 </div>
@@ -2464,8 +2475,8 @@ function renderCourseProgressBoard() {
                 </div>
                 ${course.start_date ? `
                 <div class="course-board-card-bottom">
-                    <span style="font-size:0.73em;color:#64748B;">📅 ${course.start_date}</span>
-                    ${course.instructor ? `<span style="font-size:0.7em;color:#94A3B8;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;">👨‍🏫 ${course.instructor.split(',')[0].trim()}</span>` : ''}
+                <span style="font-size:0.73em;color:#64748B;">📅 ${escHtml(course.start_date)}</span>
+                ${course.instructor ? `<span style="font-size:0.7em;color:#94A3B8;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;">👨‍🏫 ${escHtml(course.instructor.split(',')[0].trim())}</span>` : ''}
                 </div>` : ''}
             </div>
         `;
@@ -2502,7 +2513,7 @@ function renderPostManagementKPIs() {
             <div class="postmgmt-card">
                 <div class="postmgmt-card-header" style="background:linear-gradient(135deg,${lightBg} 0%,#FAFAFA 100%);border-bottom:1px solid #F1F5F9;">
                     <div style="width:8px;height:36px;background:${course.color};border-radius:4px;flex-shrink:0;"></div>
-                    <div class="postmgmt-card-name">${course.name}</div>
+                    <div class="postmgmt-card-name">${escHtml(course.name)}</div>
                 </div>
                 <div class="postmgmt-card-body">
                     <div class="postmgmt-rate-row">
@@ -2580,7 +2591,9 @@ function renderExternalSystemsHub() {
 window.goToCourse = function(courseId) {
     const detailBtn = document.querySelector('.tab-btn[onclick*="detail"]');
     if (detailBtn) detailBtn.click();
-    setTimeout(() => selectCourse(courseId), 150);
+    // 탭 전환 DOM 업데이트 후 과정 선택 (탭 애니메이션 대기)
+    const TAB_SWITCH_DELAY_MS = 150;
+    setTimeout(() => selectCourse(courseId), TAB_SWITCH_DELAY_MS);
 };
 
 function renderOverview() {
