@@ -1346,6 +1346,134 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* ====== KPI 총괄 요약 카드 ====== */
+.kpi-summary {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.kpi-card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px 10px 14px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    border-top: 4px solid #06B6D4;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+.kpi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.13); }
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -30%;
+    width: 80%; height: 80%;
+    border-radius: 50%;
+    opacity: 0.05;
+    pointer-events: none;
+}
+.kpi-icon { font-size: 1.6em; margin-bottom: 8px; line-height: 1; }
+.kpi-value { font-size: 1.9em; font-weight: 800; line-height: 1; margin-bottom: 6px; letter-spacing: -0.5px; }
+.kpi-label { font-size: 0.73em; color: #64748B; font-weight: 700; letter-spacing: 0.2px; }
+.kpi-sublabel { font-size: 0.68em; color: #94A3B8; margin-top: 4px; font-weight: 500; }
+.kpi-card.kpi-info  { border-top-color: #0891B2; } .kpi-card.kpi-info  .kpi-value { color: #0891B2; } .kpi-card.kpi-info::before  { background: #0891B2; }
+.kpi-card.kpi-success { border-top-color: #10B981; } .kpi-card.kpi-success .kpi-value { color: #059669; } .kpi-card.kpi-success::before { background: #10B981; }
+.kpi-card.kpi-warning { border-top-color: #F59E0B; } .kpi-card.kpi-warning .kpi-value { color: #D97706; } .kpi-card.kpi-warning::before { background: #F59E0B; }
+.kpi-card.kpi-danger  { border-top-color: #EF4444; } .kpi-card.kpi-danger  .kpi-value { color: #DC2626; } .kpi-card.kpi-danger::before  { background: #EF4444; }
+.kpi-card.kpi-purple  { border-top-color: #7C3AED; } .kpi-card.kpi-purple  .kpi-value { color: #6D28D9; } .kpi-card.kpi-purple::before  { background: #7C3AED; }
+.kpi-card.kpi-teal    { border-top-color: #14B8A6; } .kpi-card.kpi-teal    .kpi-value { color: #0D9488; } .kpi-card.kpi-teal::before    { background: #14B8A6; }
+.kpi-card.kpi-gray    { border-top-color: #64748B; } .kpi-card.kpi-gray    .kpi-value { color: #475569; } .kpi-card.kpi-gray::before    { background: #64748B; }
+
+/* ====== 과정별 진행현황 보드 ====== */
+.course-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 16px;
+}
+.course-board-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+}
+.course-board-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.15); }
+.course-board-card.has-issue { border-color: #FBBF24; }
+.course-board-card-top { padding: 14px 14px 10px; border-bottom: 1px solid #F1F5F9; }
+.course-board-card-name { font-size: 0.88em; font-weight: 800; color: #1E293B; line-height: 1.35; margin-bottom: 8px; }
+.course-board-card-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.course-board-card-body { padding: 12px 14px; }
+.course-board-progress-label { display: flex; justify-content: space-between; font-size: 0.8em; color: #64748B; margin-bottom: 6px; font-weight: 600; }
+.course-board-progress-bar { height: 10px; background: #F1F5F9; border-radius: 5px; overflow: hidden; margin-bottom: 10px; }
+.course-board-progress-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
+.course-board-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
+.course-board-stat-item { text-align: center; background: #F8FAFC; border-radius: 8px; padding: 6px 4px; }
+.course-board-stat-num { font-size: 1.1em; font-weight: 800; line-height: 1; margin-bottom: 2px; }
+.course-board-stat-lbl { font-size: 0.62em; color: #94A3B8; font-weight: 600; }
+.course-board-card-bottom { padding: 9px 14px; background: #FAFAFA; border-top: 1px solid #F1F5F9; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.course-board-issue-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.7em; font-weight: 700; color: #D97706; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 20px; padding: 2px 8px; }
+
+/* ====== 사후관리 성과판 ====== */
+.postmgmt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; padding: 16px; }
+.postmgmt-card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; border: 1px solid #E2E8F0; }
+.postmgmt-card-header { padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+.postmgmt-card-name { font-size: 0.88em; font-weight: 700; color: #1E293B; flex: 1; line-height: 1.35; }
+.postmgmt-card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.postmgmt-rate-row { display: flex; flex-direction: column; gap: 4px; }
+.postmgmt-rate-label { display: flex; justify-content: space-between; align-items: center; font-size: 0.82em; font-weight: 600; color: #475569; }
+.postmgmt-rate-value { font-size: 1em; font-weight: 800; }
+.postmgmt-bar { height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden; margin-top: 4px; }
+.postmgmt-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+
+/* ====== 외부 시스템 허브 ====== */
+.ext-sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; padding: 16px; }
+.ext-sys-card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1.5px solid #E2E8F0; text-decoration: none;
+    display: flex; flex-direction: column; cursor: pointer;
+}
+.ext-sys-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); border-color: #BAE6FD; }
+.ext-sys-card-header { padding: 16px 14px 10px; display: flex; align-items: center; gap: 12px; }
+.ext-sys-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; flex-shrink: 0; }
+.ext-sys-name { font-size: 0.95em; font-weight: 800; color: #1E293B; line-height: 1.2; }
+.ext-sys-desc { font-size: 0.73em; color: #64748B; margin-top: 3px; }
+.ext-sys-card-body { flex: 1; padding: 0 14px 10px; display: flex; flex-direction: column; gap: 4px; }
+.ext-sys-stat { display: flex; justify-content: space-between; font-size: 0.8em; color: #64748B; padding: 4px 0; border-bottom: 1px solid #F8FAFC; }
+.ext-sys-stat:last-child { border-bottom: none; }
+.ext-sys-stat-val { font-weight: 700; color: #334155; }
+.ext-sys-card-footer { padding: 10px 14px; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); display: flex; align-items: center; justify-content: space-between; font-size: 0.82em; font-weight: 700; color: #0891B2; }
+
+/* 반응형 */
+@media (max-width: 1200px) { .kpi-summary { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 1024px) {
+    .kpi-summary { grid-template-columns: repeat(4, 1fr); }
+    .course-board { grid-template-columns: repeat(2, 1fr); }
+    .ext-sys-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .kpi-summary { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+    .kpi-card { padding: 14px 8px 10px; }
+    .kpi-icon { font-size: 1.3em; }
+    .kpi-value { font-size: 1.6em; }
+    .kpi-label { font-size: 0.68em; }
+    .course-board { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+    .postmgmt-grid { grid-template-columns: 1fr; padding: 10px; }
+    .ext-sys-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+}
+@media (max-width: 390px) {
+    .kpi-summary { grid-template-columns: repeat(2, 1fr); }
+    .course-board { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ext-sys-grid { grid-template-columns: repeat(2, 1fr); }
+}
     </style>
 </head>
 <body>
@@ -1431,6 +1559,41 @@ body {
         </div>
 
         <div id="overview-tab" class="tab-content active">
+
+            <!-- ★ KPI 총괄 요약 -->
+            <div id="kpi-summary-section" style="margin-bottom:16px;"></div>
+
+            <!-- ★ 과정별 진행현황 보드 -->
+            <div class="card" style="margin-bottom:16px;">
+                <div class="card-header overview" style="display:flex;justify-content:space-between;align-items:center;">
+                    <h2>📋 과정별 진행현황 보드</h2>
+                    <span style="font-size:0.78em;color:#64748B;font-weight:500;">카드 클릭 → 상세 관리 이동</span>
+                </div>
+                <div id="course-progress-board" class="course-board"></div>
+            </div>
+
+            <!-- ★ 사후관리 성과 현황 -->
+            <div class="card" style="margin-bottom:16px;">
+                <div class="card-header personnel">
+                    <h2>🏆 사후관리 성과 현황 (수료율 · 취업률)</h2>
+                </div>
+                <div id="postmgmt-section" class="postmgmt-grid"></div>
+            </div>
+
+            <!-- ★ 외부 시스템 허브 -->
+            <div class="card" style="margin-bottom:16px;">
+                <div class="card-header" style="background:linear-gradient(135deg,#ECFEFF 0%,#CFFAFE 50%,#FFFFFF 100%);border-bottom:1px solid #E2E8F0;padding:12px 18px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:32px;height:32px;background:linear-gradient(135deg,#0891B2,#0E7490);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;box-shadow:0 2px 6px rgba(8,145,178,0.3);">🔗</div>
+                        <div>
+                            <h2 style="margin:0;font-size:1.1em;color:#0E7490;line-height:1.3;">외부 시스템 허브</h2>
+                            <span style="font-size:0.75em;color:#0891B2;font-weight:500;">연계 시스템 바로가기 & 현황</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="ext-sys-section" class="ext-sys-grid"></div>
+            </div>
+
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px;">
                 <div class="card" id="general-notice-card" style="display: none; border: 2px solid #0891B2; box-shadow: 0 3px 10px rgba(8, 145, 178, 0.12);">
                     <div class="card-header" style="background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%); padding: 12px 14px;">
@@ -2155,6 +2318,271 @@ window.switchTab = function(tab) {
     }
 }
 
+// ===== 메인 대시보드 고도화: KPI 총괄 요약 =====
+function renderKPISummary() {
+    const el = document.getElementById('kpi-summary-section');
+    if (!el || !courses || courses.length === 0) return;
+
+    const total = courses.length;
+    const avgProgress = overallProgress();
+
+    const statusCounts = { planning: 0, recruiting: 0, inprogress: 0, completed: 0 };
+    courses.forEach(c => {
+        const st = c.status || 'planning';
+        if (st in statusCounts) statusCounts[st]++;
+        else statusCounts.planning++;
+    });
+
+    let totalEnrolled = 0, totalCompleted = 0, totalEmployed = 0;
+    courses.forEach(c => {
+        const s = c.statistics || {};
+        totalEnrolled  += s.enrolled  || 0;
+        totalCompleted += s.completed || 0;
+        totalEmployed  += s.employed  || 0;
+    });
+
+    const crRate = totalEnrolled  > 0 ? Math.round(totalCompleted / totalEnrolled  * 100) : 0;
+    const erRate = totalCompleted > 0 ? Math.round(totalEmployed  / totalCompleted * 100) : 0;
+    const issueCount = courses.filter(c => c.specialNotes && c.specialNotes.trim() !== '').length;
+
+    const crClass = crRate >= 80 ? 'kpi-success' : crRate >= 50 ? 'kpi-warning' : 'kpi-danger';
+    const erClass = erRate >= 80 ? 'kpi-success' : erRate >= 50 ? 'kpi-warning' : 'kpi-danger';
+
+    el.innerHTML = `
+        <div class="kpi-summary">
+            <div class="kpi-card kpi-info">
+                <div class="kpi-icon">📚</div>
+                <div class="kpi-value">${total}</div>
+                <div class="kpi-label">전체 과정 수</div>
+                <div class="kpi-sublabel">2026년 운영 계획</div>
+            </div>
+            <div class="kpi-card kpi-info">
+                <div class="kpi-icon">📊</div>
+                <div class="kpi-value">${avgProgress}%</div>
+                <div class="kpi-label">평균 진행률</div>
+                <div class="kpi-sublabel">체크리스트 기준</div>
+            </div>
+            <div class="kpi-card kpi-gray">
+                <div class="kpi-icon">🗓</div>
+                <div class="kpi-value">${statusCounts.planning}</div>
+                <div class="kpi-label">계획중</div>
+                <div class="kpi-sublabel">준비 단계</div>
+            </div>
+            <div class="kpi-card kpi-warning">
+                <div class="kpi-icon">📢</div>
+                <div class="kpi-value">${statusCounts.recruiting}</div>
+                <div class="kpi-label">모집중</div>
+                <div class="kpi-sublabel">선발 진행</div>
+            </div>
+            <div class="kpi-card kpi-teal">
+                <div class="kpi-icon">▶️</div>
+                <div class="kpi-value">${statusCounts.inprogress}</div>
+                <div class="kpi-label">진행중</div>
+                <div class="kpi-sublabel">수료 ${statusCounts.completed}개</div>
+            </div>
+            <div class="kpi-card ${crClass}">
+                <div class="kpi-icon">🎓</div>
+                <div class="kpi-value">${crRate}%</div>
+                <div class="kpi-label">전체 수료율</div>
+                <div class="kpi-sublabel">${totalCompleted} / ${totalEnrolled}명</div>
+            </div>
+            <div class="kpi-card ${erClass}">
+                <div class="kpi-icon">💼</div>
+                <div class="kpi-value">${erRate}%</div>
+                <div class="kpi-label">전체 취업률</div>
+                <div class="kpi-sublabel">${totalEmployed}명 취업</div>
+            </div>
+            ${issueCount > 0 ? `
+            <div class="kpi-card kpi-danger">
+                <div class="kpi-icon">⚠️</div>
+                <div class="kpi-value">${issueCount}</div>
+                <div class="kpi-label">이슈 과정</div>
+                <div class="kpi-sublabel">특이사항 등록됨</div>
+            </div>` : ''}
+        </div>
+    `;
+}
+
+// ===== 과정별 진행현황 보드 =====
+function renderCourseProgressBoard() {
+    const container = document.getElementById('course-progress-board');
+    if (!container || !courses || courses.length === 0) return;
+
+    let html = '';
+    courses.forEach(course => {
+        const progress = calcProgress(course);
+        const st = getStatusTag(course.status || 'planning');
+        const stats = course.statistics || {};
+        const enrolled  = stats.enrolled  || 0;
+        const completed = stats.completed || 0;
+        const employed  = stats.employed  || 0;
+        const capacity  = stats.capacity  || 0;
+        const hasIssue  = course.specialNotes && course.specialNotes.trim() !== '';
+
+        const progressColor = progress === 100 ? '#059669' : progress >= 70 ? '#0891B2' : progress >= 40 ? '#F59E0B' : '#DC2626';
+        const crRate = enrolled  > 0 ? Math.round(completed / enrolled  * 100) : 0;
+        const erRate = completed > 0 ? Math.round(employed  / completed * 100) : 0;
+        const crColor = crRate >= 80 ? '#059669' : crRate > 0 ? '#F59E0B' : '#94A3B8';
+        const erColor = erRate >= 80 ? '#059669' : erRate > 0 ? '#F59E0B' : '#94A3B8';
+        const lightBg  = hexToRgba(course.color, 0.06);
+
+        html += `
+            <div class="course-board-card${hasIssue ? ' has-issue' : ''}"
+                 onclick="goToCourse(${course.id})"
+                 style="border-top:4px solid ${course.color};">
+                <div class="course-board-card-top" style="background:linear-gradient(135deg,${lightBg} 0%,#FAFAFA 100%);">
+                    <div class="course-board-card-name">${course.name}</div>
+                    <div class="course-board-card-meta">
+                        <span class="status-tag ${st.cls}" style="font-size:0.66em;padding:2px 7px;">${st.icon} ${st.label}</span>
+                        <span style="font-size:0.7em;color:#64748B;font-weight:500;">${course.period || ''}</span>
+                        ${hasIssue ? '<span class="course-board-issue-badge">⚠️ 특이사항</span>' : ''}
+                    </div>
+                </div>
+                <div class="course-board-card-body">
+                    <div class="course-board-progress-label">
+                        <span>업무 진행률</span>
+                        <span style="font-size:1em;font-weight:800;color:${progressColor};">${progress}%</span>
+                    </div>
+                    <div class="course-board-progress-bar">
+                        <div class="course-board-progress-fill"
+                             style="width:${progress}%;background:linear-gradient(90deg,${course.color},${course.color}CC);box-shadow:0 0 8px ${hexToRgba(course.color,0.4)};"></div>
+                    </div>
+                    <div class="course-board-stats">
+                        <div class="course-board-stat-item">
+                            <div class="course-board-stat-num" style="color:#6366F1;">${capacity > 0 ? capacity : '-'}</div>
+                            <div class="course-board-stat-lbl">정원</div>
+                        </div>
+                        <div class="course-board-stat-item">
+                            <div class="course-board-stat-num" style="color:${crColor};">${crRate > 0 ? crRate + '%' : '-'}</div>
+                            <div class="course-board-stat-lbl">수료율</div>
+                        </div>
+                        <div class="course-board-stat-item">
+                            <div class="course-board-stat-num" style="color:${erColor};">${erRate > 0 ? erRate + '%' : '-'}</div>
+                            <div class="course-board-stat-lbl">취업률</div>
+                        </div>
+                    </div>
+                </div>
+                ${course.start_date ? `
+                <div class="course-board-card-bottom">
+                    <span style="font-size:0.73em;color:#64748B;">📅 ${course.start_date}</span>
+                    ${course.instructor ? `<span style="font-size:0.7em;color:#94A3B8;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;">👨‍🏫 ${course.instructor.split(',')[0].trim()}</span>` : ''}
+                </div>` : ''}
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// ===== 사후관리 성과 현황 =====
+function renderPostManagementKPIs() {
+    const container = document.getElementById('postmgmt-section');
+    if (!container || !courses || courses.length === 0) return;
+
+    let html = '';
+    let hasData = false;
+
+    courses.forEach(course => {
+        const s = course.statistics || {};
+        const enrolled  = s.enrolled  || 0;
+        const completed = s.completed || 0;
+        const employed  = s.employed  || 0;
+        if (enrolled === 0 && completed === 0) return;
+        hasData = true;
+
+        const crRate = enrolled  > 0 ? Math.round(completed / enrolled  * 100) : 0;
+        const erRate = completed > 0 ? Math.round(employed  / completed * 100) : 0;
+        const crColor = crRate >= 80 ? '#059669' : crRate >= 50 ? '#D97706' : crRate > 0 ? '#DC2626' : '#94A3B8';
+        const erColor = erRate >= 80 ? '#059669' : erRate >= 50 ? '#D97706' : erRate > 0 ? '#DC2626' : '#94A3B8';
+        const crBar = crRate >= 80 ? 'linear-gradient(90deg,#10B981,#059669)' : crRate >= 50 ? 'linear-gradient(90deg,#F59E0B,#D97706)' : 'linear-gradient(90deg,#EF4444,#DC2626)';
+        const erBar = erRate >= 80 ? 'linear-gradient(90deg,#10B981,#059669)' : erRate >= 50 ? 'linear-gradient(90deg,#F59E0B,#D97706)' : 'linear-gradient(90deg,#EF4444,#DC2626)';
+        const lightBg = hexToRgba(course.color, 0.07);
+
+        html += `
+            <div class="postmgmt-card">
+                <div class="postmgmt-card-header" style="background:linear-gradient(135deg,${lightBg} 0%,#FAFAFA 100%);border-bottom:1px solid #F1F5F9;">
+                    <div style="width:8px;height:36px;background:${course.color};border-radius:4px;flex-shrink:0;"></div>
+                    <div class="postmgmt-card-name">${course.name}</div>
+                </div>
+                <div class="postmgmt-card-body">
+                    <div class="postmgmt-rate-row">
+                        <div class="postmgmt-rate-label">
+                            <span>📊 수료율</span>
+                            <span class="postmgmt-rate-value" style="color:${crColor};">${crRate > 0 ? crRate + '%' : '집계 전'}
+                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${enrolled}명)</small>
+                            </span>
+                        </div>
+                        <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${crRate}%;background:${crBar};"></div></div>
+                    </div>
+                    <div class="postmgmt-rate-row">
+                        <div class="postmgmt-rate-label">
+                            <span>💼 취업률</span>
+                            <span class="postmgmt-rate-value" style="color:${erColor};">${erRate > 0 ? erRate + '%' : '집계 전'}
+                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${employed}/${completed}명)</small>
+                            </span>
+                        </div>
+                        <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${erRate}%;background:${erBar};"></div></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    if (!hasData) {
+        container.innerHTML = `
+            <div style="grid-column:1/-1;padding:32px;text-align:center;color:#94A3B8;">
+                <div style="font-size:2.5em;margin-bottom:12px;">📊</div>
+                <div style="font-size:1em;font-weight:700;margin-bottom:6px;color:#64748B;">아직 집계된 인원 데이터가 없습니다</div>
+                <div style="font-size:0.85em;line-height:1.6;">과정 상세 관리 탭 → 인원 현황을 입력하면 여기에 표시됩니다.</div>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = html;
+}
+
+// ===== 외부 시스템 허브 =====
+function renderExternalSystemsHub() {
+    const container = document.getElementById('ext-sys-section');
+    if (!container) return;
+
+    const systems = [
+        { icon: '👥', color: '#0891B2', name: '면접위원 평가', desc: '면접위원용 평가 입력 시스템', url: 'https://sanghun.pythonanywhere.com/', stats: [{ l: '역할', v: '면접위원' }, { l: '기능', v: '평가 입력' }] },
+        { icon: '⚙️', color: '#0E7490', name: '면접 관리',     desc: '면접 관리자 시스템',          url: 'https://sanghun.pythonanywhere.com/admin', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '면접 관리' }] },
+        { icon: '🎯', color: '#7C3AED', name: '선발 관리',     desc: '교육생 선발 관리',            url: 'https://sanghun.pythonanywhere.com/haccp', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '선발 처리' }] },
+        { icon: '🎓', color: '#059669', name: '학사관리',      desc: '교육과정 학사 관리 시스템',    url: 'https://hunsl.github.io/ggjf-edu-lms/', stats: [{ l: '대상', v: '교육생' }, { l: '기능', v: '출결·성적' }] },
+        { icon: '😊', color: '#DB2777', name: '교육만족도',    desc: '교육 만족도 조사 시스템',      url: 'https://satisfaction-survey-tawny.vercel.app/login', stats: [{ l: '대상', v: '수료생' }, { l: '기능', v: '만족도 조사' }] },
+        { icon: '🏆', color: '#D97706', name: '학습동아리',    desc: '학습동아리 활동 평가',         url: 'https://club-eval.vercel.app/admin', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '동아리 평가' }] },
+        { icon: '📘', color: '#2563EB', name: '업무매뉴얼',    desc: '2026 경기북부 업무 매뉴얼',    url: null, onclick: 'openManual()', stats: [{ l: '문서', v: '업무 매뉴얼' }, { l: '버전', v: '2026' }] }
+    ];
+
+    container.innerHTML = systems.map(sys => {
+        const statsHtml = sys.stats.map(s => `
+            <div class="ext-sys-stat"><span>${s.l}</span><span class="ext-sys-stat-val">${s.v}</span></div>
+        `).join('');
+        const wrapOpen  = sys.url  ? `<a href="${sys.url}" target="_blank" class="ext-sys-card">` : `<div class="ext-sys-card" onclick="${sys.onclick}">`;
+        const wrapClose = sys.url  ? `</a>` : `</div>`;
+        return `
+            ${wrapOpen}
+            <div class="ext-sys-card-header">
+                <div class="ext-sys-icon" style="background:linear-gradient(135deg,${sys.color},${sys.color}CC);">${sys.icon}</div>
+                <div><div class="ext-sys-name">${sys.name}</div><div class="ext-sys-desc">${sys.desc}</div></div>
+            </div>
+            <div class="ext-sys-card-body">${statsHtml}</div>
+            <div class="ext-sys-card-footer"><span>바로 이동 →</span></div>
+            ${wrapClose}
+        `;
+    }).join('');
+}
+
+// 과정 보드 카드 → 상세 탭으로 이동
+window.goToCourse = function(courseId) {
+    const detailBtn = document.querySelector('.tab-btn[onclick*="detail"]');
+    if (detailBtn) detailBtn.click();
+    setTimeout(() => selectCourse(courseId), 150);
+};
+
 function renderOverview() {
     // 데이터 확인
     if (!courses || courses.length === 0) {
@@ -2171,7 +2599,12 @@ function renderOverview() {
     
     if (headerAvgProgress) headerAvgProgress.textContent = avgProgress + '%';
     if (headerCompletedCourses) headerCompletedCourses.textContent = completedCount + ' / ' + courses.length;
-    
+
+    renderKPISummary();
+    renderCourseProgressBoard();
+    renderPostManagementKPIs();
+    renderExternalSystemsHub();
+
     renderSpecialNotes();
     renderTodaySchedule();
     renderCalendar();
