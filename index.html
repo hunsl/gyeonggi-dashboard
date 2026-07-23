@@ -3579,7 +3579,7 @@ window.pasteStatisticsLine = function() {
     const input = prompt('정원,접수,면접,합격,참여,탈락,수료,취업 순서로 숫자를 붙여넣으세요.\n예: 20,25,22,20,19,1,18,12');
     if (!input) return;
     const values = input.split(/[,\t]/).map(v => parseInt(v.trim(), 10));
-    if (values.length < 8 || values.some(v => Number.isNaN(v))) {
+    if (values.length !== 8 || values.some(v => Number.isNaN(v) || v < 0)) {
         alert('형식이 올바르지 않습니다. 숫자 8개를 콤마(,) 또는 탭으로 입력해 주세요.');
         return;
     }
