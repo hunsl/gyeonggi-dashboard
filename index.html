@@ -1445,13 +1445,17 @@ body {
 /* ====== 외부 시스템 허브 ====== */
 .ext-sys-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; padding: 16px; }
 .ext-sys-card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #F8FBFF 100%); border-radius: 14px;
-    box-shadow: 0 6px 16px rgba(8,145,178,0.12);
+    --sys-tint: color-mix(in srgb, var(--sys-color, #0891B2) 14%, white);
+    --sys-tint-soft: color-mix(in srgb, var(--sys-color, #0891B2) 7%, white);
+    background: linear-gradient(135deg, var(--sys-tint) 0%, #FFFFFF 55%); border-radius: 14px;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--sys-color, #0891B2) 22%, transparent);
     overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1.5px solid #BFDBFE; text-decoration: none;
+    border: 1.5px solid color-mix(in srgb, var(--sys-color, #0891B2) 35%, white);
+    border-left: 5px solid var(--sys-color, #0891B2);
+    text-decoration: none;
     display: flex; flex-direction: column; cursor: pointer;
 }
-.ext-sys-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(8,145,178,0.20); border-color: #7DD3FC; }
+.ext-sys-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px color-mix(in srgb, var(--sys-color, #0891B2) 35%, transparent); border-color: var(--sys-color, #0891B2); }
 .ext-sys-card-header { padding: 16px 14px 10px; display: flex; align-items: center; gap: 12px; }
 .ext-sys-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; flex-shrink: 0; }
 .ext-sys-name { font-size: 0.95em; font-weight: 800; color: #1E293B; line-height: 1.2; }
@@ -1460,7 +1464,7 @@ body {
 .ext-sys-stat { display: flex; justify-content: space-between; font-size: 0.8em; color: #64748B; padding: 4px 0; border-bottom: 1px solid #F8FAFC; }
 .ext-sys-stat:last-child { border-bottom: none; }
 .ext-sys-stat-val { font-weight: 700; color: #334155; }
-.ext-sys-card-footer { padding: 10px 14px; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); display: flex; align-items: center; justify-content: space-between; font-size: 0.82em; font-weight: 700; color: #0891B2; }
+.ext-sys-card-footer { padding: 10px 14px; background: linear-gradient(135deg, var(--sys-tint) 0%, var(--sys-tint-soft) 100%); display: flex; align-items: center; justify-content: space-between; font-size: 0.82em; font-weight: 700; color: var(--sys-color, #0891B2); }
 .stat-quick-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
 .stat-quick-btn {
     border:none; border-radius:8px; cursor:pointer;
@@ -1537,6 +1541,10 @@ body {
                         <a href="https://sanghun.pythonanywhere.com/haccp" target="_blank" title="선발 관리 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #0891B2; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
                             <span style="font-size: 1.15em;">🎯</span>
                             <span>선발 관리</span>
+                        </a>
+                        <a href="https://hunsl.github.io/budget-management-2026/" target="_blank" title="예산관리 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #CA8A04; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
+                            <span style="font-size: 1.15em;">💰</span>
+                            <span>예산관리</span>
                         </a>
                         <button onclick="openManual()" title="2026년 경기북부 업무매뉴얼 보기" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #0891B2; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center; cursor: pointer;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
                             <span style="font-size: 1.15em;">📘</span>
@@ -2637,7 +2645,7 @@ function renderExternalSystemsHub() {
         const statsHtml = sys.stats.map(s => `
             <div class="ext-sys-stat"><span>${s.l}</span><span class="ext-sys-stat-val">${s.v}</span></div>
         `).join('');
-        const wrapOpen  = sys.url  ? `<a href="${sys.url}" target="_blank" class="ext-sys-card">` : `<div class="ext-sys-card" onclick="${sys.onclick}">`;
+        const wrapOpen  = sys.url  ? `<a href="${sys.url}" target="_blank" class="ext-sys-card" style="--sys-color:${sys.color};">` : `<div class="ext-sys-card" onclick="${sys.onclick}" style="--sys-color:${sys.color};">`;
         const wrapClose = sys.url  ? `</a>` : `</div>`;
         return `
             ${wrapOpen}
