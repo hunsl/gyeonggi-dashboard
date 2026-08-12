@@ -520,6 +520,8 @@ body {
 .postmgmt-percent { display: inline-block; min-width: 52px; padding: 4px 8px; border-radius: 999px; font-weight: 900; }
 .postmgmt-percent.completion { color: #047857; background: #ECFDF5; }
 .postmgmt-percent.employment { color: #C2410C; background: #FFF7ED; }
+.postmgmt-row.postmgmt-nodata td { opacity: 0.45; }
+.postmgmt-table tbody tr:hover { background: #F8FAFC; }
 
 /* ===== 관리자 대시보드 시각적 고도화 ===== */
 :root { --ink: #0F172A; --muted: #64748B; --line: #E2E8F0; --brand: #0891B2; }
@@ -1730,9 +1732,9 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
             <!-- ★ 사후관리 성과 현황 -->
             <div class="card" style="margin-bottom:16px;">
                 <div class="card-header personnel">
-                    <h2>🏆 사후관리 성과 현황 (수료율 · 취업률)</h2>
+                    <h2>🏆 사후관리 성과 현황 (수료율 · 취업률 · 목표 달성도)</h2>
                 </div>
-                <div id="postmgmt-section" class="postmgmt-grid"></div>
+                <div id="postmgmt-section"></div>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px;">
@@ -2564,7 +2566,7 @@ function renderKPISummary() {
                 <div class="kpi-icon">📚</div>
                 <div class="kpi-value">${total}</div>
                 <div class="kpi-label">전체 과정 수</div>
-                <div class="kpi-sublabel">2026년 운영 계획</div>
+                <div class="kpi-sublabel">수료 ${statusCounts.completed}개 · 진행 ${statusCounts.inprogress}개</div>
             </div>
             <div class="kpi-card kpi-info">
                 <div class="kpi-icon">📊</div>
@@ -2572,17 +2574,17 @@ function renderKPISummary() {
                 <div class="kpi-label">평균 진행률</div>
                 <div class="kpi-sublabel">체크리스트 기준</div>
             </div>
-            <div class="kpi-card kpi-gray">
-                <div class="kpi-icon">🗓</div>
-                <div class="kpi-value">${statusCounts.planning}</div>
-                <div class="kpi-label">계획중</div>
-                <div class="kpi-sublabel">준비 단계</div>
+            <div class="kpi-card kpi-purple">
+                <div class="kpi-icon">🎯</div>
+                <div class="kpi-value">${totalPassed}</div>
+                <div class="kpi-label">선발 인원</div>
+                <div class="kpi-sublabel">목표 ${PROGRAM_TARGETS.selected}명 · ${totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0}% 달성</div>
             </div>
             <div class="kpi-card kpi-warning">
                 <div class="kpi-icon">📢</div>
                 <div class="kpi-value">${statusCounts.recruiting}</div>
                 <div class="kpi-label">모집중</div>
-                <div class="kpi-sublabel">선발 진행</div>
+                <div class="kpi-sublabel">계획중 ${statusCounts.planning}개</div>
             </div>
             <div class="kpi-card kpi-teal">
                 <div class="kpi-icon">▶️</div>
@@ -2594,13 +2596,13 @@ function renderKPISummary() {
                 <div class="kpi-icon">🎓</div>
                 <div class="kpi-value">${crRate}%</div>
                 <div class="kpi-label">전체 수료율</div>
-                <div class="kpi-sublabel">${totalCompleted} / ${totalPassed}명 (면접합격 기준)</div>
+                <div class="kpi-sublabel">${totalCompleted}명 수료 · 목표 ${PROGRAM_TARGETS.completionRate}%</div>
             </div>
             <div class="kpi-card ${erClass}">
                 <div class="kpi-icon">💼</div>
                 <div class="kpi-value">${erRate}%</div>
                 <div class="kpi-label">전체 취업률</div>
-                <div class="kpi-sublabel">${totalEmployed}명 취업</div>
+                <div class="kpi-sublabel">${totalEmployed}명 취업 · 목표 ${PROGRAM_TARGETS.employmentRate}%</div>
             </div>
             ${issueCount > 0 ? `
             <div class="kpi-card kpi-danger">
@@ -2689,102 +2691,101 @@ function renderPostManagementKPIs() {
     const container = document.getElementById('postmgmt-section');
     if (!container || !courses || courses.length === 0) return;
 
-    // 사후관리도 선발·교육진행과 동일하게 과정별 숫자 표로 표시
+    let totalPassed = 0, totalCompleted = 0, totalEmployed = 0;
+    courses.forEach(c => {
+        const s = c.statistics || {};
+        totalPassed    += Number(s.passed)    || 0;
+        totalCompleted += Number(s.completed) || 0;
+        totalEmployed  += Number(s.employed)  || 0;
+    });
+    const totalCR = totalPassed    > 0 ? Math.round((totalCompleted / totalPassed)    * 100) : 0;
+    const totalER = totalCompleted > 0 ? Math.round((totalEmployed  / totalCompleted) * 100) : 0;
+    const crGoal = PROGRAM_TARGETS.completionRate;
+    const erGoal = PROGRAM_TARGETS.employmentRate;
+
     const postRows = courses.map(course => {
         const s = course.statistics || {};
-        const passed = Number(s.passed) || 0;
+        const passed    = Number(s.passed)    || 0;
         const completed = Number(s.completed) || 0;
-        const employed = Number(s.employed) || 0;
-        const completionRate = passed > 0 ? Math.round((completed / passed) * 100) : 0;
-        const employmentRate = completed > 0 ? Math.round((employed / completed) * 100) : 0;
+        const employed  = Number(s.employed)  || 0;
+        const cr = passed    > 0 ? Math.round((completed / passed)    * 100) : 0;
+        const er = completed > 0 ? Math.round((employed  / completed) * 100) : 0;
+        const crColor   = cr >= 90 ? '#047857' : cr >= 70 ? '#0891B2' : cr > 0 ? '#D97706' : '#94A3B8';
+        const erColor   = er >= 70 ? '#047857' : er >= 50 ? '#0891B2' : er > 0 ? '#D97706' : '#94A3B8';
+        const crBg      = cr >= 90 ? 'linear-gradient(90deg,#10B981,#059669)' : cr >= 70 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : cr > 0 ? 'linear-gradient(90deg,#FBBF24,#D97706)' : 'linear-gradient(90deg,#CBD5E1,#94A3B8)';
+        const erBg      = er >= 70 ? 'linear-gradient(90deg,#10B981,#059669)' : er >= 50 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : er > 0 ? 'linear-gradient(90deg,#FBBF24,#D97706)' : 'linear-gradient(90deg,#CBD5E1,#94A3B8)';
+        const crAch     = cr > 0 ? `<span style="font-size:0.7em;font-weight:700;color:${cr>=crGoal?'#059669':'#D97706'};margin-left:4px;">${cr>=crGoal?'✅ 목표달성':'목표 '+crGoal+'%'}</span>` : '';
+        const erAch     = er > 0 ? `<span style="font-size:0.7em;font-weight:700;color:${er>=erGoal?'#059669':'#D97706'};margin-left:4px;">${er>=erGoal?'✅ 목표달성':'목표 '+erGoal+'%'}</span>` : '';
+        const noData    = passed === 0 && completed === 0 && employed === 0;
         return `
-            <tr>
+            <tr class="postmgmt-row${noData ? ' postmgmt-nodata' : ''}">
                 <td class="postmgmt-course-cell"><span style="--course-color:${course.color || '#0891B2'}"></span>${escHtml(course.name)}</td>
-                <td><strong>${completed}명</strong></td>
-                <td><span class="postmgmt-percent completion">${completionRate}%</span><small>${completed}/${passed}명</small></td>
-                <td><strong>${employed}명</strong></td>
-                <td><span class="postmgmt-percent employment">${employmentRate}%</span><small>${employed}/${completed}명</small></td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${completed}<small style="display:block;color:#94A3B8;font-size:0.78em;">${passed > 0 ? '/ '+passed+'명' : '미집계'}</small></td>
+                <td style="min-width:160px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
+                            <div style="width:${cr}%;height:100%;background:${crBg};border-radius:5px;transition:width .5s;"></div>
+                        </div>
+                        <span style="font-weight:900;font-size:1em;color:${crColor};min-width:36px;">${cr}%</span>
+                    </div>
+                    ${crAch}
+                </td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${employed}<small style="display:block;color:#94A3B8;font-size:0.78em;">${completed > 0 ? '/ '+completed+'명' : '미집계'}</small></td>
+                <td style="min-width:160px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
+                            <div style="width:${er}%;height:100%;background:${erBg};border-radius:5px;transition:width .5s;"></div>
+                        </div>
+                        <span style="font-weight:900;font-size:1em;color:${erColor};min-width:36px;">${er}%</span>
+                    </div>
+                    ${erAch}
+                </td>
             </tr>`;
     }).join('');
+
+    const totalCrColor = totalCR >= crGoal ? '#047857' : totalCR >= 70 ? '#0891B2' : '#D97706';
+    const totalErColor = totalER >= erGoal ? '#047857' : totalER >= 50 ? '#0891B2' : '#D97706';
+    const totalCrBg    = totalCR >= crGoal ? 'linear-gradient(90deg,#10B981,#059669)' : totalCR >= 70 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : 'linear-gradient(90deg,#FBBF24,#D97706)';
+    const totalErBg    = totalER >= erGoal ? 'linear-gradient(90deg,#10B981,#059669)' : totalER >= 50 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : 'linear-gradient(90deg,#FBBF24,#D97706)';
+
     container.innerHTML = `
-        <div class="postmgmt-table-wrap">
-            <table class="postmgmt-table">
-                <thead>
-                    <tr>
-                        <th>과정명</th>
-                        <th colspan="2" class="postmgmt-completion-head">수료 성과</th>
-                        <th colspan="2" class="postmgmt-employment-head">취업 성과</th>
-                    </tr>
-                    <tr>
-                        <th></th><th>수료(명)</th><th>수료율(%)</th><th>취업(명)</th><th>취업률(%)</th>
-                    </tr>
-                </thead>
-                <tbody>${postRows}</tbody>
-            </table>
+        <div style="padding:4px 16px 10px;">
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+                <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);border:1px solid #A7F3D0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
+                    <div style="font-size:0.78em;font-weight:700;color:#047857;letter-spacing:.3px;">📊 전체 수료율</div>
+                    <div style="font-size:1.9em;font-weight:900;color:${totalCrColor};line-height:1.1;">${totalCR}%</div>
+                    <div style="font-size:0.73em;color:#065F46;">${totalCompleted} / ${totalPassed}명 · 목표 ${crGoal}% ${totalCR >= crGoal ? '✅' : `<span style="color:#D97706;">▼ ${crGoal - totalCR}%p 부족</span>`}</div>
+                    <div style="height:6px;background:#BBF7D0;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalCR/crGoal*100))}%;height:100%;background:${totalCrBg};border-radius:3px;"></div></div>
+                </div>
+                <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);border:1px solid #FED7AA;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
+                    <div style="font-size:0.78em;font-weight:700;color:#C2410C;letter-spacing:.3px;">💼 전체 취업률</div>
+                    <div style="font-size:1.9em;font-weight:900;color:${totalErColor};line-height:1.1;">${totalER}%</div>
+                    <div style="font-size:0.73em;color:#7C2D12;">${totalEmployed} / ${totalCompleted}명 · 목표 ${erGoal}% ${totalER >= erGoal ? '✅' : `<span style="color:#D97706;">▼ ${erGoal - totalER}%p 부족</span>`}</div>
+                    <div style="height:6px;background:#FED7AA;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalER/erGoal*100))}%;height:100%;background:${totalErBg};border-radius:3px;"></div></div>
+                </div>
+                <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
+                    <div style="font-size:0.78em;font-weight:700;color:#1D4ED8;letter-spacing:.3px;">👥 선발 / 수료 / 취업</div>
+                    <div style="font-size:1.35em;font-weight:900;color:#1D4ED8;line-height:1.3;">${totalPassed}<span style="font-size:0.55em;color:#3B82F6;font-weight:700;"> / ${totalCompleted} / ${totalEmployed}명</span></div>
+                    <div style="font-size:0.73em;color:#1E40AF;">목표 선발 ${PROGRAM_TARGETS.selected}명 · 달성 ${totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0}%</div>
+                    <div style="height:6px;background:#BFDBFE;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0)}%;height:100%;background:linear-gradient(90deg,#60A5FA,#2563EB);border-radius:3px;"></div></div>
+                </div>
+            </div>
+            <div class="postmgmt-table-wrap">
+                <table class="postmgmt-table">
+                    <thead>
+                        <tr>
+                            <th>과정명</th>
+                            <th colspan="2" class="postmgmt-completion-head">📊 수료 성과 <small style="font-size:0.72em;font-weight:600;">목표 ${crGoal}%</small></th>
+                            <th colspan="2" class="postmgmt-employment-head">💼 취업 성과 <small style="font-size:0.72em;font-weight:600;">목표 ${erGoal}%</small></th>
+                        </tr>
+                        <tr>
+                            <th></th><th>수료(명)</th><th>수료율(%)</th><th>취업(명)</th><th>취업률(%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>${postRows}</tbody>
+                </table>
+            </div>
         </div>`;
-    return;
-
-    let html = '';
-    let hasData = false;
-
-    courses.forEach(course => {
-        const s = course.statistics || {};
-        const passed    = s.passed    || 0;
-        const enrolled  = s.enrolled  || 0;
-        const completed = s.completed || 0;
-        const employed  = s.employed  || 0;
-        hasData = true;
-
-        const crRate = passed    > 0 ? Math.round(completed / passed    * 100) : 0;
-        const erRate = completed > 0 ? Math.round(employed  / completed * 100) : 0;
-        const crColor = crRate >= 80 ? '#059669' : crRate >= 50 ? '#D97706' : crRate > 0 ? '#DC2626' : '#94A3B8';
-        const erColor = erRate >= 80 ? '#059669' : erRate >= 50 ? '#D97706' : erRate > 0 ? '#DC2626' : '#94A3B8';
-        const crBar = crRate >= 80 ? 'linear-gradient(90deg,#10B981,#059669)' : crRate >= 50 ? 'linear-gradient(90deg,#F59E0B,#D97706)' : 'linear-gradient(90deg,#EF4444,#DC2626)';
-        const erBar = erRate >= 80 ? 'linear-gradient(90deg,#10B981,#059669)' : erRate >= 50 ? 'linear-gradient(90deg,#F59E0B,#D97706)' : 'linear-gradient(90deg,#EF4444,#DC2626)';
-        const lightBg = hexToRgba(course.color, 0.07);
-
-        html += `
-            <div class="postmgmt-card">
-                <div class="postmgmt-card-header" style="background:linear-gradient(135deg,${lightBg} 0%,#FAFAFA 100%);border-bottom:1px solid #F1F5F9;">
-                    <div style="width:8px;height:36px;background:${course.color};border-radius:4px;flex-shrink:0;"></div>
-                    <div class="postmgmt-card-name">${escHtml(course.name)}</div>
-                </div>
-                <div class="postmgmt-card-body">
-                    <div class="postmgmt-rate-row">
-                        <div class="postmgmt-rate-label">
-                            <span>📊 수료율</span>
-                            <span class="postmgmt-rate-value" style="color:${crColor};">${crRate}%
-                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${passed}명, 합격 기준${passed === 0 ? ' · 집계 전' : ''})</small>
-                            </span>
-                        </div>
-                        <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${crRate}%;background:${crBar};"></div></div>
-                    </div>
-                    <div class="postmgmt-rate-row">
-                        <div class="postmgmt-rate-label">
-                            <span>💼 취업률</span>
-                            <span class="postmgmt-rate-value" style="color:${erColor};">${erRate}%
-                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${employed}/${completed}명${completed === 0 ? ' · 집계 전' : ''})</small>
-                            </span>
-                        </div>
-                        <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${erRate}%;background:${erBar};"></div></div>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-
-    if (!hasData) {
-        container.innerHTML = `
-            <div style="grid-column:1/-1;padding:32px;text-align:center;color:#94A3B8;">
-                <div style="font-size:2.5em;margin-bottom:12px;">📊</div>
-                <div style="font-size:1em;font-weight:700;margin-bottom:6px;color:#64748B;">아직 집계된 인원 데이터가 없습니다</div>
-                <div style="font-size:0.85em;line-height:1.6;">과정 상세 관리 탭 → 인원 현황을 입력하면 여기에 표시됩니다.</div>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = html;
 }
 
 // ===== 외부 시스템 허브 =====
@@ -2922,14 +2923,17 @@ function renderOverview() {
     const additionalDropoutsAllowed = Math.max(0, maxDropouts - totalStats.dropouts);
     const summary = document.getElementById('personnel-summary');
     if (summary) {
+        const crBadge   = totalCompletionRate >= PROGRAM_TARGETS.completionRate ? '✅' : totalCompletionRate >= 70 ? '🔶' : '🔴';
+        const erBadge   = totalEmploymentRate >= PROGRAM_TARGETS.employmentRate ? '✅' : totalEmploymentRate >= 50 ? '🔶' : '🔴';
+        const selBadge  = selectedAchievement >= 100 ? '✅' : selectedAchievement >= 70 ? '🔶' : '🔴';
         summary.innerHTML = `
-            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 과정</div><div class="personnel-summary-value">${courses.length}<small>개</small></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 인원 (정원 / 접수)</div><div class="personnel-summary-value">${totalStats.capacity.toLocaleString()} <small>/ ${totalStats.applications.toLocaleString()}명</small></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 면접참여율</div><div class="personnel-summary-value" style="color:#0891B2;">${totalInterviewRate}% <small>(${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}명)</small></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">선발인원 달성률</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${PROGRAM_TARGETS.selected}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">수료율 (현재 / 목표)</div><div class="personnel-summary-value" style="color:#059669;">${totalCompletionRate}% <small>/ ${PROGRAM_TARGETS.completionRate}% · 달성 ${completionAchievement}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, completionAchievement)}%;background:linear-gradient(90deg,#34D399,#059669);"></span></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">취업률 (현재 / 목표)</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>/ ${PROGRAM_TARGETS.employmentRate}% · 달성 ${employmentAchievement}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">중도탈락 추가 허용</div><div class="personnel-summary-value" style="color:${additionalDropoutsAllowed > 0 ? '#059669' : '#DC2626'};">${additionalDropoutsAllowed}<small>명 (허용한도 ${maxDropouts}명 / 현재 ${totalStats.dropouts}명)</small></div><div class="summary-meter"><span style="width:${maxDropouts > 0 ? Math.min(100, (totalStats.dropouts / maxDropouts) * 100) : 100}%;background:linear-gradient(90deg,#F59E0B,#DC2626);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 과정</div><div class="personnel-summary-value">${courses.length}<small>개 운영</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">정원 / 접수</div><div class="personnel-summary-value">${totalStats.capacity.toLocaleString()} <small>/ ${totalStats.applications.toLocaleString()}명</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">면접참여율</div><div class="personnel-summary-value" style="color:#0891B2;">${totalInterviewRate}% <small>(${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}명)</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">${selBadge} 선발 달성</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${PROGRAM_TARGETS.selected}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">${crBadge} 수료율 달성</div><div class="personnel-summary-value" style="color:#059669;">${totalCompletionRate}% <small>/ 목표 ${PROGRAM_TARGETS.completionRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, completionAchievement)}%;background:linear-gradient(90deg,#34D399,#059669);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">${erBadge} 취업률 달성</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>/ 목표 ${PROGRAM_TARGETS.employmentRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">중도탈락 잔여 허용</div><div class="personnel-summary-value" style="color:${additionalDropoutsAllowed > 0 ? '#059669' : '#DC2626'};">${additionalDropoutsAllowed}<small>명 (한도 ${maxDropouts}명 · 현재 ${totalStats.dropouts}명)</small></div><div class="summary-meter"><span style="width:${maxDropouts > 0 ? Math.min(100, (totalStats.dropouts / maxDropouts) * 100) : 100}%;background:linear-gradient(90deg,#F59E0B,#DC2626);"></span></div></div>
         `;
     }
     const totalRow = statsTbody.insertRow();
@@ -2945,9 +2949,9 @@ function renderOverview() {
         <td><span class="stat-number high">${totalStats.enrolled}</span></td>
         <td><span class="stat-number low">${totalStats.dropouts}</span></td>
         <td><span class="stat-number high">${totalStats.completed}</span></td>
+        <td><strong style="color:${totalCompletionRate >= 80 ? '#059669' : totalCompletionRate >= 50 ? '#D97706' : '#DC2626'};">${totalCompletionRate}%</strong></td>
         <td><span class="stat-number high">${totalStats.employed}</span></td>
-        <td><strong>${totalCompletionRate}%</strong></td>
-        <td><strong>${totalEmploymentRate}%</strong></td>
+        <td><strong style="color:${totalEmploymentRate >= 80 ? '#059669' : totalEmploymentRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentRate}%</strong></td>
     `;
     courses.forEach(course => {
         const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 };
@@ -2976,7 +2980,6 @@ function renderOverview() {
             <td><span class="stat-number high">${stats.enrolled || 0}</span></td>
             <td><span class="stat-number low">${stats.dropouts || 0}</span></td>
             <td><span class="stat-number high" style="font-weight: 700;">${completed}</span></td>
-            <td><span class="stat-number high" style="font-weight: 700;">${employed}</span></td>
             <td>
                 <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
                     <div style="width: 50px; height: 10px; background: linear-gradient(90deg, #F1F5F9 0%, #E2E8F0 100%); border-radius: 5px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
@@ -2985,6 +2988,7 @@ function renderOverview() {
                     <span style="font-weight: 800; font-size: 1.05em; color: ${completionRate >= 80 ? '#059669' : completionRate >= 50 ? '#D97706' : '#DC2626'}; min-width: 45px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">${completionRate}%</span>
                 </div>
             </td>
+            <td><span class="stat-number high" style="font-weight: 700;">${employed}</span></td>
             <td>
                 <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
                     <div style="width: 50px; height: 10px; background: linear-gradient(90deg, #F1F5F9 0%, #E2E8F0 100%); border-radius: 5px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
