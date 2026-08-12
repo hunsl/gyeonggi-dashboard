@@ -525,6 +525,7 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
 #personnel-card .data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
 #personnel-card .data-table { min-width: 1420px; }
 #personnel-card .data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
+#personnel-card .data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
 #personnel-card .data-table thead tr:nth-child(2) th { padding-top: 9px; padding-bottom: 11px; font-size: 0.74em; }
 #personnel-card .data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
 #personnel-card .data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
@@ -1823,22 +1824,22 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
                             <tr>
                                 <th rowspan="2">구분</th>
                                 <th rowspan="2">과정명</th>
-                                <th colspan="5" class="stage-select">선발 단계</th>
-                                <th colspan="4" class="stage-education">교육 진행 단계</th>
-                                <th colspan="2" class="stage-aftercare">사후관리 단계</th>
+                                <th colspan="5" class="stage-select">선발 단계 <small>지원 → 합격</small></th>
+                                <th colspan="4" class="stage-education">교육 진행 단계 <small>참여 → 수료</small></th>
+                                <th colspan="2" class="stage-aftercare">사후관리 성과 <small>취업 결과</small></th>
                             </tr>
                             <tr>
-                                <th class="stage-select">정원</th>
-                                <th class="stage-select">접수</th>
-                                <th class="stage-select">면접</th>
-                                <th class="stage-select">면접참여율</th>
-                                <th class="stage-select">합격</th>
-                                <th class="stage-education">참여</th>
-                                <th class="stage-education">탈락</th>
-                                <th class="stage-education">수료</th>
-                                <th class="stage-education">수료율</th>
-                                <th class="stage-aftercare">취업</th>
-                                <th class="stage-aftercare">취업률</th>
+                                <th class="stage-select">정원(명)</th>
+                                <th class="stage-select">접수(명)</th>
+                                <th class="stage-select">면접참여(명)</th>
+                                <th class="stage-select">면접참여율(%)</th>
+                                <th class="stage-select">합격(명)</th>
+                                <th class="stage-education">교육참여(명)</th>
+                                <th class="stage-education">탈락(명)</th>
+                                <th class="stage-education">수료(명)</th>
+                                <th class="stage-education">수료율(%)</th>
+                                <th class="stage-aftercare">취업(명)</th>
+                                <th class="stage-aftercare">취업률(%)</th>
                             </tr>
                         </thead>
                         <tbody id="statistics-table-body"></tbody>
