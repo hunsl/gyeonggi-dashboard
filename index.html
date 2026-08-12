@@ -3052,8 +3052,12 @@ function getCategoryColor(category) {
 
 function printPersonnelSummary() {
     document.body.classList.add('print-personnel');
-    window.print();
-    window.setTimeout(() => document.body.classList.remove('print-personnel'), 250);
+    const cleanup = () => {
+        document.body.classList.remove('print-personnel');
+        window.removeEventListener('afterprint', cleanup);
+    };
+    window.addEventListener('afterprint', cleanup);
+    requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
 }
 
 function renderSpecialNotes() {
