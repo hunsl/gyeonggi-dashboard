@@ -538,28 +538,42 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
 #personnel-card { overflow: visible; border-radius: 16px; }
 #personnel-card .card-header { background: linear-gradient(105deg, #ECFEFF 0%, #FFFFFF 72%); }
 #personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #0891B2; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
-#personnel-card .table-container { padding-top: 8px; }
-#personnel-card .data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
-#personnel-card .data-table { min-width: 1420px; }
-#personnel-card .data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
-#personnel-card .data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
-#personnel-card .data-table thead tr:nth-child(2) th { padding-top: 9px; padding-bottom: 11px; font-size: 0.74em; }
-#personnel-card .data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
-#personnel-card .data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
-#personnel-card .data-table thead .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
-#personnel-card .data-table thead .stage-aftercare { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); color: #C2410C; }
-#personnel-card .data-table tbody td:nth-child(7),
-#personnel-card .data-table tbody td:nth-child(11) { border-right: 2px solid #CBD5E1; }
-#personnel-card .data-table tbody td:nth-child(n+3):nth-child(-n+7) { background: rgba(99,102,241,0.025); }
-#personnel-card .data-table tbody td:nth-child(n+8):nth-child(-n+11) { background: rgba(16,185,129,0.025); }
-#personnel-card .data-table tbody td:nth-child(n+12) { background: rgba(245,158,11,0.035); }
-#personnel-card .data-table tbody tr { transition: background 0.2s ease, box-shadow 0.2s ease; }
-#personnel-card .data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #06B6D4; }
-#personnel-card .data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #FBFDFF; }
+#personnel-card .personnel-table-container { margin: 0; padding: 8px 18px 0; overflow-x: visible; }
+#personnel-card .personnel-data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
+#personnel-card .personnel-data-table { width: 100%; min-width: 0; table-layout: fixed; }
+#personnel-card .personnel-data-table th,
+#personnel-card .personnel-data-table td { padding: 10px 6px; font-size: 0.76em; }
+#personnel-card .personnel-data-table th:nth-child(1),
+#personnel-card .personnel-data-table td:nth-child(1) { width: 84px; }
+#personnel-card .personnel-data-table th:nth-child(2),
+#personnel-card .personnel-data-table td:nth-child(2) { width: 170px; }
+#personnel-card .personnel-data-table td:nth-child(2) { text-align: left; word-break: keep-all; }
+#personnel-card .personnel-table-container::before { display: none; }
+#personnel-card .personnel-data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
+#personnel-card .personnel-data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
+#personnel-card .personnel-data-table thead tr:nth-child(2) th { padding-top: 9px; padding-bottom: 11px; font-size: 0.74em; }
+#personnel-card .personnel-data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
+#personnel-card .personnel-data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
+#personnel-card .personnel-data-table thead .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
+#personnel-card .personnel-data-table thead .stage-aftercare { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); color: #C2410C; }
+#personnel-card .personnel-data-table tbody td:nth-child(7),
+#personnel-card .personnel-data-table tbody td:nth-child(11) { border-right: 2px solid #CBD5E1; }
+#personnel-card .personnel-data-table tbody td:nth-child(n+3):nth-child(-n+7) { background: rgba(99,102,241,0.025); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+8):nth-child(-n+11) { background: rgba(16,185,129,0.025); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+12) { background: rgba(245,158,11,0.035); }
+#personnel-card .personnel-data-table tbody tr { transition: background 0.2s ease, box-shadow 0.2s ease; }
+#personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #06B6D4; }
+#personnel-card .personnel-data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #FBFDFF; }
 .personnel-total-row td:first-child { border-radius: 8px 0 0 8px; }
 .personnel-total-row td:last-child { border-radius: 0 8px 8px 0; }
+.rate-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; line-height: 1.1; }
+.rate-cell strong { font-size: 1.02em; }
+.rate-cell small { font-size: 0.72em; color: #64748B; font-weight: 700; }
 @media (max-width: 768px) {
     .personnel-summary { grid-template-columns: repeat(2, 1fr); padding: 12px 14px 2px; }
+    #personnel-card .personnel-table-container { margin: 0 -14px; padding: 0 14px; overflow-x: auto; }
+    #personnel-card .personnel-table-container::before { content: '← 좌우로 스크롤하세요 →'; display: block; text-align: center; font-size: 0.75em; color: #94A3B8; padding: 4px 0 8px; }
+    #personnel-card .personnel-data-table { min-width: 900px; table-layout: auto; }
 }
 @media print {
     @page { size: landscape; margin: 10mm; }
@@ -567,18 +581,24 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
     body.print-personnel > *:not(.container),
     body.print-personnel .container > *:not(#overview-tab),
     body.print-personnel #overview-tab > *:not(#personnel-card),
-    body.print-personnel #personnel-card > *:not(.card-header):not(.personnel-summary):not(.table-container) { display: none !important; }
+    body.print-personnel #personnel-card > *:not(.card-header):not(.personnel-summary):not(.personnel-table-container) { display: none !important; }
     body.print-personnel .container { max-width: none; padding: 0; }
     body.print-personnel #overview-tab { display: block !important; }
     body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; }
     body.print-personnel #personnel-card .card-header { padding: 0 0 8px; border-bottom: 2px solid #0E7490; }
     body.print-personnel #personnel-card .personnel-print-btn { display: none; }
-    body.print-personnel #personnel-card .table-container { margin: 0; padding: 0; overflow: visible; }
-    body.print-personnel #personnel-card .data-table { min-width: 0; width: 100%; font-size: 8pt; }
+    body.print-personnel #personnel-card .table-container,
+    body.print-personnel #personnel-card .personnel-table-container { margin: 0; padding: 0; overflow: visible; }
+    body.print-personnel #personnel-card .data-table,
+    body.print-personnel #personnel-card .personnel-data-table { min-width: 0; width: 100%; font-size: 8pt; }
     body.print-personnel #personnel-card .data-table th,
-    body.print-personnel #personnel-card .data-table td { padding: 5px 4px; }
-    body.print-personnel #personnel-card .data-table thead { position: static; }
-    body.print-personnel #personnel-card .data-table tbody tr:hover { transform: none; box-shadow: none; }
+    body.print-personnel #personnel-card .data-table td,
+    body.print-personnel #personnel-card .personnel-data-table th,
+    body.print-personnel #personnel-card .personnel-data-table td { padding: 5px 4px; }
+    body.print-personnel #personnel-card .data-table thead,
+    body.print-personnel #personnel-card .personnel-data-table thead { position: static; }
+    body.print-personnel #personnel-card .data-table tbody tr:hover,
+    body.print-personnel #personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: none; }
     body.print-personnel #personnel-card .personnel-summary { padding: 10px 0; }
 }
 .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
@@ -1835,8 +1855,8 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
                     <button type="button" class="personnel-print-btn" onclick="printPersonnelSummary()">🖨️ 인쇄</button>
                 </div>
                 <div class="personnel-summary" id="personnel-summary" aria-label="전체 인원 요약"></div>
-                <div class="table-container">
-                    <table class="data-table">
+                <div class="table-container personnel-table-container">
+                    <table class="data-table personnel-data-table">
                         <thead>
                             <tr>
                                 <th rowspan="2">구분</th>
@@ -1849,7 +1869,7 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
                                 <th class="stage-select">정원(명)</th>
                                 <th class="stage-select">접수(명)</th>
                                 <th class="stage-select">면접참여(명)</th>
-                                <th class="stage-select">면접참여율(%)</th>
+                                <th class="stage-select">면접참여율<br><small>참여/접수</small></th>
                                 <th class="stage-select">합격(명)</th>
                                 <th class="stage-education">교육참여(명)</th>
                                 <th class="stage-education">탈락(명)</th>
@@ -2944,7 +2964,14 @@ function renderOverview() {
         <td><span class="stat-number">${totalStats.capacity}</span></td>
         <td><span class="stat-number">${totalStats.applications}</span></td>
         <td><span class="stat-number">${totalStats.interviews}</span></td>
-        <td><strong style="color:#0891B2;">${totalInterviewRate}%</strong></td>
+        <td>
+            ${totalStats.applications > 0 ? `
+            <div class="rate-cell">
+                <strong style="color:#0891B2;">${totalInterviewRate}%</strong>
+                <small>${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}</small>
+            </div>
+            ` : '<span style="color:#94A3B8;font-weight:700;">-</span>'}
+        </td>
         <td><span class="stat-number high">${totalStats.passed}</span></td>
         <td><span class="stat-number high">${totalStats.enrolled}</span></td>
         <td><span class="stat-number low">${totalStats.dropouts}</span></td>
@@ -2968,14 +2995,21 @@ function renderOverview() {
         const row = statsTbody.insertRow();
         row.innerHTML = `
             <td><span style="display: inline-block; padding: 4px 10px; background: ${getCategoryColor(stats.category)}; color: white; border-radius: 6px; font-size: 0.85em; font-weight: 600;">${stats.category || '-'}</span></td>
-            <td style="text-align: left; font-weight: 600; color: #1E293B; min-width: 180px;">
+            <td style="text-align: left; font-weight: 600; color: #1E293B;">
                 <span style="display: inline-block; width: 4px; height: 16px; background: ${course.color}; border-radius: 2px; margin-right: 8px; vertical-align: middle;"></span>
                 ${course.name}
             </td>
             <td><span class="stat-number" style="background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); color: #6366F1; font-weight: 700;">${capacity}</span></td>
             <td><span class="stat-number">${stats.applications || 0}</span></td>
             <td><span class="stat-number">${interviews}</span></td>
-            <td><strong style="color:${interviewRate >= 70 ? '#059669' : interviewRate >= 40 ? '#D97706' : '#DC2626'};">${applications > 0 ? interviewRate + '%' : '-'}</strong></td>
+            <td>
+                ${applications > 0 ? `
+                <div class="rate-cell">
+                    <strong style="color:${interviewRate >= 70 ? '#059669' : interviewRate >= 40 ? '#D97706' : '#DC2626'};">${interviewRate}%</strong>
+                    <small>${interviews.toLocaleString()} / ${applications.toLocaleString()}</small>
+                </div>
+                ` : '<span style="color:#94A3B8;font-weight:700;">-</span>'}
+            </td>
             <td><span class="stat-number high">${stats.passed || 0}</span></td>
             <td><span class="stat-number high">${stats.enrolled || 0}</span></td>
             <td><span class="stat-number low">${stats.dropouts || 0}</span></td>
