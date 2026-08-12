@@ -464,6 +464,105 @@ body {
     background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
     color: #DC2626;
 }
+.personnel-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    padding: 16px 18px 4px;
+}
+.personnel-summary-item {
+    position: relative;
+    overflow: hidden;
+    padding: 12px 14px;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+.personnel-summary-item::after {
+    content: '';
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    right: -28px;
+    top: -28px;
+    border-radius: 50%;
+    background: rgba(8, 145, 178, 0.07);
+}
+.personnel-summary-label { color: #64748B; font-size: 0.78em; font-weight: 700; margin-bottom: 4px; }
+.personnel-summary-value { color: #0F172A; font-size: 1.35em; font-weight: 900; line-height: 1.2; }
+.personnel-summary-value small { color: #64748B; font-size: 0.62em; font-weight: 700; }
+.summary-meter { height: 5px; margin-top: 9px; border-radius: 999px; background: #E2E8F0; overflow: hidden; }
+.summary-meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #06B6D4, #2563EB); }
+.personnel-print-btn {
+    border: 1px solid #0891B2;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: #ECFEFF;
+    color: #0E7490;
+    font-weight: 800;
+    cursor: pointer;
+}
+.personnel-print-btn:hover { background: #CFFAFE; transform: translateY(-1px); }
+.personnel-total-row { background: linear-gradient(135deg, #ECFEFF 0%, #F0FDFA 100%) !important; border-top: 2px solid #0891B2; }
+.personnel-total-row td { font-weight: 800; background: transparent !important; }
+
+/* ===== 관리자 대시보드 시각적 고도화 ===== */
+:root { --ink: #0F172A; --muted: #64748B; --line: #E2E8F0; --brand: #0891B2; }
+body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #F8FAFC 100%); }
+.container { padding-top: 22px; padding-bottom: 36px; }
+.header { border-radius: 22px; box-shadow: 0 18px 44px rgba(8, 145, 178, 0.22), inset 0 1px 0 rgba(255,255,255,0.2); }
+.tab-navigation { border: 1px solid rgba(6,182,212,0.24); box-shadow: 0 10px 28px rgba(15,23,42,0.08); }
+.card { border-color: rgba(148,163,184,0.28); box-shadow: 0 8px 24px rgba(15,23,42,0.065); }
+.card-header { min-height: 58px; padding: 16px 20px; }
+.card-header h2 { color: var(--ink); letter-spacing: -0.25px; }
+.kpi-summary { gap: 14px; }
+.kpi-card { min-height: 126px; border: 1px solid rgba(148,163,184,0.26); border-top-width: 4px; border-radius: 14px; box-shadow: 0 7px 18px rgba(15,23,42,0.065); }
+.kpi-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px rgba(15,23,42,0.11); }
+#personnel-card { overflow: visible; border-radius: 16px; }
+#personnel-card .card-header { background: linear-gradient(105deg, #ECFEFF 0%, #FFFFFF 72%); }
+#personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #0891B2; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
+#personnel-card .table-container { padding-top: 8px; }
+#personnel-card .data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
+#personnel-card .data-table { min-width: 1420px; }
+#personnel-card .data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
+#personnel-card .data-table thead tr:nth-child(2) th { padding-top: 9px; padding-bottom: 11px; font-size: 0.74em; }
+#personnel-card .data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
+#personnel-card .data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
+#personnel-card .data-table thead .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
+#personnel-card .data-table thead .stage-aftercare { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); color: #C2410C; }
+#personnel-card .data-table tbody td:nth-child(7),
+#personnel-card .data-table tbody td:nth-child(11) { border-right: 2px solid #CBD5E1; }
+#personnel-card .data-table tbody td:nth-child(n+3):nth-child(-n+7) { background: rgba(99,102,241,0.025); }
+#personnel-card .data-table tbody td:nth-child(n+8):nth-child(-n+11) { background: rgba(16,185,129,0.025); }
+#personnel-card .data-table tbody td:nth-child(n+12) { background: rgba(245,158,11,0.035); }
+#personnel-card .data-table tbody tr { transition: background 0.2s ease, box-shadow 0.2s ease; }
+#personnel-card .data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #06B6D4; }
+#personnel-card .data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #FBFDFF; }
+.personnel-total-row td:first-child { border-radius: 8px 0 0 8px; }
+.personnel-total-row td:last-child { border-radius: 0 8px 8px 0; }
+@media (max-width: 768px) {
+    .personnel-summary { grid-template-columns: repeat(2, 1fr); padding: 12px 14px 2px; }
+}
+@media print {
+    @page { size: landscape; margin: 10mm; }
+    body { background: white !important; }
+    body.print-personnel > *:not(.container),
+    body.print-personnel .container > *:not(#overview-tab),
+    body.print-personnel #overview-tab > *:not(#personnel-card),
+    body.print-personnel #personnel-card > *:not(.card-header):not(.personnel-summary):not(.table-container) { display: none !important; }
+    body.print-personnel .container { max-width: none; padding: 0; }
+    body.print-personnel #overview-tab { display: block !important; }
+    body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; }
+    body.print-personnel #personnel-card .card-header { padding: 0 0 8px; border-bottom: 2px solid #0E7490; }
+    body.print-personnel #personnel-card .personnel-print-btn { display: none; }
+    body.print-personnel #personnel-card .table-container { margin: 0; padding: 0; overflow: visible; }
+    body.print-personnel #personnel-card .data-table { min-width: 0; width: 100%; font-size: 8pt; }
+    body.print-personnel #personnel-card .data-table th,
+    body.print-personnel #personnel-card .data-table td { padding: 5px 4px; }
+    body.print-personnel #personnel-card .data-table thead { position: static; }
+    body.print-personnel #personnel-card .data-table tbody tr:hover { transform: none; box-shadow: none; }
+    body.print-personnel #personnel-card .personnel-summary { padding: 10px 0; }
+}
 .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
 .form-group { display: flex; flex-direction: column; }
 .form-group.full-width { grid-column: 1 / -1; }
@@ -1542,7 +1641,7 @@ body {
                             <span style="font-size: 1.15em;">🎯</span>
                             <span>선발 관리</span>
                         </a>
-                        <a href="https://hunsl.github.io/budget-management-2026/" target="_blank" title="예산관리 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #CA8A04; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;" onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.15)'">
+                        <a href="https://hunsl.github.io/budget-management-2026/" target="_blank" title="예산관리 시스템으로 이동" style="padding: 7px 14px; background: rgba(255,255,255,0.95); color: #CA8A04; text-decoration: none; border-radius: 8px; font-size: 0.8em; font-weight: 700; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); text-align: center;">
                             <span style="font-size: 1.15em;">💰</span>
                             <span>예산관리</span>
                         </a>
@@ -1712,26 +1811,34 @@ body {
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" id="personnel-card">
                 <div class="card-header personnel">
                     <h2>👥 과정별 인원 현황</h2>
+                    <button type="button" class="personnel-print-btn" onclick="printPersonnelSummary()">🖨️ 인쇄</button>
                 </div>
+                <div class="personnel-summary" id="personnel-summary" aria-label="전체 인원 요약"></div>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>구분</th>
-                                <th>과정명</th>
-                                <th>정원</th>
-                                <th>접수</th>
-                                <th>면접</th>
-                                <th>합격</th>
-                                <th>참여</th>
-                                <th>탈락</th>
-                                <th>수료</th>
-                                <th>취업</th>
-                                <th>수료율</th>
-                                <th>취업률</th>
+                                <th rowspan="2">구분</th>
+                                <th rowspan="2">과정명</th>
+                                <th colspan="5" class="stage-select">선발 단계</th>
+                                <th colspan="4" class="stage-education">교육 진행 단계</th>
+                                <th colspan="2" class="stage-aftercare">사후관리 단계</th>
+                            </tr>
+                            <tr>
+                                <th class="stage-select">정원</th>
+                                <th class="stage-select">접수</th>
+                                <th class="stage-select">면접</th>
+                                <th class="stage-select">면접참여율</th>
+                                <th class="stage-select">합격</th>
+                                <th class="stage-education">참여</th>
+                                <th class="stage-education">탈락</th>
+                                <th class="stage-education">수료</th>
+                                <th class="stage-education">수료율</th>
+                                <th class="stage-aftercare">취업</th>
+                                <th class="stage-aftercare">취업률</th>
                             </tr>
                         </thead>
                         <tbody id="statistics-table-body"></tbody>
@@ -1964,6 +2071,11 @@ let currentMonth = new Date();
 let generalNotices = [];
 let saveTimeout = null; // 디바운싱용 타이머
 const TASKS = ["1.통합접수시스템 등록", "2.교육기간 확정", "3.교육장 예약", "4.강좌 개설", "5.홍보디자인 제작", "6.마케팅 전개", "7.자격 예비 검증", "8.면접 행정 세팅", "9.최종 선발", "10.OT/서류 징구", "11.훈련지원금 지급", "12.사후관리 특강", "13.학습동아리 지원", "14.취업지원 DB업데이트"];
+const PROGRAM_TARGETS = {
+    selected: 240,
+    completionRate: 90,
+    employmentRate: 65
+};
 
 function getInitialCourses() {
     const baseCourses = [
@@ -1979,7 +2091,7 @@ function getInitialCourses() {
         { name: "AI시대의 캐릭터 크리에이터 양성", category: "IT신직무", period: "8~9월", start_date: "8월 예정", main_plan: "일정 수립 중", color: "#7C3AED", capacity: 20, targetCompletion: 18, targetEmployment: 12, specialNotes: "" },
         {
             name: "AI 활용 데이터 분석 실무 입문과정",
-            category: "IT신직무",
+            category: "AI 활용",
             period: "8.19.~9.15.",
             start_date: "8.19.(수)",
             main_plan: "AI·데이터 기초, 파이썬 실습, 데이터 정리·시각화, 재정데이터 연계교육 16H, 팀별 프로젝트 기획서 작성",
@@ -1993,7 +2105,7 @@ function getInitialCourses() {
         },
         {
             name: "공공 재정데이터 문제해결 공모 프로젝트 과정",
-            category: "지역연계",
+            category: "AI 활용",
             period: "9.21.~10.21.",
             start_date: "9.21.(월)",
             main_plan: "프로젝트 안내, 팀별 과제수행, 데이터 수집·정제, 분석보고서·정책제안서 작성, 모의면접, 최종 발표평가·시상",
@@ -2006,8 +2118,8 @@ function getInitialCourses() {
             specialNotes: "진행현황: 대외기관 대상자 추천과 개인신청 병행 검토 중\n강사협의: 문황철 강사 6.18. 회신 기준 취업역량교육 일정 참여 가능, 추가 강사 구성 및 프로필 요청 필요\n확인필요: 참여자격, 80H 세부편성, 팀별 멘토링 총량, 비대면 멘토링 방식, 평가표·심사위원·상금 배분 기준\n리스크: 9.28. 및 10.12.~10.14. 일정 조정안과 STEP 3 일정 중복 가능성 확인 필요"
         },
         {
-            name: "AI-POT 연계 AI 활용 심화과정",
-            category: "IT신직무",
+            name: "AI-POT 연계 AI 활용 실무 심화과정",
+            category: "AI 활용",
             period: "9.29.~10.16.",
             start_date: "9.29.(화)",
             main_plan: "AI-POT 이론, 프롬프트 엔지니어링 실습, 업무 활용·윤리, 모의평가, AI 취업특강, AI-POT 정기시험 연계",
@@ -2032,7 +2144,7 @@ function getInitialCourses() {
     }));
 }
 
-const CONFIRMED_COURSE_VERSION = '2026-ai-three-course-progress-v2';
+const CONFIRMED_COURSE_VERSION = '2026-ai-three-course-progress-v3';
 function getConfirmedCourseUpdate(courseId, initialCourse) {
     if (!initialCourse || ![11, 12, 13].includes(Number(courseId))) return null;
     return {
@@ -2633,7 +2745,6 @@ function renderExternalSystemsHub() {
         { icon: '👥', color: '#0891B2', name: '면접위원 평가', desc: '면접위원용 평가 입력 시스템', url: 'https://sanghun.pythonanywhere.com/', stats: [{ l: '역할', v: '면접위원' }, { l: '기능', v: '평가 입력' }] },
         { icon: '⚙️', color: '#0E7490', name: '면접 관리',     desc: '면접 관리자 시스템',          url: 'https://sanghun.pythonanywhere.com/admin', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '면접 관리' }] },
         { icon: '🎯', color: '#7C3AED', name: '선발 관리',     desc: '교육생 선발 관리',            url: 'https://sanghun.pythonanywhere.com/haccp', stats: [{ l: '역할', v: '관리자' }, { l: '기능', v: '선발 처리' }] },
-        { icon: '💰', color: '#CA8A04', name: '예산관리',      desc: '예산 편성·집행 실시간 관리',   url: 'https://hunsl.github.io/budget-management-2026/', stats: [{ l: '대상', v: '담당자' }, { l: '기능', v: '실시간 공유' }] },
         { icon: '🔄', color: '#2563EB', name: '연동 가이드',   desc: '다른 시스템 연동 방법 안내',   url: null, onclick: 'openIntegrationGuide()', stats: [{ l: '방식', v: 'API/CSV' }, { l: '상태', v: '연동 가능' }] },
         { icon: '🎓', color: '#059669', name: '학사관리',      desc: '교육과정 학사 관리 시스템',    url: 'https://hunsl.github.io/ggjf-edu-lms/', stats: [{ l: '대상', v: '교육생' }, { l: '기능', v: '출결·성적' }] },
         { icon: '😊', color: '#DB2777', name: '교육만족도',    desc: '교육 만족도 조사 시스템',      url: 'https://satisfaction-survey-tawny.vercel.app/login', stats: [{ l: '대상', v: '수료생' }, { l: '기능', v: '만족도 조사' }] },
@@ -2743,9 +2854,56 @@ function renderOverview() {
     }
     
     statsTbody.innerHTML = '';
+    const totalStats = courses.reduce((total, course) => {
+        const stats = course.statistics || {};
+        ['capacity', 'applications', 'interviews', 'passed', 'enrolled', 'dropouts', 'completed', 'employed'].forEach(key => {
+            total[key] += Number(stats[key]) || 0;
+        });
+        return total;
+    }, { capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 });
+    const totalInterviewRate = totalStats.applications > 0 ? Math.round((totalStats.interviews / totalStats.applications) * 100) : 0;
+    const totalCompletionRate = totalStats.passed > 0 ? Math.round((totalStats.completed / totalStats.passed) * 100) : 0;
+    const totalEmploymentRate = totalStats.completed > 0 ? Math.round((totalStats.employed / totalStats.completed) * 100) : 0;
+    const selectedAchievement = Math.round((totalStats.passed / PROGRAM_TARGETS.selected) * 100);
+    const completionAchievement = Math.round((totalCompletionRate / PROGRAM_TARGETS.completionRate) * 100);
+    const employmentAchievement = Math.round((totalEmploymentRate / PROGRAM_TARGETS.employmentRate) * 100);
+    const maxDropouts = Math.round(PROGRAM_TARGETS.selected * (1 - PROGRAM_TARGETS.completionRate / 100));
+    const additionalDropoutsAllowed = Math.max(0, maxDropouts - totalStats.dropouts);
+    const summary = document.getElementById('personnel-summary');
+    if (summary) {
+        summary.innerHTML = `
+            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 과정</div><div class="personnel-summary-value">${courses.length}<small>개</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 인원 (정원 / 접수)</div><div class="personnel-summary-value">${totalStats.capacity.toLocaleString()} <small>/ ${totalStats.applications.toLocaleString()}명</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">전체 면접참여율</div><div class="personnel-summary-value" style="color:#0891B2;">${totalInterviewRate}% <small>(${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}명)</small></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">선발인원 달성률</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${PROGRAM_TARGETS.selected}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">수료율 (현재 / 목표)</div><div class="personnel-summary-value" style="color:#059669;">${totalCompletionRate}% <small>/ ${PROGRAM_TARGETS.completionRate}% · 달성 ${completionAchievement}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, completionAchievement)}%;background:linear-gradient(90deg,#34D399,#059669);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">취업률 (현재 / 목표)</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>/ ${PROGRAM_TARGETS.employmentRate}% · 달성 ${employmentAchievement}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">중도탈락 추가 허용</div><div class="personnel-summary-value" style="color:${additionalDropoutsAllowed > 0 ? '#059669' : '#DC2626'};">${additionalDropoutsAllowed}<small>명 (허용한도 ${maxDropouts}명 / 현재 ${totalStats.dropouts}명)</small></div><div class="summary-meter"><span style="width:${maxDropouts > 0 ? Math.min(100, (totalStats.dropouts / maxDropouts) * 100) : 100}%;background:linear-gradient(90deg,#F59E0B,#DC2626);"></span></div></div>
+        `;
+    }
+    const totalRow = statsTbody.insertRow();
+    totalRow.className = 'personnel-total-row';
+    totalRow.innerHTML = `
+        <td><span class="stat-number high">전체</span></td>
+        <td style="text-align:left;font-weight:900;color:#0E7490;">전체 합계</td>
+        <td><span class="stat-number">${totalStats.capacity}</span></td>
+        <td><span class="stat-number">${totalStats.applications}</span></td>
+        <td><span class="stat-number">${totalStats.interviews}</span></td>
+        <td><strong style="color:#0891B2;">${totalInterviewRate}%</strong></td>
+        <td><span class="stat-number high">${totalStats.passed}</span></td>
+        <td><span class="stat-number high">${totalStats.enrolled}</span></td>
+        <td><span class="stat-number low">${totalStats.dropouts}</span></td>
+        <td><span class="stat-number high">${totalStats.completed}</span></td>
+        <td><span class="stat-number high">${totalStats.employed}</span></td>
+        <td><strong>${totalCompletionRate}%</strong></td>
+        <td><strong>${totalEmploymentRate}%</strong></td>
+    `;
     courses.forEach(course => {
         const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 };
         const capacity = stats.capacity || 0;
+        const applications = stats.applications || 0;
+        const interviews = stats.interviews || 0;
+        const interviewRate = applications > 0 ? Math.round((interviews / applications) * 100) : 0;
         const passed = stats.passed || 0;
         const completed = stats.completed || 0;
         const employed = stats.employed || 0;
@@ -2761,7 +2919,8 @@ function renderOverview() {
             </td>
             <td><span class="stat-number" style="background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); color: #6366F1; font-weight: 700;">${capacity}</span></td>
             <td><span class="stat-number">${stats.applications || 0}</span></td>
-            <td><span class="stat-number">${stats.interviews || 0}</span></td>
+            <td><span class="stat-number">${interviews}</span></td>
+            <td><strong style="color:${interviewRate >= 70 ? '#059669' : interviewRate >= 40 ? '#D97706' : '#DC2626'};">${applications > 0 ? interviewRate + '%' : '-'}</strong></td>
             <td><span class="stat-number high">${stats.passed || 0}</span></td>
             <td><span class="stat-number high">${stats.enrolled || 0}</span></td>
             <td><span class="stat-number low">${stats.dropouts || 0}</span></td>
@@ -2793,9 +2952,16 @@ function getCategoryColor(category) {
         '지역연계': '#F59E0B',
         '사무분야': '#2563EB',
         '식품분야': '#EC4899',
-        'IT신직무': '#8B5CF6'
+        'IT신직무': '#8B5CF6',
+        'AI 활용': '#0F766E'
     };
     return colors[category] || '#64748B';
+}
+
+function printPersonnelSummary() {
+    document.body.classList.add('print-personnel');
+    window.print();
+    window.setTimeout(() => document.body.classList.remove('print-personnel'), 250);
 }
 
 function renderSpecialNotes() {
@@ -3678,7 +3844,7 @@ function shortCourseName(name) {
         'AI시대의 캐릭터 크리에이터 양성': 'AI시대 캐릭터',
         'AI 활용 데이터 분석 실무 입문과정': 'AI 데이터분석',
         '공공 재정데이터 문제해결 공모 프로젝트 과정': '재정데이터 공모',
-        'AI-POT 연계 AI 활용 심화과정': 'AI-POT 심화',
+        'AI-POT 연계 AI 활용 실무 심화과정': 'AI-POT 심화',
     };
     return map[name] || (name.length > 10 ? name.slice(0, 9) + '…' : name);
 }
