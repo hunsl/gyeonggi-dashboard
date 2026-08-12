@@ -2683,7 +2683,6 @@ function renderPostManagementKPIs() {
         const enrolled  = s.enrolled  || 0;
         const completed = s.completed || 0;
         const employed  = s.employed  || 0;
-        if (passed === 0 && completed === 0) return;
         hasData = true;
 
         const crRate = passed    > 0 ? Math.round(completed / passed    * 100) : 0;
@@ -2704,8 +2703,8 @@ function renderPostManagementKPIs() {
                     <div class="postmgmt-rate-row">
                         <div class="postmgmt-rate-label">
                             <span>📊 수료율</span>
-                            <span class="postmgmt-rate-value" style="color:${crColor};">${crRate > 0 ? crRate + '%' : '집계 전'}
-                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${passed}명, 합격 기준)</small>
+                            <span class="postmgmt-rate-value" style="color:${crColor};">${crRate}%
+                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${completed}/${passed}명, 합격 기준${passed === 0 ? ' · 집계 전' : ''})</small>
                             </span>
                         </div>
                         <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${crRate}%;background:${crBar};"></div></div>
@@ -2713,8 +2712,8 @@ function renderPostManagementKPIs() {
                     <div class="postmgmt-rate-row">
                         <div class="postmgmt-rate-label">
                             <span>💼 취업률</span>
-                            <span class="postmgmt-rate-value" style="color:${erColor};">${erRate > 0 ? erRate + '%' : '집계 전'}
-                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${employed}/${completed}명)</small>
+                            <span class="postmgmt-rate-value" style="color:${erColor};">${erRate}%
+                                <small style="font-size:0.72em;color:#94A3B8;font-weight:500;">(${employed}/${completed}명${completed === 0 ? ' · 집계 전' : ''})</small>
                             </span>
                         </div>
                         <div class="postmgmt-bar"><div class="postmgmt-bar-fill" style="width:${erRate}%;background:${erBar};"></div></div>
