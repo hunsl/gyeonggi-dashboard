@@ -505,6 +505,21 @@ body {
 .personnel-print-btn:hover { background: #CFFAFE; transform: translateY(-1px); }
 .personnel-total-row { background: linear-gradient(135deg, #ECFEFF 0%, #F0FDFA 100%) !important; border-top: 2px solid #0891B2; }
 .personnel-total-row td { font-weight: 800; background: transparent !important; }
+.postmgmt-table-wrap { overflow-x: auto; padding: 14px 16px 16px; }
+.postmgmt-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: 0.86em; }
+.postmgmt-table th, .postmgmt-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid #E2E8F0; }
+.postmgmt-table thead tr:first-child th { color: #0F172A; font-weight: 900; border-bottom: 1px solid #CBD5E1; }
+.postmgmt-table thead tr:nth-child(2) th { color: #64748B; font-size: 0.82em; background: #F8FAFC; }
+.postmgmt-table th:first-child, .postmgmt-table td:first-child { text-align: left; }
+.postmgmt-completion-head { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); color: #047857 !important; }
+.postmgmt-employment-head { background: linear-gradient(135deg,#FFF7ED,#FFEDD5); color: #C2410C !important; }
+.postmgmt-table tbody tr:hover { background: #F8FAFC; }
+.postmgmt-course-cell { min-width: 250px; font-weight: 800; color: #1E293B; }
+.postmgmt-course-cell span { display: inline-block; width: 5px; height: 22px; margin-right: 9px; vertical-align: middle; border-radius: 4px; background: var(--course-color); }
+.postmgmt-table td small { display: block; margin-top: 3px; color: #94A3B8; font-size: 0.76em; }
+.postmgmt-percent { display: inline-block; min-width: 52px; padding: 4px 8px; border-radius: 999px; font-weight: 900; }
+.postmgmt-percent.completion { color: #047857; background: #ECFDF5; }
+.postmgmt-percent.employment { color: #C2410C; background: #FFF7ED; }
 
 /* ===== 관리자 대시보드 시각적 고도화 ===== */
 :root { --ink: #0F172A; --muted: #64748B; --line: #E2E8F0; --brand: #0891B2; }
@@ -2673,6 +2688,41 @@ function renderCourseProgressBoard() {
 function renderPostManagementKPIs() {
     const container = document.getElementById('postmgmt-section');
     if (!container || !courses || courses.length === 0) return;
+
+    // 사후관리도 선발·교육진행과 동일하게 과정별 숫자 표로 표시
+    const postRows = courses.map(course => {
+        const s = course.statistics || {};
+        const passed = Number(s.passed) || 0;
+        const completed = Number(s.completed) || 0;
+        const employed = Number(s.employed) || 0;
+        const completionRate = passed > 0 ? Math.round((completed / passed) * 100) : 0;
+        const employmentRate = completed > 0 ? Math.round((employed / completed) * 100) : 0;
+        return `
+            <tr>
+                <td class="postmgmt-course-cell"><span style="--course-color:${course.color || '#0891B2'}"></span>${escHtml(course.name)}</td>
+                <td><strong>${completed}명</strong></td>
+                <td><span class="postmgmt-percent completion">${completionRate}%</span><small>${completed}/${passed}명</small></td>
+                <td><strong>${employed}명</strong></td>
+                <td><span class="postmgmt-percent employment">${employmentRate}%</span><small>${employed}/${completed}명</small></td>
+            </tr>`;
+    }).join('');
+    container.innerHTML = `
+        <div class="postmgmt-table-wrap">
+            <table class="postmgmt-table">
+                <thead>
+                    <tr>
+                        <th>과정명</th>
+                        <th colspan="2" class="postmgmt-completion-head">수료 성과</th>
+                        <th colspan="2" class="postmgmt-employment-head">취업 성과</th>
+                    </tr>
+                    <tr>
+                        <th></th><th>수료(명)</th><th>수료율(%)</th><th>취업(명)</th><th>취업률(%)</th>
+                    </tr>
+                </thead>
+                <tbody>${postRows}</tbody>
+            </table>
+        </div>`;
+    return;
 
     let html = '';
     let hasData = false;
