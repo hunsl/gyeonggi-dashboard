@@ -1974,6 +1974,7 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
                                     <option value="사무분야">사무분야</option>
                                     <option value="식품분야">식품분야</option>
                                     <option value="IT신직무">IT신직무</option>
+                                    <option value="AI 활용">AI 활용</option>
                                 </select>
                             </div>
                             <div class="form-group"><label>정원 (명)</label><input type="number" id="stat-capacity" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
@@ -2144,7 +2145,7 @@ function getInitialCourses() {
     }));
 }
 
-const CONFIRMED_COURSE_VERSION = '2026-ai-three-course-progress-v3';
+const CONFIRMED_COURSE_VERSION = '2026-ai-three-course-progress-v4';
 function getConfirmedCourseUpdate(courseId, initialCourse) {
     if (!initialCourse || ![11, 12, 13].includes(Number(courseId))) return null;
     return {
