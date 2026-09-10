@@ -3060,7 +3060,6 @@ function printPersonnelSummary() {
     let isCleaned = false;
     let hasPrintStarted = false;
     let cleanupTimer = null;
-    let printStartGuardTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
         if (!hasPrintStarted) return;
@@ -3097,7 +3096,6 @@ function printPersonnelSummary() {
         document.body.classList.remove('print-personnel');
         window.removeEventListener('beforeprint', markPrintStarted);
         window.removeEventListener('afterprint', cleanup);
-        if (printStartGuardTimer) window.clearTimeout(printStartGuardTimer);
         if (cleanupTimer) window.clearTimeout(cleanupTimer);
         if (printMediaQuery) {
             if (typeof printMediaQuery.removeEventListener === 'function') {
@@ -3118,14 +3116,11 @@ function printPersonnelSummary() {
     }
     const triggerPrint = () => {
         void document.body.offsetHeight;
-        if (printStartGuardTimer) window.clearTimeout(printStartGuardTimer);
-        printStartGuardTimer = window.setTimeout(() => {
-            if (!isCleaned && !hasPrintStarted && document.hasFocus() && (!printMediaQuery || !printMediaQuery.matches)) cleanup();
-        }, 8000);
         try {
             window.print();
         } catch (error) {
             console.error('인쇄 실행 중 오류가 발생했습니다.', error);
+            alert('인쇄를 실행할 수 없습니다. 브라우저 설정을 확인한 뒤 다시 시도해 주세요.');
             cleanup();
         }
     };
