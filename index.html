@@ -3126,7 +3126,7 @@ function printPersonnelSummary() {
         void document.body.offsetHeight;
         if (initialCleanupTimer) window.clearTimeout(initialCleanupTimer);
         initialCleanupTimer = window.setTimeout(() => {
-            if (!isCleaned && !hasPrintStarted) cleanup();
+            if (!isCleaned && !hasPrintStarted && (!printMediaQuery || !printMediaQuery.matches)) cleanup();
         }, 8000);
         try {
             window.print();
