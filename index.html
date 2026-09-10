@@ -3060,6 +3060,7 @@ function printPersonnelSummary() {
     let isCleaned = false;
     let hasPrintStarted = false;
     let cleanupTimer = null;
+    let printStartGuardTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
         if (!hasPrintStarted) return;
@@ -3096,6 +3097,7 @@ function printPersonnelSummary() {
         document.body.classList.remove('print-personnel');
         window.removeEventListener('beforeprint', markPrintStarted);
         window.removeEventListener('afterprint', cleanup);
+        if (printStartGuardTimer) window.clearTimeout(printStartGuardTimer);
         if (cleanupTimer) window.clearTimeout(cleanupTimer);
         if (printMediaQuery) {
             if (typeof printMediaQuery.removeEventListener === 'function') {
@@ -3116,6 +3118,12 @@ function printPersonnelSummary() {
     }
     const triggerPrint = () => {
         void document.body.offsetHeight;
+        if (printStartGuardTimer) window.clearTimeout(printStartGuardTimer);
+        printStartGuardTimer = window.setTimeout(() => {
+            if (!isCleaned && !hasPrintStarted && document.hasFocus() && (!printMediaQuery || !printMediaQuery.matches)) {
+                cleanup();
+            }
+        }, 2000);
         try {
             window.print();
         } catch (error) {
