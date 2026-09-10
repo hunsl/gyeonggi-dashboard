@@ -595,7 +595,7 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
     body.print-personnel #personnel-card .table-container,
     body.print-personnel #personnel-card .personnel-table-container { margin: 0; padding: 0; overflow: visible; }
     body.print-personnel #personnel-card .data-table,
-    body.print-personnel #personnel-card .personnel-data-table { min-width: 0; width: 100%; font-size: 8.7pt; table-layout: fixed; }
+    body.print-personnel #personnel-card .personnel-data-table { min-width: 0; width: 100%; font-size: 8.7pt; }
     body.print-personnel #personnel-card .data-table th,
     body.print-personnel #personnel-card .data-table td,
     body.print-personnel #personnel-card .personnel-data-table th,
@@ -3059,6 +3059,7 @@ function printPersonnelSummary() {
     document.body.classList.add('print-personnel');
     let isCleaned = false;
     let hasPrintStarted = false;
+    let initialCleanupTimer = null;
     let cleanupTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
@@ -3089,6 +3090,7 @@ function printPersonnelSummary() {
         document.body.classList.remove('print-personnel');
         window.removeEventListener('beforeprint', markPrintStarted);
         window.removeEventListener('afterprint', cleanup);
+        if (initialCleanupTimer) window.clearTimeout(initialCleanupTimer);
         if (cleanupTimer) window.clearTimeout(cleanupTimer);
         if (printMediaQuery) {
             if (typeof printMediaQuery.removeEventListener === 'function') {
@@ -3109,7 +3111,10 @@ function printPersonnelSummary() {
     }
     const triggerPrint = () => {
         void document.body.offsetHeight;
-        markPrintStarted();
+        if (initialCleanupTimer) window.clearTimeout(initialCleanupTimer);
+        initialCleanupTimer = window.setTimeout(() => {
+            if (!isCleaned && !hasPrintStarted) cleanup();
+        }, 8000);
         try {
             window.print();
         } catch (error) {
