@@ -3067,10 +3067,7 @@ function printPersonnelSummary() {
         cleanupTimer = window.setTimeout(() => {
             if (isCleaned) return;
             if (!hasPrintStarted) return;
-            if (printMediaQuery && printMediaQuery.matches) {
-                scheduleCleanupFallback();
-                return;
-            }
+            if (printMediaQuery && printMediaQuery.matches) return;
             cleanup();
         }, 8000);
     };
