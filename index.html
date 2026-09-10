@@ -3082,7 +3082,11 @@ function printPersonnelSummary() {
             markPrintStarted();
             return;
         }
-        if (!event.matches && hasPrintStarted) cleanup();
+        if (!event.matches && hasPrintStarted) {
+            window.setTimeout(() => {
+                if (!isCleaned && printMediaQuery && !printMediaQuery.matches) cleanup();
+            }, 150);
+        }
     };
     const cleanup = () => {
         if (isCleaned) return;
@@ -3117,7 +3121,7 @@ function printPersonnelSummary() {
         }, 8000);
         try {
             window.print();
-        } catch (error) {
+        } catch {
             cleanup();
         }
     };
