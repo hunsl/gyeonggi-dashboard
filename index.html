@@ -3060,6 +3060,16 @@ function printPersonnelSummary() {
     let isCleaned = false;
     let cleanupTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
+    const scheduleCleanupFallback = () => {
+        cleanupTimer = window.setTimeout(() => {
+            if (isCleaned) return;
+            if (printMediaQuery && printMediaQuery.matches) {
+                scheduleCleanupFallback();
+                return;
+            }
+            cleanup();
+        }, 8000);
+    };
     const handlePrintMediaChange = (event) => {
         if (!event.matches) cleanup();
     };
@@ -3085,15 +3095,15 @@ function printPersonnelSummary() {
             printMediaQuery.addListener(handlePrintMediaChange);
         }
     }
-    cleanupTimer = window.setTimeout(cleanup, 8000);
+    scheduleCleanupFallback();
     const triggerPrint = () => {
         void document.body.offsetHeight;
         window.print();
     };
     if (typeof requestAnimationFrame === 'function') {
-        requestAnimationFrame(triggerPrint);
+        requestAnimationFrame(() => requestAnimationFrame(triggerPrint));
     } else {
-        window.setTimeout(triggerPrint, 0);
+        window.setTimeout(triggerPrint, 50);
     }
 }
 
