@@ -3060,8 +3060,6 @@ function printPersonnelSummary() {
     let isCleaned = false;
     let hasPrintStarted = false;
     let cleanupTimer = null;
-    let fallbackRetryCount = 0;
-    const maxFallbackRetries = 6;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
         if (!hasPrintStarted) return;
@@ -3070,10 +3068,7 @@ function printPersonnelSummary() {
             if (isCleaned) return;
             if (!hasPrintStarted) return;
             if (printMediaQuery && printMediaQuery.matches) {
-                if (fallbackRetryCount < maxFallbackRetries) {
-                    fallbackRetryCount += 1;
-                    scheduleCleanupFallback();
-                }
+                scheduleCleanupFallback();
                 return;
             }
             cleanup();
@@ -3082,7 +3077,6 @@ function printPersonnelSummary() {
     const markPrintStarted = () => {
         if (hasPrintStarted) return;
         hasPrintStarted = true;
-        fallbackRetryCount = 0;
         scheduleCleanupFallback();
     };
     const handlePrintMediaChange = (event) => {
@@ -3092,7 +3086,7 @@ function printPersonnelSummary() {
         }
         if (!event.matches && hasPrintStarted) {
             window.setTimeout(() => {
-                if (!isCleaned && printMediaQuery && !printMediaQuery.matches) cleanup();
+                if (!isCleaned && (!printMediaQuery || !printMediaQuery.matches)) cleanup();
             }, 150);
         }
     };
