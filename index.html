@@ -3081,7 +3081,7 @@ function printPersonnelSummary() {
             markPrintStarted();
             return;
         }
-        if (!event.matches) cleanup();
+        if (!event.matches && hasPrintStarted) cleanup();
     };
     const cleanup = () => {
         if (isCleaned) return;
