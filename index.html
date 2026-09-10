@@ -3124,7 +3124,8 @@ function printPersonnelSummary() {
         }, 30000);
         try {
             window.print();
-        } catch {
+        } catch (error) {
+            console.error('인쇄 실행 중 오류가 발생했습니다.', error);
             cleanup();
         }
     };
