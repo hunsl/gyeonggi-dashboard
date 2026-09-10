@@ -579,30 +579,35 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
     #personnel-card .personnel-data-table { min-width: 900px; table-layout: auto; }
 }
 @media print {
-    @page { size: landscape; margin: 10mm; }
+    @page { size: A4 landscape; margin: 8mm; }
     body { background: white !important; }
+    body.print-personnel { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     body.print-personnel > *:not(.container),
     body.print-personnel .container > *:not(#overview-tab),
     body.print-personnel #overview-tab > *:not(#personnel-card),
     body.print-personnel #personnel-card > *:not(.card-header):not(.personnel-summary):not(.personnel-table-container) { display: none !important; }
     body.print-personnel .container { max-width: none; padding: 0; }
     body.print-personnel #overview-tab { display: block !important; }
-    body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; }
+    body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
     body.print-personnel #personnel-card .card-header { padding: 0 0 8px; border-bottom: 2px solid #0E7490; }
+    body.print-personnel #personnel-card .card-header h2 { font-size: 15pt; }
     body.print-personnel #personnel-card .personnel-print-btn { display: none; }
     body.print-personnel #personnel-card .table-container,
     body.print-personnel #personnel-card .personnel-table-container { margin: 0; padding: 0; overflow: visible; }
     body.print-personnel #personnel-card .data-table,
-    body.print-personnel #personnel-card .personnel-data-table { min-width: 0; width: 100%; font-size: 8pt; }
+    body.print-personnel #personnel-card .personnel-data-table { min-width: 0; width: 100%; font-size: 8.7pt; }
     body.print-personnel #personnel-card .data-table th,
     body.print-personnel #personnel-card .data-table td,
     body.print-personnel #personnel-card .personnel-data-table th,
-    body.print-personnel #personnel-card .personnel-data-table td { padding: 5px 4px; }
+    body.print-personnel #personnel-card .personnel-data-table td { padding: 4px 3px; }
     body.print-personnel #personnel-card .data-table thead,
     body.print-personnel #personnel-card .personnel-data-table thead { position: static; }
+    body.print-personnel #personnel-card .personnel-data-table thead th { font-size: 7.9pt; }
+    body.print-personnel #personnel-card .personnel-data-table tbody td { font-size: 8.5pt; }
     body.print-personnel #personnel-card .data-table tbody tr:hover,
     body.print-personnel #personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: none; }
-    body.print-personnel #personnel-card .personnel-summary { padding: 10px 0; }
+    body.print-personnel #personnel-card .personnel-summary { padding: 8px 0; gap: 8px; }
+    body.print-personnel #personnel-card .summary-card { padding: 8px 10px; min-height: auto; }
 }
 .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
 .form-group { display: flex; flex-direction: column; }
@@ -3052,12 +3057,78 @@ function getCategoryColor(category) {
 
 function printPersonnelSummary() {
     document.body.classList.add('print-personnel');
-    const cleanup = () => {
-        document.body.classList.remove('print-personnel');
-        window.removeEventListener('afterprint', cleanup);
+    let isCleaned = false;
+    let hasPrintStarted = false;
+    let cleanupTimer = null;
+    const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
+    const scheduleCleanupFallback = () => {
+        if (!hasPrintStarted) return;
+        if (cleanupTimer) window.clearTimeout(cleanupTimer);
+        cleanupTimer = window.setTimeout(() => {
+            if (isCleaned) return;
+            if (!hasPrintStarted) return;
+            if (printMediaQuery && printMediaQuery.matches) {
+                scheduleCleanupFallback();
+                return;
+            }
+            cleanup();
+        }, 8000);
     };
+    const markPrintStarted = () => {
+        if (hasPrintStarted) return;
+        hasPrintStarted = true;
+        scheduleCleanupFallback();
+    };
+    const handlePrintMediaChange = (event) => {
+        if (event.matches) {
+            markPrintStarted();
+            return;
+        }
+        if (!event.matches && hasPrintStarted) {
+            window.setTimeout(() => {
+                if (!isCleaned && (!printMediaQuery || !printMediaQuery.matches)) cleanup();
+            }, 150);
+        }
+    };
+    const cleanup = () => {
+        if (isCleaned) return;
+        isCleaned = true;
+        document.body.classList.remove('print-personnel');
+        window.removeEventListener('beforeprint', markPrintStarted);
+        window.removeEventListener('afterprint', cleanup);
+        if (cleanupTimer) window.clearTimeout(cleanupTimer);
+        if (printMediaQuery) {
+            if (typeof printMediaQuery.removeEventListener === 'function') {
+                printMediaQuery.removeEventListener('change', handlePrintMediaChange);
+            } else if (typeof printMediaQuery.removeListener === 'function') {
+                printMediaQuery.removeListener(handlePrintMediaChange);
+            }
+        }
+    };
+    window.addEventListener('beforeprint', markPrintStarted);
     window.addEventListener('afterprint', cleanup);
-    requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    if (printMediaQuery) {
+        if (typeof printMediaQuery.addEventListener === 'function') {
+            printMediaQuery.addEventListener('change', handlePrintMediaChange);
+        } else if (typeof printMediaQuery.addListener === 'function') {
+            printMediaQuery.addListener(handlePrintMediaChange);
+        }
+    }
+    const triggerPrint = () => {
+        void document.body.offsetHeight;
+        try {
+            window.print();
+        } catch (error) {
+            console.error('인쇄 실행 중 오류가 발생했습니다.', error);
+            alert('인쇄를 실행할 수 없습니다. 브라우저 설정을 확인한 뒤 다시 시도해 주세요.');
+            cleanup();
+        }
+    };
+    if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(() => requestAnimationFrame(triggerPrint));
+    } else {
+        window.setTimeout(triggerPrint, 50);
+    }
 }
 
 function renderSpecialNotes() {
