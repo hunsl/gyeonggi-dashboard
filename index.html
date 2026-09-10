@@ -3061,6 +3061,8 @@ function printPersonnelSummary() {
     let hasPrintStarted = false;
     let initialCleanupTimer = null;
     let cleanupTimer = null;
+    let fallbackRetryCount = 0;
+    const maxFallbackRetries = 6;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
         if (!hasPrintStarted) return;
@@ -3068,13 +3070,20 @@ function printPersonnelSummary() {
         cleanupTimer = window.setTimeout(() => {
             if (isCleaned) return;
             if (!hasPrintStarted) return;
-            if (printMediaQuery && printMediaQuery.matches) return;
+            if (printMediaQuery && printMediaQuery.matches) {
+                if (fallbackRetryCount < maxFallbackRetries) {
+                    fallbackRetryCount += 1;
+                    scheduleCleanupFallback();
+                }
+                return;
+            }
             cleanup();
         }, 8000);
     };
     const markPrintStarted = () => {
         if (hasPrintStarted) return;
         hasPrintStarted = true;
+        fallbackRetryCount = 0;
         scheduleCleanupFallback();
     };
     const handlePrintMediaChange = (event) => {
