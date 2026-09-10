@@ -3058,12 +3058,15 @@ function getCategoryColor(category) {
 function printPersonnelSummary() {
     document.body.classList.add('print-personnel');
     let isCleaned = false;
+    let hasPrintStarted = false;
     let cleanupTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
+        if (!hasPrintStarted) return;
         if (cleanupTimer) window.clearTimeout(cleanupTimer);
         cleanupTimer = window.setTimeout(() => {
             if (isCleaned) return;
+            if (!hasPrintStarted) return;
             if (printMediaQuery && printMediaQuery.matches) {
                 scheduleCleanupFallback();
                 return;
@@ -3071,13 +3074,23 @@ function printPersonnelSummary() {
             cleanup();
         }, 8000);
     };
+    const markPrintStarted = () => {
+        if (hasPrintStarted) return;
+        hasPrintStarted = true;
+        scheduleCleanupFallback();
+    };
     const handlePrintMediaChange = (event) => {
+        if (event.matches) {
+            markPrintStarted();
+            return;
+        }
         if (!event.matches) cleanup();
     };
     const cleanup = () => {
         if (isCleaned) return;
         isCleaned = true;
         document.body.classList.remove('print-personnel');
+        window.removeEventListener('beforeprint', markPrintStarted);
         window.removeEventListener('afterprint', cleanup);
         if (cleanupTimer) window.clearTimeout(cleanupTimer);
         if (printMediaQuery) {
@@ -3088,6 +3101,7 @@ function printPersonnelSummary() {
             }
         }
     };
+    window.addEventListener('beforeprint', markPrintStarted);
     window.addEventListener('afterprint', cleanup);
     if (printMediaQuery) {
         if (typeof printMediaQuery.addEventListener === 'function') {
@@ -3096,7 +3110,6 @@ function printPersonnelSummary() {
             printMediaQuery.addListener(handlePrintMediaChange);
         }
     }
-    scheduleCleanupFallback();
     const triggerPrint = () => {
         void document.body.offsetHeight;
         window.print();
