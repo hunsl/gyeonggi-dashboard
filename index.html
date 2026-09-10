@@ -3086,8 +3086,15 @@ function printPersonnelSummary() {
         }
     }
     cleanupTimer = window.setTimeout(cleanup, 8000);
-    void document.body.offsetHeight;
-    window.print();
+    const triggerPrint = () => {
+        void document.body.offsetHeight;
+        window.print();
+    };
+    if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(triggerPrint);
+    } else {
+        window.setTimeout(triggerPrint, 0);
+    }
 }
 
 function renderSpecialNotes() {
