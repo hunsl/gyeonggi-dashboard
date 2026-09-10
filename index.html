@@ -3061,6 +3061,7 @@ function printPersonnelSummary() {
     let cleanupTimer = null;
     const printMediaQuery = window.matchMedia ? window.matchMedia('print') : null;
     const scheduleCleanupFallback = () => {
+        if (cleanupTimer) window.clearTimeout(cleanupTimer);
         cleanupTimer = window.setTimeout(() => {
             if (isCleaned) return;
             if (printMediaQuery && printMediaQuery.matches) {
