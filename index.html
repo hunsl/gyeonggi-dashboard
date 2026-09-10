@@ -588,7 +588,7 @@ body { background: radial-gradient(circle at 10% 0%, #ECFEFF 0, #F1F5F9 32rem, #
     body.print-personnel #personnel-card > *:not(.card-header):not(.personnel-summary):not(.personnel-table-container) { display: none !important; }
     body.print-personnel .container { max-width: none; padding: 0; }
     body.print-personnel #overview-tab { display: block !important; }
-    body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; break-inside: avoid-page; }
+    body.print-personnel #personnel-card { display: block !important; margin: 0; border: 0; box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
     body.print-personnel #personnel-card .card-header { padding: 0 0 8px; border-bottom: 2px solid #0E7490; }
     body.print-personnel #personnel-card .card-header h2 { font-size: 15pt; }
     body.print-personnel #personnel-card .personnel-print-btn { display: none; }
@@ -3109,7 +3109,11 @@ function printPersonnelSummary() {
     }
     const triggerPrint = () => {
         void document.body.offsetHeight;
-        window.print();
+        try {
+            window.print();
+        } catch (error) {
+            cleanup();
+        }
     };
     if (typeof requestAnimationFrame === 'function') {
         requestAnimationFrame(() => requestAnimationFrame(triggerPrint));
