@@ -521,7 +521,7 @@ body {
 .postmgmt-percent.completion { color: #047857; background: #ECFDF5; }
 .postmgmt-percent.employment { color: #C2410C; background: #FFF7ED; }
 .postmgmt-row.postmgmt-nodata td { opacity: 0.45; }
-.postmgmt-table tbody tr:hover { background: #F8FAFC; }
+.postmgmt-table tbody tr:hover { background: #FFF7ED; }
 
 /* ===== 관리자 대시보드 시각적 고도화 ===== */
 :root { --ink: #3F2D20; --muted: #7C6A58; --line: #E7D7C7; --brand: #B45309; }
@@ -1924,6 +1924,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                         <div id="special-notes-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>
                 </div>
+            </div>
 
             <div class="card" style="margin-bottom:16px;">
                 <div class="card-header autumn-section-header" style="padding:12px 18px;">
@@ -3137,6 +3138,24 @@ function printPersonnelSummary() {
         }, 300);
     };
 
+    const triggerPrint = () => {
+        if (hasPrinted) return;
+        hasPrinted = true;
+        try {
+            printFrame.contentWindow.focus();
+            printFrame.contentWindow.print();
+        } catch (error) {
+            console.error('인쇄 실행 중 오류가 발생했습니다.', error);
+            alert('인쇄를 실행할 수 없습니다. 브라우저 설정을 확인한 뒤 다시 시도해 주세요.');
+            cleanup();
+        }
+    };
+
+    printFrame.addEventListener('load', triggerPrint, { once: true });
+    printDocument.onreadystatechange = () => {
+        if (printDocument.readyState === 'complete') triggerPrint();
+    };
+
     printDocument.open();
     printDocument.write(`
         <!DOCTYPE html>
@@ -3244,22 +3263,8 @@ function printPersonnelSummary() {
     `);
     printDocument.close();
 
-    const triggerPrint = () => {
-        if (hasPrinted) return;
-        hasPrinted = true;
-        try {
-            printFrame.contentWindow.focus();
-            printFrame.contentWindow.print();
-        } catch (error) {
-            console.error('인쇄 실행 중 오류가 발생했습니다.', error);
-            alert('인쇄를 실행할 수 없습니다. 브라우저 설정을 확인한 뒤 다시 시도해 주세요.');
-            cleanup();
-        }
-    };
-
-    printFrame.onload = triggerPrint;
     printFrame.contentWindow.onafterprint = cleanup;
-    window.setTimeout(triggerPrint, 250);
+    window.setTimeout(triggerPrint, 1000);
     window.setTimeout(cleanup, 10000);
 }
 
