@@ -3190,13 +3190,24 @@ function printPersonnelSummary() {
         }
     };
 
+    const waitForPrintResources = () => {
+        const pendingImages = Array.from(printDocument.images || []).filter(image => !image.complete);
+        if (pendingImages.length === 0) return Promise.resolve();
+
+        return Promise.all(pendingImages.map(image => new Promise(resolve => {
+            image.addEventListener('load', resolve, { once: true });
+            image.addEventListener('error', resolve, { once: true });
+        })));
+    };
+
     const handlePrintDocumentReady = () => {
+        if (isReady) return;
         isReady = true;
         printFrame.contentWindow.onafterprint = () => {
             isFinished = true;
             cleanup();
         };
-        triggerPrint();
+        waitForPrintResources().then(triggerPrint);
     };
     printDocument.onreadystatechange = () => {
         if (printDocument.readyState !== 'complete') return;

@@ -182,7 +182,7 @@ test('printPersonnelSummary cleans up the iframe when preparation times out', ()
     assert.deepEqual(alerts, ['인쇄 화면을 준비하지 못했습니다. 잠시 후 다시 시도해 주세요.']);
 });
 
-test('printPersonnelSummary writes a printable document with title and current date', () => {
+test('printPersonnelSummary writes a printable document with title and current date', async () => {
     const alerts = [];
     let writtenHtml = '';
     let printCalls = 0;
@@ -262,6 +262,7 @@ test('printPersonnelSummary writes a printable document with title and current d
         });
 
         printPersonnelSummary();
+        await Promise.resolve();
 
         assert.match(writtenHtml, /과정별 인원 현황/);
         assert.match(writtenHtml, /2026\. 9\. 16\./);
