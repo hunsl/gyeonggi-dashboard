@@ -3158,6 +3158,11 @@ function printPersonnelSummary() {
     let hasPrinted = false;
     let isFinished = false;
     let postPrintCleanupTimer = null;
+    const handleAfterPrint = () => {
+        if (isFinished) return;
+        isFinished = true;
+        cleanup();
+    };
     const handleParentFocus = () => {
         if (!hasPrinted || isFinished) return;
         window.setTimeout(() => {
@@ -3168,6 +3173,7 @@ function printPersonnelSummary() {
     };
     const cleanup = (force = false) => {
         if (force) isFinished = true;
+        window.removeEventListener('afterprint', handleAfterPrint);
         window.removeEventListener('focus', handleParentFocus, true);
         if (postPrintCleanupTimer) window.clearTimeout(postPrintCleanupTimer);
         if (!isFinished) return;
@@ -3214,10 +3220,8 @@ function printPersonnelSummary() {
     const handlePrintDocumentReady = () => {
         if (isReady) return;
         isReady = true;
-        printFrame.contentWindow.onafterprint = () => {
-            isFinished = true;
-            cleanup();
-        };
+        window.addEventListener('afterprint', handleAfterPrint, { once: true });
+        printFrame.contentWindow.onafterprint = handleAfterPrint;
         waitForPrintResources().then(triggerPrint);
     };
     printDocument.onreadystatechange = () => {
