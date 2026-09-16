@@ -3103,6 +3103,12 @@ function getCategoryColor(category) {
 }
 
 function printPersonnelSummary() {
+    const PRINT_CLEANUP_DELAY_MS = 300;
+    const PRINT_FOCUS_RETURN_DELAY_MS = 500;
+    const PRINT_PREPARATION_TIMEOUT_MS = 5000;
+    const PRINT_RESOURCE_TIMEOUT_MS = 1500;
+    const PRINT_DIALOG_CLEANUP_TIMEOUT_MS = 60000;
+
     const personnelCard = document.getElementById('personnel-card');
     const summary = document.getElementById('personnel-summary');
     const tableContainer = personnelCard ? personnelCard.querySelector('.personnel-table-container') : null;
@@ -3158,7 +3164,7 @@ function printPersonnelSummary() {
             if (isFinished) return;
             isFinished = true;
             cleanup();
-        }, 500);
+        }, PRINT_FOCUS_RETURN_DELAY_MS);
     };
     const cleanup = (force = false) => {
         if (force) isFinished = true;
@@ -3167,7 +3173,7 @@ function printPersonnelSummary() {
         if (!isFinished) return;
         window.setTimeout(() => {
             if (document.body.contains(printFrame)) printFrame.remove();
-        }, 300);
+        }, PRINT_CLEANUP_DELAY_MS);
     };
 
     const triggerPrint = () => {
@@ -3178,7 +3184,7 @@ function printPersonnelSummary() {
             if (isFinished) return;
             isFinished = true;
             cleanup();
-        }, 60000);
+        }, PRINT_DIALOG_CLEANUP_TIMEOUT_MS);
         try {
             printFrame.contentWindow.focus();
             printFrame.contentWindow.print();
@@ -3194,10 +3200,15 @@ function printPersonnelSummary() {
         const pendingImages = Array.from(printDocument.images || []).filter(image => !image.complete);
         if (pendingImages.length === 0) return Promise.resolve();
 
-        return Promise.all(pendingImages.map(image => new Promise(resolve => {
+        const resourceLoadPromise = Promise.all(pendingImages.map(image => new Promise(resolve => {
             image.addEventListener('load', resolve, { once: true });
             image.addEventListener('error', resolve, { once: true });
         })));
+        const resourceTimeoutPromise = new Promise(resolve => {
+            window.setTimeout(resolve, PRINT_RESOURCE_TIMEOUT_MS);
+        });
+
+        return Promise.race([resourceLoadPromise, resourceTimeoutPromise]);
     };
 
     const handlePrintDocumentReady = () => {
@@ -3389,7 +3400,7 @@ function printPersonnelSummary() {
         if (isReady || hasPrinted) return;
         cleanup(true);
         alert('인쇄 화면을 준비하지 못했습니다. 잠시 후 다시 시도해 주세요.');
-    }, 5000);
+    }, PRINT_PREPARATION_TIMEOUT_MS);
 }
 
 function renderSpecialNotes() {
