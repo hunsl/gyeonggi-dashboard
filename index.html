@@ -3125,7 +3125,18 @@ function printPersonnelSummary() {
     let isReady = false;
     let hasPrinted = false;
     let isFinished = false;
+    let postPrintCleanupTimer = null;
+    const handleParentFocus = () => {
+        if (!hasPrinted || isFinished) return;
+        window.setTimeout(() => {
+            if (isFinished) return;
+            isFinished = true;
+            cleanup();
+        }, 500);
+    };
     const cleanup = () => {
+        window.removeEventListener('focus', handleParentFocus, true);
+        if (postPrintCleanupTimer) window.clearTimeout(postPrintCleanupTimer);
         if (!isFinished) return;
         window.setTimeout(() => {
             if (document.body.contains(printFrame)) printFrame.remove();
@@ -3135,6 +3146,12 @@ function printPersonnelSummary() {
     const triggerPrint = () => {
         if (!isReady || hasPrinted || !printFrame.contentWindow) return;
         hasPrinted = true;
+        window.addEventListener('focus', handleParentFocus, true);
+        postPrintCleanupTimer = window.setTimeout(() => {
+            if (isFinished) return;
+            isFinished = true;
+            cleanup();
+        }, 60000);
         try {
             printFrame.contentWindow.focus();
             printFrame.contentWindow.print();
