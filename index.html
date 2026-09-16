@@ -3122,6 +3122,13 @@ function printPersonnelSummary() {
     printFrame.style.border = '0';
     document.body.appendChild(printFrame);
 
+    const printDocument = printFrame.contentWindow ? printFrame.contentWindow.document : null;
+    if (!printDocument || !printFrame.contentWindow) {
+        printFrame.remove();
+        alert('인쇄 창을 준비할 수 없습니다. 다시 시도해 주세요.');
+        return;
+    }
+
     const serializeSanitizedHTML = (element) => {
         const clone = element.cloneNode(true);
         clone.querySelectorAll('script').forEach(node => node.remove());
@@ -3183,21 +3190,21 @@ function printPersonnelSummary() {
         }
     };
 
-    printFrame.addEventListener('load', () => {
+    printDocument.onreadystatechange = () => {
+        if (printDocument.readyState !== 'complete') return;
         isReady = true;
-        if (printFrame.contentWindow) {
-            printFrame.contentWindow.onafterprint = () => {
-                isFinished = true;
-                cleanup();
-            };
-        }
+        printFrame.contentWindow.onafterprint = () => {
+            isFinished = true;
+            cleanup();
+        };
         triggerPrint();
-    }, { once: true });
+    };
 
     const sanitizedSummary = serializeSanitizedHTML(summary);
     const sanitizedTable = serializeSanitizedHTML(tableContainer);
 
-    printFrame.srcdoc = `
+    printDocument.open();
+    printDocument.write(`
         <!DOCTYPE html>
         <html lang="ko">
         <head>
@@ -3360,7 +3367,8 @@ function printPersonnelSummary() {
             </div>
         </body>
         </html>
-    `;
+    `);
+    printDocument.close();
 
     window.setTimeout(() => {
         if (isReady || hasPrinted) return;

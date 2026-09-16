@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const html = readFileSync('/home/runner/work/gyeonggi-dashboard/gyeonggi-dashboard/index.html', 'utf8');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const html = readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 
 function extractFunctionSource(name) {
     const signature = `function ${name}()`;
@@ -93,10 +97,18 @@ test('printPersonnelSummary cleans up the iframe when preparation times out', ()
     const timers = [];
     let removed = false;
     const listeners = new Map();
+    const printDocument = {
+        readyState: 'loading',
+        onreadystatechange: null,
+        open() {},
+        write() {},
+        close() {}
+    };
 
     const iframe = {
         style: {},
         contentWindow: {
+            document: printDocument,
             focus() {},
             print() {
                 throw new Error('print should not run before iframe load');
