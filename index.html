@@ -3122,6 +3122,25 @@ function printPersonnelSummary() {
     printFrame.style.border = '0';
     document.body.appendChild(printFrame);
 
+    const serializeSanitizedHTML = (element) => {
+        const clone = element.cloneNode(true);
+        clone.querySelectorAll('script').forEach(node => node.remove());
+        clone.querySelectorAll('*').forEach(node => {
+            Array.from(node.attributes || []).forEach(attr => {
+                const attrName = attr.name.toLowerCase();
+                const attrValue = attr.value || '';
+                if (attrName.startsWith('on') || attrName === 'srcdoc') {
+                    node.removeAttribute(attr.name);
+                    return;
+                }
+                if ((attrName === 'href' || attrName === 'src') && /^\s*javascript:/i.test(attrValue)) {
+                    node.removeAttribute(attr.name);
+                }
+            });
+        });
+        return clone.outerHTML;
+    };
+
     let isReady = false;
     let hasPrinted = false;
     let isFinished = false;
@@ -3134,7 +3153,8 @@ function printPersonnelSummary() {
             cleanup();
         }, 500);
     };
-    const cleanup = () => {
+    const cleanup = (force = false) => {
+        if (force) isFinished = true;
         window.removeEventListener('focus', handleParentFocus, true);
         if (postPrintCleanupTimer) window.clearTimeout(postPrintCleanupTimer);
         if (!isFinished) return;
@@ -3173,6 +3193,9 @@ function printPersonnelSummary() {
         }
         triggerPrint();
     }, { once: true });
+
+    const sanitizedSummary = serializeSanitizedHTML(summary);
+    const sanitizedTable = serializeSanitizedHTML(tableContainer);
 
     printFrame.srcdoc = `
         <!DOCTYPE html>
@@ -3332,8 +3355,8 @@ function printPersonnelSummary() {
                     <h1>👥 과정별 인원 현황</h1>
                     <span>${new Date().toLocaleDateString('ko-KR')} 출력</span>
                 </div>
-                ${summary.outerHTML}
-                ${tableContainer.outerHTML}
+                ${sanitizedSummary}
+                ${sanitizedTable}
             </div>
         </body>
         </html>
@@ -3341,8 +3364,7 @@ function printPersonnelSummary() {
 
     window.setTimeout(() => {
         if (isReady || hasPrinted) return;
-        isFinished = true;
-        printFrame.remove();
+        cleanup(true);
         alert('인쇄 화면을 준비하지 못했습니다. 잠시 후 다시 시도해 주세요.');
     }, 5000);
 }
