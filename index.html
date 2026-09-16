@@ -3142,7 +3142,7 @@ function printPersonnelSummary() {
             Array.from(node.attributes || []).forEach(attr => {
                 const attrName = attr.name.toLowerCase();
                 const attrValue = attr.value || '';
-                if (attrName.startsWith('on') || attrName === 'srcdoc') {
+                if (attrName.startsWith('on') || attrName === 'srcdoc' || attrName === 'style') {
                     node.removeAttribute(attr.name);
                     return;
                 }
@@ -3174,6 +3174,9 @@ function printPersonnelSummary() {
     const cleanup = (force = false) => {
         if (force) isFinished = true;
         window.removeEventListener('afterprint', handleAfterPrint);
+        if (printFrame.contentWindow && typeof printFrame.contentWindow.removeEventListener === 'function') {
+            printFrame.contentWindow.removeEventListener('afterprint', handleAfterPrint);
+        }
         window.removeEventListener('focus', handleParentFocus, true);
         if (postPrintCleanupTimer) window.clearTimeout(postPrintCleanupTimer);
         if (!isFinished) return;
@@ -3221,6 +3224,9 @@ function printPersonnelSummary() {
         if (isReady) return;
         isReady = true;
         window.addEventListener('afterprint', handleAfterPrint, { once: true });
+        if (typeof printFrame.contentWindow.addEventListener === 'function') {
+            printFrame.contentWindow.addEventListener('afterprint', handleAfterPrint, { once: true });
+        }
         printFrame.contentWindow.onafterprint = handleAfterPrint;
         waitForPrintResources().then(triggerPrint);
     };
