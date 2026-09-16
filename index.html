@@ -3122,24 +3122,18 @@ function printPersonnelSummary() {
     printFrame.style.border = '0';
     document.body.appendChild(printFrame);
 
-    const styleText = document.querySelector('style') ? document.querySelector('style').textContent : '';
-    const printDocument = printFrame.contentWindow ? printFrame.contentWindow.document : null;
-
-    if (!printDocument || !printFrame.contentWindow) {
-        printFrame.remove();
-        alert('인쇄 창을 준비할 수 없습니다. 다시 시도해 주세요.');
-        return;
-    }
-
+    let isReady = false;
     let hasPrinted = false;
+    let isFinished = false;
     const cleanup = () => {
+        if (!isFinished) return;
         window.setTimeout(() => {
             if (document.body.contains(printFrame)) printFrame.remove();
         }, 300);
     };
 
     const triggerPrint = () => {
-        if (hasPrinted) return;
+        if (!isReady || hasPrinted || !printFrame.contentWindow) return;
         hasPrinted = true;
         try {
             printFrame.contentWindow.focus();
@@ -3147,29 +3141,37 @@ function printPersonnelSummary() {
         } catch (error) {
             console.error('인쇄 실행 중 오류가 발생했습니다.', error);
             alert('인쇄를 실행할 수 없습니다. 브라우저 설정을 확인한 뒤 다시 시도해 주세요.');
+            isFinished = true;
             cleanup();
         }
     };
 
-    printFrame.addEventListener('load', triggerPrint, { once: true });
-    printDocument.onreadystatechange = () => {
-        if (printDocument.readyState === 'complete') triggerPrint();
-    };
+    printFrame.addEventListener('load', () => {
+        isReady = true;
+        if (printFrame.contentWindow) {
+            printFrame.contentWindow.onafterprint = () => {
+                isFinished = true;
+                cleanup();
+            };
+        }
+        triggerPrint();
+    }, { once: true });
 
-    printDocument.open();
-    printDocument.write(`
+    printFrame.srcdoc = `
         <!DOCTYPE html>
         <html lang="ko">
         <head>
             <meta charset="UTF-8">
             <title>과정별 인원 현황 인쇄</title>
             <style>
-                ${styleText}
                 @page { size: A4 landscape; margin: 8mm; }
+                * { box-sizing: border-box; }
                 body {
-                    background: #ffffff !important;
+                    margin: 0;
+                    background: #ffffff;
                     padding: 0;
                     color: #1f2937;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
                     -webkit-print-color-adjust: exact;
                     print-color-adjust: exact;
                 }
@@ -3197,16 +3199,48 @@ function printPersonnelSummary() {
                     font-weight: 700;
                 }
                 .personnel-summary {
+                    display: grid;
                     padding: 0 0 10px !important;
                     gap: 8px !important;
                     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
                 }
                 .personnel-summary-item {
+                    position: relative;
+                    overflow: hidden;
+                    padding: 10px 12px;
+                    border: 1px solid #E7D7C7;
+                    border-radius: 10px;
                     border-color: #E7D7C7 !important;
                     background: linear-gradient(135deg, #FFF9F2 0%, #FFFFFF 100%) !important;
                 }
+                .personnel-summary-label {
+                    color: #7C6A58;
+                    font-size: 8pt;
+                    font-weight: 800;
+                    margin-bottom: 4px;
+                }
                 .personnel-summary-value {
+                    color: #1F2937;
                     font-size: 1.2em !important;
+                    font-weight: 900;
+                    line-height: 1.15;
+                }
+                .personnel-summary-value small {
+                    color: #7C6A58;
+                    font-size: 0.62em;
+                    font-weight: 700;
+                }
+                .summary-meter {
+                    height: 5px;
+                    margin-top: 8px;
+                    border-radius: 999px;
+                    background: #F1E1CF;
+                    overflow: hidden;
+                }
+                .summary-meter span {
+                    display: block;
+                    height: 100%;
+                    border-radius: inherit;
                 }
                 .personnel-table-container,
                 .table-container {
@@ -3223,6 +3257,7 @@ function printPersonnelSummary() {
                     width: 100% !important;
                     min-width: 0 !important;
                     table-layout: fixed !important;
+                    border-collapse: collapse;
                     font-size: 8.4pt !important;
                 }
                 .personnel-data-table thead,
@@ -3235,17 +3270,42 @@ function printPersonnelSummary() {
                 .data-table td {
                     padding: 4px 3px !important;
                     border-color: #E7D7C7 !important;
+                    border: 1px solid #E7D7C7;
+                    text-align: center;
+                    vertical-align: middle;
                 }
                 .personnel-data-table thead th {
                     font-size: 7.4pt !important;
+                    color: #7C2D12;
+                    background: linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%);
                 }
                 .personnel-data-table tbody td {
                     font-size: 8pt !important;
                 }
-                .personnel-data-table tbody tr:hover,
-                .data-table tbody tr:hover {
-                    transform: none !important;
-                    box-shadow: none !important;
+                .personnel-data-table td:nth-child(2) {
+                    text-align: left;
+                    word-break: keep-all;
+                }
+                .personnel-data-table thead th[rowspan] {
+                    background: linear-gradient(135deg, #FFF7ED, #FFF1DB);
+                }
+                .personnel-data-table .stage-select { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #92400E; }
+                .personnel-data-table .stage-education { background: linear-gradient(135deg, #ECFCCB, #DCFCE7); color: #166534; }
+                .personnel-data-table .stage-aftercare { background: linear-gradient(135deg, #FFEDD5, #FED7AA); color: #C2410C; }
+                .stat-number {
+                    display: inline-block;
+                    min-width: 32px;
+                    padding: 3px 7px;
+                    border-radius: 999px;
+                    font-weight: 800;
+                    background: #FFF1DB;
+                    color: #9A3412;
+                }
+                .stat-number.high { background: #DCFCE7; color: #166534; }
+                .stat-number.low { background: #FEE2E2; color: #B91C1C; }
+                .personnel-total-row td {
+                    font-weight: 900;
+                    background: #FFF7ED !important;
                 }
             </style>
         </head>
@@ -3260,12 +3320,14 @@ function printPersonnelSummary() {
             </div>
         </body>
         </html>
-    `);
-    printDocument.close();
+    `;
 
-    printFrame.contentWindow.onafterprint = cleanup;
-    window.setTimeout(triggerPrint, 1000);
-    window.setTimeout(cleanup, 10000);
+    window.setTimeout(() => {
+        if (isReady || hasPrinted) return;
+        isFinished = true;
+        printFrame.remove();
+        alert('인쇄 화면을 준비하지 못했습니다. 잠시 후 다시 시도해 주세요.');
+    }, 5000);
 }
 
 function renderSpecialNotes() {
