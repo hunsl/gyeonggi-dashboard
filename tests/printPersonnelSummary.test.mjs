@@ -181,3 +181,93 @@ test('printPersonnelSummary cleans up the iframe when preparation times out', ()
     assert.equal(removed, true);
     assert.deepEqual(alerts, ['인쇄 화면을 준비하지 못했습니다. 잠시 후 다시 시도해 주세요.']);
 });
+
+test('printPersonnelSummary writes a printable document with title and current date', () => {
+    const alerts = [];
+    let writtenHtml = '';
+    let printCalls = 0;
+    const RealDate = Date;
+    globalThis.Date = class extends RealDate {
+        constructor(...args) {
+            super(...(args.length ? args : ['2026-09-16T00:00:00Z']));
+        }
+        static now() {
+            return new RealDate('2026-09-16T00:00:00Z').getTime();
+        }
+    };
+
+    try {
+        const printDocument = {
+            readyState: 'complete',
+            onreadystatechange: null,
+            open() {},
+            write(html) {
+                writtenHtml = html;
+            },
+            close() {}
+        };
+
+        const iframe = {
+            style: {},
+            contentWindow: {
+                document: printDocument,
+                focus() {},
+                print() {
+                    printCalls += 1;
+                },
+                onafterprint: null
+            },
+            setAttribute() {},
+            addEventListener() {},
+            remove() {}
+        };
+
+        const summary = createSanitizableElement('<div class="personnel-summary"></div>');
+        const table = createSanitizableElement('<div class="personnel-table-container"></div>');
+        const personnelCard = {
+            querySelector() {
+                return table;
+            }
+        };
+
+        const printPersonnelSummary = instantiatePrintPersonnelSummary({
+            document: {
+                getElementById(id) {
+                    if (id === 'personnel-card') return personnelCard;
+                    if (id === 'personnel-summary') return summary;
+                    return null;
+                },
+                createElement() {
+                    return iframe;
+                },
+                body: {
+                    appendChild() {},
+                    contains() {
+                        return true;
+                    }
+                }
+            },
+            window: {
+                setTimeout() {
+                    return 1;
+                },
+                clearTimeout() {},
+                addEventListener() {},
+                removeEventListener() {}
+            },
+            alert(message) {
+                alerts.push(message);
+            },
+            console
+        });
+
+        printPersonnelSummary();
+
+        assert.match(writtenHtml, /과정별 인원 현황/);
+        assert.match(writtenHtml, /2026\. 9\. 16\./);
+        assert.equal(printCalls, 1);
+        assert.deepEqual(alerts, []);
+    } finally {
+        globalThis.Date = RealDate;
+    }
+});
