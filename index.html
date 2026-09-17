@@ -2166,7 +2166,7 @@ let generalNotices = [];
 let saveTimeout = null; // 디바운싱용 타이머
 const TASKS = ["1.통합접수시스템 등록", "2.교육기간 확정", "3.교육장 예약", "4.강좌 개설", "5.홍보디자인 제작", "6.마케팅 전개", "7.자격 예비 검증", "8.면접 행정 세팅", "9.최종 선발", "10.OT/서류 징구", "11.훈련지원금 지급", "12.사후관리 특강", "13.학습동아리 지원", "14.취업지원 DB업데이트"];
 const PROGRAM_TARGETS = {
-    selected: 240,
+    selected: 230,
     completionRate: 90,
     employmentRate: 65
 };
@@ -2628,6 +2628,8 @@ function renderKPISummary() {
         totalEmployed  += s.employed  || 0;
     });
 
+    const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
+    const selectedGoalAchievement = selectedGoal > 0 ? Math.round((totalPassed / selectedGoal) * 100) : 0;
     const crRate = totalPassed    > 0 ? Math.round(totalCompleted / totalPassed    * 100) : 0;
     const erRate = totalCompleted > 0 ? Math.round(totalEmployed  / totalCompleted * 100) : 0;
     const issueCount = courses.filter(c => c.specialNotes && c.specialNotes.trim() !== '').length;
@@ -2653,7 +2655,7 @@ function renderKPISummary() {
                 <div class="kpi-icon">🎯</div>
                 <div class="kpi-value">${totalPassed}</div>
                 <div class="kpi-label">선발 인원</div>
-                <div class="kpi-sublabel">목표 ${PROGRAM_TARGETS.selected}명 · ${totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0}% 달성</div>
+                <div class="kpi-sublabel">목표 ${selectedGoal}명 · ${selectedGoalAchievement}% 달성</div>
             </div>
             <div class="kpi-card kpi-warning">
                 <div class="kpi-icon">📢</div>
@@ -2775,6 +2777,8 @@ function renderPostManagementKPIs() {
     });
     const totalCR = totalPassed    > 0 ? Math.round((totalCompleted / totalPassed)    * 100) : 0;
     const totalER = totalCompleted > 0 ? Math.round((totalEmployed  / totalCompleted) * 100) : 0;
+    const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
+    const selectedGoalAchievement = selectedGoal > 0 ? Math.round((totalPassed / selectedGoal) * 100) : 0;
     const crGoal = PROGRAM_TARGETS.completionRate;
     const erGoal = PROGRAM_TARGETS.employmentRate;
 
@@ -2841,8 +2845,8 @@ function renderPostManagementKPIs() {
                 <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
                     <div style="font-size:0.78em;font-weight:700;color:#1D4ED8;letter-spacing:.3px;">👥 선발 / 수료 / 취업</div>
                     <div style="font-size:1.35em;font-weight:900;color:#1D4ED8;line-height:1.3;">${totalPassed}<span style="font-size:0.55em;color:#3B82F6;font-weight:700;"> / ${totalCompleted} / ${totalEmployed}명</span></div>
-                    <div style="font-size:0.73em;color:#1E40AF;">목표 선발 ${PROGRAM_TARGETS.selected}명 · 달성 ${totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0}%</div>
-                    <div style="height:6px;background:#BFDBFE;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, totalPassed > 0 ? Math.round(totalPassed/PROGRAM_TARGETS.selected*100) : 0)}%;height:100%;background:linear-gradient(90deg,#60A5FA,#2563EB);border-radius:3px;"></div></div>
+                    <div style="font-size:0.73em;color:#1E40AF;">목표 선발 ${selectedGoal}명 · 달성 ${selectedGoalAchievement}%</div>
+                    <div style="height:6px;background:#BFDBFE;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, selectedGoalAchievement)}%;height:100%;background:linear-gradient(90deg,#60A5FA,#2563EB);border-radius:3px;"></div></div>
                 </div>
             </div>
             <div class="postmgmt-table-wrap">
@@ -2991,10 +2995,11 @@ function renderOverview() {
     const totalInterviewRate = totalStats.applications > 0 ? Math.round((totalStats.interviews / totalStats.applications) * 100) : 0;
     const totalCompletionRate = totalStats.passed > 0 ? Math.round((totalStats.completed / totalStats.passed) * 100) : 0;
     const totalEmploymentRate = totalStats.completed > 0 ? Math.round((totalStats.employed / totalStats.completed) * 100) : 0;
-    const selectedAchievement = Math.round((totalStats.passed / PROGRAM_TARGETS.selected) * 100);
+    const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
+    const selectedAchievement = selectedGoal > 0 ? Math.round((totalStats.passed / selectedGoal) * 100) : 0;
     const completionAchievement = Math.round((totalCompletionRate / PROGRAM_TARGETS.completionRate) * 100);
     const employmentAchievement = Math.round((totalEmploymentRate / PROGRAM_TARGETS.employmentRate) * 100);
-    const maxDropouts = Math.round(PROGRAM_TARGETS.selected * (1 - PROGRAM_TARGETS.completionRate / 100));
+    const maxDropouts = selectedGoal > 0 ? Math.floor(selectedGoal * (1 - PROGRAM_TARGETS.completionRate / 100)) : 0;
     const additionalDropoutsAllowed = Math.max(0, maxDropouts - totalStats.dropouts);
     const summary = document.getElementById('personnel-summary');
     if (summary) {
@@ -3005,7 +3010,7 @@ function renderOverview() {
             <div class="personnel-summary-item"><div class="personnel-summary-label">전체 과정</div><div class="personnel-summary-value">${courses.length}<small>개 운영</small></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">정원 / 접수</div><div class="personnel-summary-value">${totalStats.capacity.toLocaleString()} <small>/ ${totalStats.applications.toLocaleString()}명</small></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">면접참여율</div><div class="personnel-summary-value" style="color:#0891B2;">${totalInterviewRate}% <small>(${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}명)</small></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">${selBadge} 선발 달성</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${PROGRAM_TARGETS.selected}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">${selBadge} 선발 달성</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${selectedGoal}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">${crBadge} 수료율 달성</div><div class="personnel-summary-value" style="color:#059669;">${totalCompletionRate}% <small>/ 목표 ${PROGRAM_TARGETS.completionRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, completionAchievement)}%;background:linear-gradient(90deg,#34D399,#059669);"></span></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">${erBadge} 취업률 달성</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>/ 목표 ${PROGRAM_TARGETS.employmentRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">중도탈락 잔여 허용</div><div class="personnel-summary-value" style="color:${additionalDropoutsAllowed > 0 ? '#059669' : '#DC2626'};">${additionalDropoutsAllowed}<small>명 (한도 ${maxDropouts}명 · 현재 ${totalStats.dropouts}명)</small></div><div class="summary-meter"><span style="width:${maxDropouts > 0 ? Math.min(100, (totalStats.dropouts / maxDropouts) * 100) : 100}%;background:linear-gradient(90deg,#F59E0B,#DC2626);"></span></div></div>
