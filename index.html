@@ -2238,24 +2238,6 @@ function getInitialCourses() {
     }));
 }
 
-const CONFIRMED_COURSE_VERSION = '2026-ai-three-course-progress-v4';
-function getConfirmedCourseUpdate(courseId, initialCourse) {
-    if (!initialCourse || ![11, 12, 13].includes(Number(courseId))) return null;
-    return {
-        name: initialCourse.name,
-        category: initialCourse.category,
-        period: initialCourse.period,
-        start_date: initialCourse.start_date,
-        main_plan: initialCourse.main_plan,
-        location: initialCourse.location || '',
-        instructor: initialCourse.instructor || '',
-        memo: initialCourse.memo || '',
-        specialNotes: initialCourse.specialNotes || '',
-        referenceLinks: initialCourse.referenceLinks || '',
-        confirmedCourseVersion: CONFIRMED_COURSE_VERSION
-    };
-}
-
 async function initializeFirestore() {
     try {
         console.log('🔌 Firestore 초기화 시작...');
@@ -2292,68 +2274,7 @@ async function initializeFirestore() {
             alert('✅ 초기 데이터가 생성되었습니다.');
             
         } else {
-            console.log(`✅ 기존 데이터 발견: ${coursesSnapshot.size}개 과정`);
-            
-            // 기존 데이터 마이그레이션: statistics에 category와 capacity 추가
-            const initialCourses = getInitialCourses();
-            const updatePromises = [];
-            
-            coursesSnapshot.forEach((docSnapshot) => {
-                const data = docSnapshot.data();
-                const initialCourse = initialCourses.find(c => c.id === parseInt(docSnapshot.id));
-                
-                const updates = {};
-                
-                // statistics 필드 확인 및 업데이트
-                if (!data.statistics) {
-                    updates.statistics = { 
-                        category: initialCourse?.statistics.category || '', 
-                        capacity: initialCourse?.statistics.capacity || 0,
-                        applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 
-                    };
-                } else {
-                    // statistics는 있지만 category나 capacity가 없는 경우
-                    if (!data.statistics.category || !data.statistics.capacity) {
-                        updates.statistics = {
-                            ...data.statistics,
-                            category: data.statistics.category || initialCourse?.statistics.category || '',
-                            capacity: data.statistics.capacity || initialCourse?.statistics.capacity || 0
-                        };
-                    }
-                }
-                
-                // instructor 필드 추가
-                if (!data.instructor) {
-                    updates.instructor = '';
-                }
-                
-                // specialNotes 필드 추가 (기존 데이터 유지)
-                if (data.specialNotes === undefined) {
-                    updates.specialNotes = initialCourse?.specialNotes || '';
-                }
-
-                const confirmedUpdate = getConfirmedCourseUpdate(docSnapshot.id, initialCourse);
-                if (confirmedUpdate && data.confirmedCourseVersion !== CONFIRMED_COURSE_VERSION) {
-                    Object.assign(updates, confirmedUpdate);
-                    updates.statistics = {
-                        ...(data.statistics || {}),
-                        category: initialCourse?.statistics.category || confirmedUpdate.category,
-                        capacity: initialCourse?.statistics.capacity || 0
-                    };
-                }
-
-                // 업데이트가 필요한 경우에만 실행
-                if (Object.keys(updates).length > 0) {
-                    updatePromises.push(
-                        updateDoc(doc(db, 'courses', docSnapshot.id), updates)
-                    );
-                }
-            });
-            
-            if (updatePromises.length > 0) {
-                await Promise.all(updatePromises);
-                console.log('✅ 기존 데이터 마이그레이션 완료');
-            }
+            console.log(`✅ 기존 데이터 발견: ${coursesSnapshot.size}개 과정. 저장된 내용은 그대로 둡니다.`);
         }
         
         document.getElementById('sync-status').innerHTML = '<span style="font-size: 1em; color: #10B981;">●</span><span style="margin-left: 4px;">실시간 연결됨</span>';
