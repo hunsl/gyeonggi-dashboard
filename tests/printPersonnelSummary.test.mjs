@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const html = readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 
 function extractFunctionSource(name) {
-    const signature = `function ${name}()`;
+    const signature = `window.${name} = function()`;
     const start = html.indexOf(signature);
     assert.notEqual(start, -1, `${name} source not found`);
 
@@ -35,7 +35,7 @@ function instantiatePrintPersonnelSummary({ document, window, alert, console }) 
         'window',
         'alert',
         'console',
-        `${printPersonnelSummarySource}; return printPersonnelSummary;`
+        `${printPersonnelSummarySource}; return window.printPersonnelSummary;`
     )(document, window, alert, console);
 }
 
