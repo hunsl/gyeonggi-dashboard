@@ -1796,7 +1796,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                     <h2>📋 과정별 진행현황 보드</h2>
                     <span class="autumn-badge">자주 보는 핵심 과정 한눈에 보기</span>
                 </div>
-                <div style="padding:12px 20px 0;color:#64748B;font-size:0.82em;line-height:1.6;">수료율은 수료 인원 ÷ 합격 인원입니다. 운영상태가 미입력된 과정은 등록된 실적으로 표시합니다.<br>업무 체크 기록이 비어 있는 과정은 ‘기록 확인 필요’로 표시하며, 실적만으로 업무를 완료 처리하지 않습니다.</div>
+                <div style="padding:12px 20px 0;color:#64748B;font-size:0.82em;line-height:1.6;">수료율은 수료 인원 ÷ 교육참여 인원입니다. 운영상태가 미입력된 과정은 등록된 실적으로 표시합니다.<br>업무 체크 기록이 비어 있는 과정은 ‘기록 확인 필요’로 표시하며, 실적만으로 업무를 완료 처리하지 않습니다.</div>
                 <div id="course-progress-board" class="course-board"></div>
             </div>
 
@@ -1838,7 +1838,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                                 <th class="stage-education">교육참여(명)</th>
                                 <th class="stage-education">탈락(명)</th>
                                 <th class="stage-education">수료(명)</th>
-                                <th class="stage-education">수료율(%)</th>
+                                <th class="stage-education">수료율<br><small>수료/참여</small></th>
                                 <th class="stage-aftercare">취업(명)</th>
                                 <th class="stage-aftercare">취업률(%)</th>
                                 <th class="stage-aftercare-later">취업(명)</th>
@@ -2114,7 +2114,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                         <!-- 자동계산 수료율·취업률 -->
                         <div class="stat-rate-box">
                             <div class="stat-rate-item">
-                                <div class="stat-rate-label">📊 수료율 <small style="font-size:0.72em;color:#64748B;">(면접합격 기준)</small></div>
+                                <div class="stat-rate-label">📊 수료율 <small style="font-size:0.72em;color:#64748B;">교육참여 기준</small></div>
                                 <div class="stat-rate-value" id="auto-completion-rate" style="color:#0891B2;">—</div>
                             </div>
                             <div class="stat-rate-item">
@@ -2597,11 +2597,12 @@ function renderKPISummary() {
         else statusCounts.unknown++;
     });
 
-    let totalPassed = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
+    let totalPassed = 0, totalEnrolled = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
     courses.forEach(c => {
         const s = c.statistics || {};
         const emp = employmentParts(s);
         totalPassed    += s.passed    || 0;
+        totalEnrolled  += s.enrolled  || 0;
         totalCompleted += s.completed || 0;
         totalEmployedAsOf += emp.asOf;
         totalEmployedAfter += emp.after;
@@ -2610,7 +2611,7 @@ function renderKPISummary() {
 
     const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
     const selectedGoalAchievement = selectedGoal > 0 ? Math.round((totalPassed / selectedGoal) * 100) : 0;
-    const crRate = totalPassed    > 0 ? Math.round(totalCompleted / totalPassed    * 100) : 0;
+    const crRate = totalEnrolled  > 0 ? Math.round(totalCompleted / totalEnrolled  * 100) : 0;
     const erRate = totalCompleted > 0 ? Math.round(totalEmployed  / totalCompleted * 100) : 0;
     const issueCount = courses.filter(c => c.specialNotes && c.specialNotes.trim() !== '').length;
 
@@ -2653,7 +2654,7 @@ function renderKPISummary() {
                 <div class="kpi-icon">🎓</div>
                 <div class="kpi-value">${crRate}%</div>
                 <div class="kpi-label">전체 수료율</div>
-                <div class="kpi-sublabel">${totalCompleted}명 수료 · 목표 ${PROGRAM_TARGETS.completionRate}%</div>
+                <div class="kpi-sublabel">${totalCompleted}명 수료 / 교육참여 ${totalEnrolled}명 · 목표 ${PROGRAM_TARGETS.completionRate}%</div>
             </div>
             <div class="kpi-card ${erClass}">
                 <div class="kpi-icon">💼</div>
@@ -2682,14 +2683,14 @@ function renderCourseProgressBoard() {
         const progress = calcProgress(course);
         const st = getCourseDisplayStatus(course);
         const stats = course.statistics || {};
-        const passed    = stats.passed    || 0;
         const completed = stats.completed || 0;
+        const enrolled  = Number(stats.enrolled) || 0;
         const employed  = employmentParts(stats).total;
         const capacity  = stats.capacity  || 0;
         const hasIssue  = course.specialNotes && course.specialNotes.trim() !== '';
 
         const progressColor = progress === null ? '#64748B' : progress === 100 ? '#059669' : progress >= 70 ? '#0891B2' : progress >= 40 ? '#F59E0B' : '#DC2626';
-        const crRate = passed > 0 ? Math.round(completed / passed * 100) : null;
+        const crRate = enrolled > 0 ? Math.round(completed / enrolled * 100) : null;
         const erRate = completed > 0 ? Math.round(employed / completed * 100) : null;
         const crColor = crRate >= 80 ? '#059669' : crRate > 0 ? '#F59E0B' : '#94A3B8';
         const erColor = erRate >= 80 ? '#059669' : erRate > 0 ? '#F59E0B' : '#94A3B8';
@@ -2709,14 +2710,14 @@ function renderCourseProgressBoard() {
                 </div>
                 <div class="course-board-card-body">
                     <div class="course-board-progress-label">
-                        <span>수료율 <small style="font-weight:400;">수료 / 합격</small></span>
+                        <span>수료율 <small style="font-weight:400;">수료 / 교육참여</small></span>
                         <span style="font-size:1em;font-weight:800;color:${crColor};">${crRate === null ? '—' : crRate + '%'}</span>
                     </div>
                     <div class="course-board-progress-bar">
                         <div class="course-board-progress-fill"
                              style="width:${Math.max(0, Math.min(100, crRate ?? 0))}%;background:linear-gradient(90deg,${course.color},${course.color}CC);box-shadow:0 0 8px ${hexToRgba(course.color,0.4)};"></div>
                     </div>
-                    <div style="font-size:0.75em;color:#475569;margin-top:7px;">수료 ${completed}명 / 합격 ${passed}명</div>
+                    <div style="font-size:0.75em;color:#475569;margin-top:7px;">수료 ${completed}명 / 교육참여 ${enrolled}명</div>
                     <div style="font-size:0.73em;color:${progressColor};margin-top:6px;">업무 체크리스트 · ${progressLabel(progress)}</div>
                     <div class="course-board-stats">
                         <div class="course-board-stat-item">
@@ -2750,17 +2751,18 @@ function renderPostManagementKPIs() {
     const container = document.getElementById('postmgmt-section');
     if (!container || !courses || courses.length === 0) return;
 
-    let totalPassed = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
+    let totalPassed = 0, totalEnrolled = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
     courses.forEach(c => {
         const s = c.statistics || {};
         const emp = employmentParts(s);
         totalPassed    += Number(s.passed)    || 0;
+        totalEnrolled  += Number(s.enrolled)  || 0;
         totalCompleted += Number(s.completed) || 0;
         totalEmployedAsOf += emp.asOf;
         totalEmployedAfter += emp.after;
     });
     const totalEmployed = totalEmployedAsOf + totalEmployedAfter;
-    const totalCR = totalPassed    > 0 ? Math.round((totalCompleted / totalPassed)    * 100) : 0;
+    const totalCR = totalEnrolled > 0 ? Math.round((totalCompleted / totalEnrolled) * 100) : 0;
     const totalER = totalCompleted > 0 ? Math.round((totalEmployed  / totalCompleted) * 100) : 0;
     const totalERAsOf = percentRate(totalEmployedAsOf, totalCompleted);
     const totalERAfter = percentRate(totalEmployedAfter, totalCompleted);
@@ -2772,9 +2774,10 @@ function renderPostManagementKPIs() {
     const postRows = courses.map(course => {
         const s = course.statistics || {};
         const passed    = Number(s.passed)    || 0;
+        const enrolled  = Number(s.enrolled)  || 0;
         const completed = Number(s.completed) || 0;
         const emp = employmentParts(s);
-        const cr = passed    > 0 ? Math.round((completed / passed)    * 100) : 0;
+        const cr = enrolled > 0 ? Math.round((completed / enrolled) * 100) : 0;
         const er = percentRate(emp.total, completed);
         const erAsOf = percentRate(emp.asOf, completed);
         const erAfter = percentRate(emp.after, completed);
@@ -2788,7 +2791,7 @@ function renderPostManagementKPIs() {
         return `
             <tr class="postmgmt-row${noData ? ' postmgmt-nodata' : ''}">
                 <td class="postmgmt-course-cell"><span style="--course-color:${course.color || '#0891B2'}"></span>${escHtml(course.name)}</td>
-                <td style="text-align:center;font-weight:700;color:#1E293B;">${completed}<small style="display:block;color:#94A3B8;font-size:0.78em;">${passed > 0 ? '/ '+passed+'명' : '미집계'}</small></td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${completed}<small style="display:block;color:#94A3B8;font-size:0.78em;">${enrolled > 0 ? '/ '+enrolled+'명' : '미집계'}</small></td>
                 <td style="min-width:160px;">
                     <div style="display:flex;align-items:center;gap:8px;">
                         <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
@@ -2836,7 +2839,7 @@ function renderPostManagementKPIs() {
                 <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);border:1px solid #A7F3D0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
                     <div style="font-size:0.78em;font-weight:700;color:#047857;letter-spacing:.3px;">📊 전체 수료율</div>
                     <div style="font-size:1.9em;font-weight:900;color:${totalCrColor};line-height:1.1;">${totalCR}%</div>
-                    <div style="font-size:0.73em;color:#065F46;">${totalCompleted} / ${totalPassed}명 · 목표 ${crGoal}% ${totalCR >= crGoal ? '✅' : `<span style="color:#D97706;">▼ ${crGoal - totalCR}%p 부족</span>`}</div>
+                    <div style="font-size:0.73em;color:#065F46;">${totalCompleted} / 교육참여 ${totalEnrolled}명 · 목표 ${crGoal}% ${totalCR >= crGoal ? '✅' : `<span style="color:#D97706;">▼ ${crGoal - totalCR}%p 부족</span>`}</div>
                     <div style="height:6px;background:#BBF7D0;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalCR/crGoal*100))}%;height:100%;background:${totalCrBg};border-radius:3px;"></div></div>
                 </div>
                 <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 100%);border:1px solid #BAE6FD;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
@@ -2998,7 +3001,7 @@ function renderOverview() {
         return total;
     }, { capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 });
     const totalInterviewRate = totalStats.applications > 0 ? Math.round((totalStats.interviews / totalStats.applications) * 100) : 0;
-    const totalCompletionRate = totalStats.passed > 0 ? Math.round((totalStats.completed / totalStats.passed) * 100) : 0;
+    const totalCompletionRate = totalStats.enrolled > 0 ? Math.round((totalStats.completed / totalStats.enrolled) * 100) : 0;
     const totalEmployed = totalStats.employed + (totalStats.employedAfter || 0);
     const totalEmploymentAsOfRate = percentRate(totalStats.employed, totalStats.completed);
     const totalEmploymentAfterRate = percentRate(totalStats.employedAfter, totalStats.completed);
@@ -3050,10 +3053,10 @@ function renderOverview() {
         const applications = stats.applications || 0;
         const interviews = stats.interviews || 0;
         const interviewRate = applications > 0 ? Math.round((interviews / applications) * 100) : 0;
-        const passed = stats.passed || 0;
+        const enrolled = stats.enrolled || 0;
         const completed = stats.completed || 0;
         const emp = employmentParts(stats);
-        const completionRate = passed > 0 ? Math.round((completed / passed) * 100) : 0;
+        const completionRate = enrolled > 0 ? Math.round((completed / enrolled) * 100) : 0;
         
         const row = statsTbody.insertRow();
         row.innerHTML = `
@@ -4205,12 +4208,12 @@ window.toggleSection = function(header) {
 
 // 수료율·취업률 자동계산
 window.calcRates = function() {
-    const passed    = parseInt(document.getElementById('stat-passed')?.value)    || 0;
+    const enrolled  = parseInt(document.getElementById('stat-enrolled')?.value)  || 0;
     const completed = parseInt(document.getElementById('stat-completed')?.value) || 0;
     const employed  = parseInt(document.getElementById('stat-employed')?.value)  || 0;
     const employedAfter = parseInt(document.getElementById('stat-employed-after')?.value) || 0;
 
-    const completionRate = passed > 0 ? Math.round(completed / passed * 100) : null;
+    const completionRate = enrolled > 0 ? Math.round(completed / enrolled * 100) : null;
     const employmentRate = completed > 0 ? Math.round(employed / completed * 100) : null;
     const employmentAfterRate = completed > 0 ? Math.round(employedAfter / completed * 100) : null;
     const employmentTotalRate = completed > 0 ? Math.round((employed + employedAfter) / completed * 100) : null;

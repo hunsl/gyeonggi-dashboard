@@ -47,12 +47,12 @@ test('course states are evidence labels only; explicit states retain precedence'
 });
 
 test('board uses labelled completion ratios and shows genuine zero employment rates', () => {
-    const a = app([{id:'1', name:'테스트 <과정>', color:'#2563EB', statistics:{passed:20, enrolled:20, completed:16, employed:0}, checklist:[{isCompleted:false}]}]);
+    const a = app([{id:'1', name:'테스트 <과정>', color:'#2563EB', statistics:{passed:25, enrolled:20, completed:16, employed:0}, checklist:[{isCompleted:false}]}]);
     const before = JSON.stringify(a.context.fixture);
     a.run('renderCourseProgressBoard()');
     const markup = a.elements.get('course-progress-board').innerHTML;
     assert.match(markup, /80%/);
-    assert.match(markup, /수료 16명 \/ 합격 20명/);
+    assert.match(markup, /수료 16명 \/ 교육참여 20명/);
     assert.match(markup, /업무 체크리스트 · 기록 확인 필요/);
     assert.match(markup, />0%<\/div>/);
     assert.match(markup, /테스트 &lt;과정&gt;/);
