@@ -544,17 +544,21 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
 #personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #1D4E89; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
 #personnel-card .personnel-table-container { margin: 0; padding: 8px 18px 0; overflow-x: auto; }
 #personnel-card .personnel-data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
-#personnel-card .personnel-data-table { width: 100%; min-width: 1480px; table-layout: auto; }
+#personnel-card .personnel-data-table { width: 100%; min-width: 1180px; table-layout: auto; }
 #personnel-card .personnel-data-table th,
 #personnel-card .personnel-data-table td { padding: 10px 6px; font-size: 0.76em; }
 #personnel-card .personnel-data-table tbody td { font-size: 0.84em; }
 #personnel-card .personnel-data-table tbody td .stat-number { font-size: 1.16em; font-weight: 800; padding: 5px 10px; line-height: 1.15; }
 #personnel-card .personnel-data-table tbody td strong { font-size: 1.12em; letter-spacing: -0.1px; }
-#personnel-card .personnel-data-table th:nth-child(1),
-#personnel-card .personnel-data-table td:nth-child(1) { width: 84px; }
-#personnel-card .personnel-data-table th:nth-child(2),
-#personnel-card .personnel-data-table td:nth-child(2) { width: 170px; }
-#personnel-card .personnel-data-table td:nth-child(2) { text-align: left; word-break: keep-all; }
+#personnel-card .personnel-data-table tbody td:nth-child(1) { white-space: nowrap; }
+#personnel-card .personnel-data-table tbody td:nth-child(1) span { white-space: nowrap; }
+#personnel-card .personnel-data-table tbody td:nth-child(2) { width: 156px; text-align: left; word-break: keep-all; }
+#personnel-card .personnel-data-table thead tr:nth-child(3) th.stage-select { padding-left: 4px; padding-right: 4px; white-space: nowrap; }
+#personnel-card .personnel-data-table tbody td.select-cell { padding-left: 3px; padding-right: 3px; }
+#personnel-card .personnel-data-table tbody td.select-cell .stat-number { padding: 2px 6px; font-size: 1em; }
+.select-rate { display: flex; flex-direction: column; align-items: center; line-height: 1.15; white-space: nowrap; }
+.select-rate strong { font-size: 1.05em; color: #1E293B; }
+.select-rate span { font-size: 0.78em; font-weight: 800; }
 #personnel-card .personnel-table-container::before { display: none; }
 #personnel-card .personnel-data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
 #personnel-card .personnel-data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
@@ -566,15 +570,15 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
 #personnel-card .personnel-data-table thead .stage-aftercare { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); color: #075985; }
 #personnel-card .personnel-data-table thead .stage-aftercare-later { background: linear-gradient(135deg, #E0E7FF, #C7D2FE); color: #3730A3; }
 #personnel-card .personnel-data-table thead .stage-aftercare-total { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #1E3A8A; }
-#personnel-card .personnel-data-table tbody td:nth-child(7),
-#personnel-card .personnel-data-table tbody td:nth-child(11),
-#personnel-card .personnel-data-table tbody td:nth-child(13),
-#personnel-card .personnel-data-table tbody td:nth-child(15) { border-right: 2px solid #CBD5E1; }
-#personnel-card .personnel-data-table tbody td:nth-child(n+3):nth-child(-n+7) { background: rgba(99,102,241,0.025); }
-#personnel-card .personnel-data-table tbody td:nth-child(n+8):nth-child(-n+11) { background: rgba(16,185,129,0.025); }
-#personnel-card .personnel-data-table tbody td:nth-child(n+12):nth-child(-n+13) { background: rgba(14,165,233,0.06); }
-#personnel-card .personnel-data-table tbody td:nth-child(n+14):nth-child(-n+15) { background: rgba(79,70,229,0.05); }
-#personnel-card .personnel-data-table tbody td:nth-child(n+16) { background: rgba(30,64,175,0.07); }
+#personnel-card .personnel-data-table tbody td:nth-child(6),
+#personnel-card .personnel-data-table tbody td:nth-child(10),
+#personnel-card .personnel-data-table tbody td:nth-child(12),
+#personnel-card .personnel-data-table tbody td:nth-child(14) { border-right: 2px solid #CBD5E1; }
+#personnel-card .personnel-data-table tbody td:nth-child(n+3):nth-child(-n+6) { background: rgba(99,102,241,0.025); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+7):nth-child(-n+10) { background: rgba(16,185,129,0.025); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+11):nth-child(-n+12) { background: rgba(14,165,233,0.06); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+13):nth-child(-n+14) { background: rgba(79,70,229,0.05); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+15) { background: rgba(30,64,175,0.07); }
 #personnel-card .personnel-data-table tbody tr { transition: background 0.2s ease, box-shadow 0.2s ease; }
 #personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #1D4E89; }
 #personnel-card .personnel-data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #F7FBFE; }
@@ -655,7 +659,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
     .personnel-summary { grid-template-columns: repeat(2, 1fr); padding: 12px 14px 2px; }
     #personnel-card .personnel-table-container { margin: 0 -14px; padding: 0 14px; overflow-x: auto; }
     #personnel-card .personnel-table-container::before { content: '← 좌우로 스크롤하세요 →'; display: block; text-align: center; font-size: 0.75em; color: #94A3B8; padding: 4px 0 8px; }
-    #personnel-card .personnel-data-table { min-width: 1480px; table-layout: auto; }
+    #personnel-card .personnel-data-table { min-width: 1180px; table-layout: auto; }
     .stat-rate-box { grid-template-columns: 1fr 1fr; }
     .schedule-management-layout { grid-template-columns: 1fr; padding: 14px 14px 8px; }
     .schedule-focus-body { padding: 12px 14px 14px; }
@@ -1817,7 +1821,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                             <tr>
                                 <th rowspan="3">구분</th>
                                 <th rowspan="3">과정명</th>
-                                <th colspan="5" rowspan="2" class="stage-select">선발 단계 <small>지원 → 합격</small></th>
+                                <th colspan="4" rowspan="2" class="stage-select">선발 <small>지원 → 합격</small></th>
                                 <th colspan="4" rowspan="2" class="stage-education">교육 진행 단계 <small>참여 → 수료</small></th>
                                 <th colspan="6" class="stage-aftercare">사후관리 성과 <small>9.30 · 이후 · 합계</small></th>
                             </tr>
@@ -1827,11 +1831,10 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                                 <th colspan="2" class="stage-aftercare-total">합계</th>
                             </tr>
                             <tr>
-                                <th class="stage-select">정원(명)</th>
-                                <th class="stage-select">접수(명)</th>
-                                <th class="stage-select">면접참여(명)</th>
-                                <th class="stage-select">면접참여율<br><small>참여/접수</small></th>
-                                <th class="stage-select">합격(명)</th>
+                                <th class="stage-select">정원</th>
+                                <th class="stage-select">접수</th>
+                                <th class="stage-select">면접<br><small>인원·참여율</small></th>
+                                <th class="stage-select">합격</th>
                                 <th class="stage-education">교육참여(명)</th>
                                 <th class="stage-education">탈락(명)</th>
                                 <th class="stage-education">수료(명)</th>
@@ -2553,6 +2556,15 @@ function percentRate(part, whole) {
     return whole > 0 ? Math.round((part / whole) * 100) : 0;
 }
 
+function interviewCell(interviews, applications, rate) {
+    const count = Number(interviews) || 0;
+    if (!applications) {
+        return `<td class="select-cell select-rate"><strong>${count}</strong><span style="color:#94A3B8;">-</span></td>`;
+    }
+    const color = rate >= 70 ? '#059669' : rate >= 40 ? '#D97706' : '#DC2626';
+    return `<td class="select-cell select-rate"><strong>${count.toLocaleString()}</strong><span style="color:${color}">${rate}%</span></td>`;
+}
+
 function personnelRateMarkup(rate) {
     const color = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#DC2626';
     const start = rate >= 80 ? '#10B981' : rate >= 50 ? '#F59E0B' : '#DC2626';
@@ -3017,18 +3029,10 @@ function renderOverview() {
     totalRow.innerHTML = `
         <td><span class="stat-number high">전체</span></td>
         <td style="text-align:left;font-weight:900;color:#0E7490;">전체 합계</td>
-        <td><span class="stat-number">${totalStats.capacity}</span></td>
-        <td><span class="stat-number">${totalStats.applications}</span></td>
-        <td><span class="stat-number">${totalStats.interviews}</span></td>
-        <td>
-            ${totalStats.applications > 0 ? `
-            <div class="rate-cell">
-                <strong style="color:#0891B2;">${totalInterviewRate}%</strong>
-                <small>${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}</small>
-            </div>
-            ` : '<span style="color:#94A3B8;font-weight:700;">-</span>'}
-        </td>
-        <td><span class="stat-number high">${totalStats.passed}</span></td>
+        <td class="select-cell"><span class="stat-number">${totalStats.capacity}</span></td>
+        <td class="select-cell"><span class="stat-number">${totalStats.applications}</span></td>
+        ${interviewCell(totalStats.interviews, totalStats.applications, totalInterviewRate)}
+        <td class="select-cell"><span class="stat-number high">${totalStats.passed}</span></td>
         <td><span class="stat-number high">${totalStats.enrolled}</span></td>
         <td><span class="stat-number low">${totalStats.dropouts}</span></td>
         <td><span class="stat-number high">${totalStats.completed}</span></td>
@@ -3058,18 +3062,10 @@ function renderOverview() {
                 <span style="display: inline-block; width: 4px; height: 16px; background: ${course.color}; border-radius: 2px; margin-right: 8px; vertical-align: middle;"></span>
                 ${course.name}
             </td>
-            <td><span class="stat-number" style="background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); color: #6366F1; font-weight: 700;">${capacity}</span></td>
-            <td><span class="stat-number">${stats.applications || 0}</span></td>
-            <td><span class="stat-number">${interviews}</span></td>
-            <td>
-                ${applications > 0 ? `
-                <div class="rate-cell">
-                    <strong style="color:${interviewRate >= 70 ? '#059669' : interviewRate >= 40 ? '#D97706' : '#DC2626'};">${interviewRate}%</strong>
-                    <small>${interviews.toLocaleString()} / ${applications.toLocaleString()}</small>
-                </div>
-                ` : '<span style="color:#94A3B8;font-weight:700;">-</span>'}
-            </td>
-            <td><span class="stat-number high">${stats.passed || 0}</span></td>
+            <td class="select-cell"><span class="stat-number" style="background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); color: #6366F1; font-weight: 700;">${capacity}</span></td>
+            <td class="select-cell"><span class="stat-number">${stats.applications || 0}</span></td>
+            ${interviewCell(interviews, applications, interviewRate)}
+            <td class="select-cell"><span class="stat-number high">${stats.passed || 0}</span></td>
             <td><span class="stat-number high">${stats.enrolled || 0}</span></td>
             <td><span class="stat-number low">${stats.dropouts || 0}</span></td>
             <td><span class="stat-number high" style="font-weight: 700;">${completed}</span></td>
