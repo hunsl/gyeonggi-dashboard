@@ -70,6 +70,15 @@ test('weekday calendar columns stay on Monday through Friday', () => {
     assert.equal(a.run('calendarWeekdays(2026, 9).every((d, i) => d.dow === (i % 5) + 1)'), true);
 });
 
+test('public holidays are labelled on the weekday calendar', () => {
+    const a = app();
+    assert.equal(a.run("publicHolidayName('2026-10-05')"), '개천절 대체');
+    assert.equal(a.run("publicHolidayName('2026-10-09')"), '한글날');
+    assert.equal(a.run("publicHolidayName('2026-10-03')"), '개천절');
+    assert.equal(a.run("publicHolidayName('2026-10-26')"), '');
+    assert.equal(a.run("publicHolidayName('2026-02-17')"), '설날');
+});
+
 test('page startup with empty storage performs no database write or initialization', async () => {
     const a = app();
     a.context.collection = () => ({});
