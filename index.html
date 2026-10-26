@@ -17,8 +17,8 @@
 .integration-guide-item p { margin:0; font-size:0.88em; color:#334155; line-height:1.5; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background-color: #FFF7ED;
-    color: #3F2D20;
+    background-color: #F4F8FB;
+    color: #16324F;
     line-height: 1.6;
     min-height: 100vh;
 }
@@ -27,10 +27,10 @@ body {
     text-align: center;
     margin-bottom: 24px;
     padding: 32px 24px;
-    background: linear-gradient(135deg, #7C2D12 0%, #B45309 48%, #F59E0B 100%);
+    background: linear-gradient(135deg, #0B1F3A 0%, #1E4E89 55%, #7EB6D9 100%);
     border-radius: 16px;
     color: white;
-    box-shadow: 0 12px 32px rgba(146, 64, 14, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 32px rgba(15, 39, 68, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -122,11 +122,11 @@ body {
     display: flex;
     gap: 10px;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #FFF8F1 0%, #FFFBEB 100%);
+    background: linear-gradient(135deg, #F7FBFE 0%, #E8F3FB 100%);
     padding: 10px;
     border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(180, 83, 9, 0.15);
-    border: 2px solid rgba(180, 83, 9, 0.18);
+    box-shadow: 0 8px 24px rgba(15, 39, 68, 0.1);
+    border: 2px solid rgba(29, 78, 137, 0.16);
 }
 .tab-btn {
     flex: 1;
@@ -142,15 +142,15 @@ body {
     letter-spacing: 0.4px;
 }
 .tab-btn:hover { 
-    background: linear-gradient(135deg, #FEF3C7 0%, #FED7AA 100%); 
-    color: #9A3412;
+    background: linear-gradient(135deg, #E0F2FE 0%, #DBEAFE 100%); 
+    color: #1D4E89;
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(180, 83, 9, 0.18);
 }
 .tab-btn.active { 
-    background: linear-gradient(135deg, #B45309 0%, #D97706 100%); 
+    background: linear-gradient(135deg, #1D4E89 0%, #3B82C4 100%); 
     color: white; 
-    box-shadow: 0 8px 20px rgba(180, 83, 9, 0.3);
+    box-shadow: 0 8px 20px rgba(29, 78, 137, 0.28);
     font-weight: 800;
     transform: translateY(-2px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -162,12 +162,12 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 .card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F1 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F7FBFE 100%);
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(146, 64, 14, 0.08);
+    box-shadow: 0 4px 12px rgba(15, 39, 68, 0.07);
     margin-bottom: 16px;
     overflow: hidden;
-    border: 1px solid #E7D7C7;
+    border: 1px solid #D5E3EE;
 }
 .card-header {
     padding: 14px 18px;
@@ -185,26 +185,26 @@ body {
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, #F59E0B 0%, #B45309 100%);
+    background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%);
     border-radius: 10px 0 0 0;
 }
 .card-header h2 { font-size: 1.2em; font-weight: 600; color: #1E293B; position: relative; z-index: 1; }
-.card-header.today-schedule { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.today-schedule::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); display: none; }
-.card-header.calendar { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.calendar::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.overview { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.overview::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.personnel { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.personnel::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.course-detail { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.course-detail::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.reference { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.reference::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.statistics { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.statistics::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
-.card-header.checklist { background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 48%, #FFFFFF 100%); }
-.card-header.checklist::before { background: linear-gradient(180deg, #D97706 0%, #92400E 100%); }
+.card-header.today-schedule { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.today-schedule::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); display: none; }
+.card-header.calendar { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.calendar::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.overview { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.overview::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.personnel { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.personnel::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.course-detail { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.course-detail::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.reference { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.reference::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.statistics { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.statistics::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
+.card-header.checklist { background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 48%, #FFFFFF 100%); }
+.card-header.checklist::before { background: linear-gradient(180deg, #7EB6D9 0%, #1D4E89 100%); }
 .card-body { padding: 16px 18px; }
 .stats-grid {
     display: grid;
@@ -247,7 +247,7 @@ body {
 }
 .calendar-controls { display: flex; align-items: center; gap: 16px; }
 .calendar-nav-btn {
-    background: linear-gradient(135deg, #B45309 0%, #D97706 100%);
+    background: linear-gradient(135deg, #1D4E89 0%, #3B82C4 100%);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -257,9 +257,9 @@ body {
     transition: all 0.2s ease;
 }
 .calendar-nav-btn:hover { 
-    background: linear-gradient(135deg, #92400E 0%, #B45309 100%); 
+    background: linear-gradient(135deg, #163E6F 0%, #1D4E89 100%); 
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(180, 83, 9, 0.24);
+    box-shadow: 0 4px 12px rgba(29, 78, 137, 0.24);
 }
 .current-month {
     font-size: 1.1em;
@@ -300,10 +300,10 @@ body {
     overflow: visible;
     z-index: 10;
 }
-.calendar-day.today { background: #FFF7ED; border-color: #D97706; }
+.calendar-day.today { background: #E8F3FB; border-color: #1D4E89; }
 .calendar-day.other-month { opacity: 0.4; }
 .day-number { font-weight: 600; color: #1E293B; margin-bottom: 4px; font-size: 0.9em; }
-.calendar-day.today .day-number { color: #B45309; }
+.calendar-day.today .day-number { color: #1D4E89; }
 .badge {
     background: #2563EB;
     color: white;
@@ -330,7 +330,7 @@ body {
 .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -24px; padding: 0 24px; }
 .data-table { width: 100%; border-collapse: collapse; min-width: 1300px; }
 .data-table thead { 
-    background: linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%);
+    background: linear-gradient(135deg, #E8F3FB 0%, #F7FBFE 100%);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -339,14 +339,14 @@ body {
     padding: 16px;
     text-align: center;
     font-weight: 600;
-    color: #7C2D12;
-    border-bottom: 2px solid #E7D7C7;
+    color: #16324F;
+    border-bottom: 2px solid #D5E3EE;
     white-space: nowrap;
-    background: linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%);
+    background: linear-gradient(135deg, #E8F3FB 0%, #F7FBFE 100%);
 }
 .data-table td { 
     padding: 14px 16px; 
-    border-bottom: 1px solid #F1E1CF;
+    border-bottom: 1px solid #D5E3EE;
     text-align: center;
 }
 .data-table td:first-child {
@@ -358,15 +358,15 @@ body {
     transition: all 0.2s ease;
 }
 .data-table tbody tr:hover { 
-    background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+    background: linear-gradient(135deg, #E8F3FB 0%, #DBEAFE 100%);
     transform: scale(1.01);
-    box-shadow: 0 2px 8px rgba(146, 64, 14, 0.08);
+    box-shadow: 0 2px 8px rgba(15, 39, 68, 0.08);
 }
 .data-table tbody tr:nth-child(even) {
-    background: #FFFBF7;
+    background: #F7FBFE;
 }
 .data-table tbody tr:nth-child(even):hover {
-    background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+    background: linear-gradient(135deg, #E8F3FB 0%, #DBEAFE 100%);
 }
 .progress-cell { display: flex; align-items: center; gap: 12px; justify-content: center; }
 .progress-bar-small { 
@@ -494,53 +494,57 @@ body {
 .summary-meter { height: 5px; margin-top: 9px; border-radius: 999px; background: #E2E8F0; overflow: hidden; }
 .summary-meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #06B6D4, #2563EB); }
 .personnel-print-btn {
-    border: 1px solid #B45309;
+    border: 1px solid #1D4E89;
     border-radius: 8px;
     padding: 8px 12px;
-    background: linear-gradient(135deg, #FFF7ED 0%, #FDE68A 100%);
-    color: #92400E;
+    background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 100%);
+    color: #1D4E89;
     font-weight: 800;
     cursor: pointer;
 }
-.personnel-print-btn:hover { background: linear-gradient(135deg, #FFEDD5 0%, #FCD34D 100%); transform: translateY(-1px); }
+.personnel-print-btn:hover { background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); transform: translateY(-1px); }
+.personnel-cutoff-note { margin: 10px 18px 0; color: #5C738C; font-size: 0.82em; font-weight: 700; }
 .personnel-total-row { background: linear-gradient(135deg, #ECFEFF 0%, #F0FDFA 100%) !important; border-top: 2px solid #0891B2; }
 .personnel-total-row td { font-weight: 800; background: transparent !important; }
 .postmgmt-table-wrap { overflow-x: auto; padding: 14px 16px 16px; }
-.postmgmt-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: 0.86em; }
+.postmgmt-table { width: 100%; min-width: 1320px; border-collapse: separate; border-spacing: 0; font-size: 0.86em; }
 .postmgmt-table th, .postmgmt-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid #E2E8F0; }
 .postmgmt-table thead tr:first-child th { color: #0F172A; font-weight: 900; border-bottom: 1px solid #CBD5E1; }
 .postmgmt-table thead tr:nth-child(2) th { color: #64748B; font-size: 0.82em; background: #F8FAFC; }
 .postmgmt-table th:first-child, .postmgmt-table td:first-child { text-align: left; }
 .postmgmt-completion-head { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); color: #047857 !important; }
-.postmgmt-employment-head { background: linear-gradient(135deg,#FFF7ED,#FFEDD5); color: #C2410C !important; }
-.postmgmt-table tbody tr:hover { background: #FFF7ED; }
+.postmgmt-employment-head { background: linear-gradient(135deg,#E0F2FE,#BAE6FD); color: #075985 !important; }
+.postmgmt-employment-later-head { background: linear-gradient(135deg,#E0E7FF,#C7D2FE); color: #3730A3 !important; }
+.postmgmt-employment-total-head { background: linear-gradient(135deg,#DBEAFE,#BFDBFE); color: #1E3A8A !important; }
+.postmgmt-table tbody tr:hover { background: #F0F9FF; }
 .postmgmt-course-cell { min-width: 250px; font-weight: 800; color: #1E293B; }
 .postmgmt-course-cell span { display: inline-block; width: 5px; height: 22px; margin-right: 9px; vertical-align: middle; border-radius: 4px; background: var(--course-color); }
 .postmgmt-table td small { display: block; margin-top: 3px; color: #94A3B8; font-size: 0.76em; }
 .postmgmt-percent { display: inline-block; min-width: 52px; padding: 4px 8px; border-radius: 999px; font-weight: 900; }
 .postmgmt-percent.completion { color: #047857; background: #ECFDF5; }
-.postmgmt-percent.employment { color: #C2410C; background: #FFF7ED; }
+.postmgmt-percent.employment { color: #1D4E89; background: #E8F3FB; }
 .postmgmt-row.postmgmt-nodata td { opacity: 0.45; }
-.postmgmt-table tbody tr:hover { background: #FFF7ED; }
+.postmgmt-table tbody tr:hover { background: #F0F9FF; }
 
 /* ===== 관리자 대시보드 시각적 고도화 ===== */
-:root { --ink: #3F2D20; --muted: #7C6A58; --line: #E7D7C7; --brand: #B45309; }
-body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #FFFBF5 100%); }
+:root { --ink: #16324F; --muted: #5C738C; --line: #D5E3EE; --brand: #1D4E89; }
+body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #F7FBFD 100%); }
 .container { padding-top: 22px; padding-bottom: 36px; }
-.header { border-radius: 22px; box-shadow: 0 18px 44px rgba(146,64,14,0.22), inset 0 1px 0 rgba(255,255,255,0.2); }
-.tab-navigation { border: 1px solid rgba(180,83,9,0.22); box-shadow: 0 10px 28px rgba(63,45,32,0.08); }
-.card { border-color: rgba(180,83,9,0.16); box-shadow: 0 8px 24px rgba(63,45,32,0.07); }
+.header { border-radius: 22px; box-shadow: 0 18px 44px rgba(15,39,68,0.22), inset 0 1px 0 rgba(255,255,255,0.2); }
+.header::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1.5px); background-size: 26px 26px; opacity: 0.28; pointer-events: none; }
+.tab-navigation { border: 1px solid rgba(29,78,137,0.18); box-shadow: 0 10px 28px rgba(15,39,68,0.08); }
+.card { border-color: rgba(29,78,137,0.14); box-shadow: 0 8px 24px rgba(15,39,68,0.07); }
 .card-header { min-height: 58px; padding: 16px 20px; }
 .card-header h2 { color: var(--ink); letter-spacing: -0.25px; }
 .kpi-summary { gap: 14px; }
-.kpi-card { min-height: 126px; border: 1px solid rgba(180,83,9,0.18); border-top-width: 4px; border-radius: 14px; box-shadow: 0 7px 18px rgba(63,45,32,0.07); }
-.kpi-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px rgba(146,64,14,0.12); }
+.kpi-card { min-height: 126px; border: 1px solid rgba(29,78,137,0.16); border-top-width: 4px; border-radius: 14px; box-shadow: 0 7px 18px rgba(15,39,68,0.07); }
+.kpi-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px rgba(15,39,68,0.12); }
 #personnel-card { overflow: visible; border-radius: 16px; }
-#personnel-card .card-header { background: linear-gradient(105deg, #FFF1DB 0%, #FFFFFF 72%); }
-#personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #B45309; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
-#personnel-card .personnel-table-container { margin: 0; padding: 8px 18px 0; overflow-x: visible; }
+#personnel-card .card-header { background: linear-gradient(105deg, #E8F3FB 0%, #FFFFFF 72%); }
+#personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #1D4E89; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
+#personnel-card .personnel-table-container { margin: 0; padding: 8px 18px 0; overflow-x: auto; }
 #personnel-card .personnel-data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
-#personnel-card .personnel-data-table { width: 100%; min-width: 0; table-layout: fixed; }
+#personnel-card .personnel-data-table { width: 100%; min-width: 1480px; table-layout: auto; }
 #personnel-card .personnel-data-table th,
 #personnel-card .personnel-data-table td { padding: 10px 6px; font-size: 0.76em; }
 #personnel-card .personnel-data-table tbody td { font-size: 0.84em; }
@@ -554,27 +558,34 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
 #personnel-card .personnel-table-container::before { display: none; }
 #personnel-card .personnel-data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
 #personnel-card .personnel-data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
-#personnel-card .personnel-data-table thead tr:nth-child(2) th { padding-top: 9px; padding-bottom: 11px; font-size: 0.74em; }
+#personnel-card .personnel-data-table thead tr:nth-child(2) th { padding-top: 8px; padding-bottom: 8px; font-size: 0.76em; font-weight: 800; }
+#personnel-card .personnel-data-table thead tr:nth-child(3) th { padding-top: 8px; padding-bottom: 10px; font-size: 0.72em; }
 #personnel-card .personnel-data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
 #personnel-card .personnel-data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
 #personnel-card .personnel-data-table thead .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
-#personnel-card .personnel-data-table thead .stage-aftercare { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); color: #C2410C; }
+#personnel-card .personnel-data-table thead .stage-aftercare { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); color: #075985; }
+#personnel-card .personnel-data-table thead .stage-aftercare-later { background: linear-gradient(135deg, #E0E7FF, #C7D2FE); color: #3730A3; }
+#personnel-card .personnel-data-table thead .stage-aftercare-total { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #1E3A8A; }
 #personnel-card .personnel-data-table tbody td:nth-child(7),
-#personnel-card .personnel-data-table tbody td:nth-child(11) { border-right: 2px solid #CBD5E1; }
+#personnel-card .personnel-data-table tbody td:nth-child(11),
+#personnel-card .personnel-data-table tbody td:nth-child(13),
+#personnel-card .personnel-data-table tbody td:nth-child(15) { border-right: 2px solid #CBD5E1; }
 #personnel-card .personnel-data-table tbody td:nth-child(n+3):nth-child(-n+7) { background: rgba(99,102,241,0.025); }
 #personnel-card .personnel-data-table tbody td:nth-child(n+8):nth-child(-n+11) { background: rgba(16,185,129,0.025); }
-#personnel-card .personnel-data-table tbody td:nth-child(n+12) { background: rgba(245,158,11,0.035); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+12):nth-child(-n+13) { background: rgba(14,165,233,0.06); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+14):nth-child(-n+15) { background: rgba(79,70,229,0.05); }
+#personnel-card .personnel-data-table tbody td:nth-child(n+16) { background: rgba(30,64,175,0.07); }
 #personnel-card .personnel-data-table tbody tr { transition: background 0.2s ease, box-shadow 0.2s ease; }
-#personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #D97706; }
-#personnel-card .personnel-data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #FFFBF7; }
+#personnel-card .personnel-data-table tbody tr:hover { transform: none; box-shadow: inset 4px 0 0 #1D4E89; }
+#personnel-card .personnel-data-table tbody tr:not(.personnel-total-row):nth-child(even) { background: #F7FBFE; }
 .personnel-total-row td:first-child { border-radius: 8px 0 0 8px; }
 .personnel-total-row td:last-child { border-radius: 0 8px 8px 0; }
 .rate-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; line-height: 1.1; }
 .rate-cell strong { font-size: 1.15em; }
 .rate-cell small { font-size: 0.72em; color: #64748B; font-weight: 700; }
 .schedule-management-card {
-    border: 1px solid rgba(180,83,9,0.18);
-    box-shadow: 0 14px 32px rgba(146,64,14,0.08);
+    border: 1px solid rgba(29,78,137,0.16);
+    box-shadow: 0 14px 32px rgba(15,39,68,0.08);
 }
 .schedule-management-layout {
     display: grid;
@@ -584,9 +595,9 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
 }
 .schedule-focus-panel,
 .schedule-calendar-panel {
-    border: 1px solid #F1E1CF;
+    border: 1px solid #D5E3EE;
     border-radius: 16px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(255,247,237,0.92) 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(232,243,251,0.92) 100%);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.72);
 }
 .schedule-focus-header {
@@ -595,8 +606,8 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
     justify-content: space-between;
     gap: 12px;
     padding: 14px 16px;
-    border-bottom: 1px solid #F1E1CF;
-    background: linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%);
+    border-bottom: 1px solid #D5E3EE;
+    background: linear-gradient(135deg, #E8F3FB 0%, #F7FBFE 100%);
 }
 .schedule-focus-title {
     display: flex;
@@ -604,12 +615,12 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
     gap: 2px;
 }
 .schedule-focus-title strong {
-    color: #7C2D12;
+    color: #16324F;
     font-size: 1em;
     letter-spacing: -0.2px;
 }
 .schedule-focus-title span {
-    color: #B45309;
+    color: #1D4E89;
     font-size: 0.78em;
     font-weight: 700;
 }
@@ -620,8 +631,8 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
     padding: 0 0 18px;
 }
 .autumn-section-header {
-    background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 42%, #FFFFFF 100%) !important;
-    border-bottom: 1px solid #F1E1CF !important;
+    background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 42%, #FFFFFF 100%) !important;
+    border-bottom: 1px solid #D5E3EE !important;
 }
 .autumn-badge {
     display: inline-flex;
@@ -629,8 +640,8 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
     gap: 6px;
     padding: 6px 10px;
     border-radius: 999px;
-    background: rgba(180,83,9,0.1);
-    color: #9A3412;
+    background: rgba(29,78,137,0.1);
+    color: #1D4E89;
     font-size: 0.78em;
     font-weight: 800;
 }
@@ -644,7 +655,8 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
     .personnel-summary { grid-template-columns: repeat(2, 1fr); padding: 12px 14px 2px; }
     #personnel-card .personnel-table-container { margin: 0 -14px; padding: 0 14px; overflow-x: auto; }
     #personnel-card .personnel-table-container::before { content: '← 좌우로 스크롤하세요 →'; display: block; text-align: center; font-size: 0.75em; color: #94A3B8; padding: 4px 0 8px; }
-    #personnel-card .personnel-data-table { min-width: 900px; table-layout: auto; }
+    #personnel-card .personnel-data-table { min-width: 1480px; table-layout: auto; }
+    .stat-rate-box { grid-template-columns: 1fr 1fr; }
     .schedule-management-layout { grid-template-columns: 1fr; padding: 14px 14px 8px; }
     .schedule-focus-body { padding: 12px 14px 14px; }
     .notice-insight-grid { grid-template-columns: 1fr; }
@@ -1301,7 +1313,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
 .detail-section-header.sec-info  { background: linear-gradient(135deg, #ECFEFF 0%, #E0F2FE 100%); border-bottom: 2px solid #BAE6FD; }
 .detail-section-header.sec-ref   { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-bottom: 2px solid #BFDBFE; }
 .detail-section-header.sec-stats { background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border-bottom: 2px solid #BBF7D0; }
-.detail-section-header.sec-check { background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border-bottom: 2px solid #FED7AA; }
+.detail-section-header.sec-check { background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); border-bottom: 2px solid #C7D2FE; }
 
 .detail-section-header .sec-icon {
     width: 38px;
@@ -1317,7 +1329,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
 .detail-section-header.sec-info  .sec-icon { background: linear-gradient(135deg, #06B6D4, #0891B2); }
 .detail-section-header.sec-ref   .sec-icon { background: linear-gradient(135deg, #3B82F6, #2563EB); }
 .detail-section-header.sec-stats .sec-icon { background: linear-gradient(135deg, #10B981, #059669); }
-.detail-section-header.sec-check .sec-icon { background: linear-gradient(135deg, #F59E0B, #D97706); }
+.detail-section-header.sec-check .sec-icon { background: linear-gradient(135deg, #6366F1, #4338CA); }
 
 .detail-section-header .sec-title {
     flex: 1;
@@ -1361,7 +1373,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
 /* 수료율·취업률 자동계산 */
 .stat-rate-box {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-top: 14px;
     padding: 14px;
@@ -1797,16 +1809,22 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                     <h2>👥 과정별 인원 현황</h2>
                     <button type="button" class="personnel-print-btn" onclick="printPersonnelSummary()">🖨️ 인쇄</button>
                 </div>
+                <p class="personnel-cutoff-note">취업은 9월 30일까지와 10월 1일 이후로 나눠 입력합니다. 취업률은 수료 인원 기준이고, 합계는 두 기간을 더한 인원입니다.</p>
                 <div class="personnel-summary" id="personnel-summary" aria-label="전체 인원 요약"></div>
                 <div class="table-container personnel-table-container">
                     <table class="data-table personnel-data-table">
                         <thead>
                             <tr>
-                                <th rowspan="2">구분</th>
-                                <th rowspan="2">과정명</th>
-                                <th colspan="5" class="stage-select">선발 단계 <small>지원 → 합격</small></th>
-                                <th colspan="4" class="stage-education">교육 진행 단계 <small>참여 → 수료</small></th>
-                                <th colspan="2" class="stage-aftercare">사후관리 성과 <small>취업 결과</small></th>
+                                <th rowspan="3">구분</th>
+                                <th rowspan="3">과정명</th>
+                                <th colspan="5" rowspan="2" class="stage-select">선발 단계 <small>지원 → 합격</small></th>
+                                <th colspan="4" rowspan="2" class="stage-education">교육 진행 단계 <small>참여 → 수료</small></th>
+                                <th colspan="6" class="stage-aftercare">사후관리 성과 <small>9.30 · 이후 · 합계</small></th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="stage-aftercare">9월 30일 기준</th>
+                                <th colspan="2" class="stage-aftercare-later">10월 1일 이후</th>
+                                <th colspan="2" class="stage-aftercare-total">합계</th>
                             </tr>
                             <tr>
                                 <th class="stage-select">정원(명)</th>
@@ -1820,6 +1838,10 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                                 <th class="stage-education">수료율(%)</th>
                                 <th class="stage-aftercare">취업(명)</th>
                                 <th class="stage-aftercare">취업률(%)</th>
+                                <th class="stage-aftercare-later">취업(명)</th>
+                                <th class="stage-aftercare-later">취업률(%)</th>
+                                <th class="stage-aftercare-total">취업(명)</th>
+                                <th class="stage-aftercare-total">취업률(%)</th>
                             </tr>
                         </thead>
                         <tbody id="statistics-table-body"></tbody>
@@ -1831,7 +1853,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                 <div class="card-header overview autumn-section-header" style="display:flex;justify-content:space-between;align-items:center;">
                     <div>
                         <h2>📅 일정 통합 관리</h2>
-                        <span style="display:block;font-size:0.78em;color:#B45309;font-weight:700;margin-top:4px;">캘린더 · 오늘 일정 · 과정별 추진 일정 현황을 한 곳에서 관리</span>
+                        <span style="display:block;font-size:0.78em;color:#1D4E89;font-weight:700;margin-top:4px;">캘린더 · 오늘 일정 · 과정별 추진 일정 현황을 한 곳에서 관리</span>
                     </div>
                     <span class="autumn-badge">일정 중심 운영 허브</span>
                 </div>
@@ -1839,7 +1861,7 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                     <div class="schedule-focus-panel">
                         <div class="schedule-focus-header">
                             <div class="schedule-focus-title">
-                                <strong>🍁 오늘의 일정</strong>
+                                <strong>❄️ 오늘의 일정</strong>
                                 <span id="today-date"></span>
                             </div>
                             <span class="autumn-badge">당일 체크</span>
@@ -1889,39 +1911,39 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
             </div>
 
             <div class="notice-insight-grid">
-                <div class="card" id="general-notice-card" style="display: none; border: 2px solid #D97706; box-shadow: 0 3px 10px rgba(146, 64, 14, 0.12);">
-                    <div class="card-header" style="background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 100%); padding: 12px 14px;">
+                <div class="card" id="general-notice-card" style="display: none; border: 2px solid #7EB6D9; box-shadow: 0 3px 10px rgba(15, 39, 68, 0.1);">
+                    <div class="card-header" style="background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 100%); padding: 12px 14px;">
                         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #B45309 0%, #7C2D12 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(146, 64, 14, 0.3);">
+                                <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #1D4E89 0%, #0F2744 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(146, 64, 14, 0.3);">
                                     <span style="font-size: 1.2em;">📢</span>
                                 </div>
                                 <div>
-                                    <h2 style="margin: 0; font-size: 1.1em; color: #7C2D12; line-height: 1.3;">전체 공지사항</h2>
-                                    <span style="color: #B45309; font-size: 0.75em; font-weight: 700;">중요 공지 및 알림</span>
+                                    <h2 style="margin: 0; font-size: 1.1em; color: #16324F; line-height: 1.3;">전체 공지사항</h2>
+                                    <span style="color: #1D4E89; font-size: 0.75em; font-weight: 700;">중요 공지 및 알림</span>
                                 </div>
                             </div>
-                            <button onclick="addGeneralNotice()" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8em; white-space: nowrap; background: linear-gradient(135deg, #B45309 0%, #92400E 100%);">➕ 공지</button>
+                            <button onclick="addGeneralNotice()" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8em; white-space: nowrap; background: linear-gradient(135deg, #1D4E89 0%, #0F2744 100%);">➕ 공지</button>
                         </div>
                     </div>
-                    <div class="card-body" style="background: linear-gradient(135deg, #FFF9F2 0%, #FFFFFF 100%); padding: 12px 14px;">
+                    <div class="card-body" style="background: linear-gradient(135deg, #F4F8FB 0%, #FFFFFF 100%); padding: 12px 14px;">
                         <div id="general-notice-content" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>
                 </div>
 
-                <div class="card" id="special-notes-card" style="display: none; border: 2px solid #D97706; box-shadow: 0 3px 10px rgba(146, 64, 14, 0.12);">
-                    <div class="card-header" style="background: linear-gradient(135deg, #FFF1DB 0%, #FDE68A 100%); padding: 12px 14px;">
+                <div class="card" id="special-notes-card" style="display: none; border: 2px solid #7EB6D9; box-shadow: 0 3px 10px rgba(15, 39, 68, 0.1);">
+                    <div class="card-header" style="background: linear-gradient(135deg, #E8F3FB 0%, #D4E7F5 100%); padding: 12px 14px;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #B45309 0%, #7C2D12 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(146, 64, 14, 0.3);">
+                            <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #1D4E89 0%, #0F2744 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(146, 64, 14, 0.3);">
                                 <span style="font-size: 1.2em;">⚠️</span>
                             </div>
                             <div>
-                                <h2 style="margin: 0; font-size: 1.1em; color: #7C2D12; line-height: 1.3;">과정별 특이사항</h2>
-                                <span style="color: #B45309; font-size: 0.75em; font-weight: 700;">과정별 주요 이슈</span>
+                                <h2 style="margin: 0; font-size: 1.1em; color: #16324F; line-height: 1.3;">과정별 특이사항</h2>
+                                <span style="color: #1D4E89; font-size: 0.75em; font-weight: 700;">과정별 주요 이슈</span>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" style="background: linear-gradient(135deg, #FFF9F2 0%, #FFFFFF 100%); padding: 12px 14px;">
+                    <div class="card-body" style="background: linear-gradient(135deg, #F4F8FB 0%, #FFFFFF 100%); padding: 12px 14px;">
                         <div id="special-notes-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>
                 </div>
@@ -1930,10 +1952,10 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
             <div class="card" style="margin-bottom:16px;">
                 <div class="card-header autumn-section-header" style="padding:12px 18px;">
                     <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="width:32px;height:32px;background:linear-gradient(135deg,#B45309,#7C2D12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;box-shadow:0 2px 6px rgba(146,64,14,0.25);">🔗</div>
+                        <div style="width:32px;height:32px;background:linear-gradient(135deg,#1D4E89,#0F2744);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;box-shadow:0 2px 6px rgba(146,64,14,0.25);">🔗</div>
                         <div>
-                            <h2 style="margin:0;font-size:1.1em;color:#7C2D12;line-height:1.3;">외부 시스템 허브</h2>
-                            <span style="font-size:0.75em;color:#B45309;font-weight:700;">자주 쓰는 연계 시스템은 하단에서 바로 이동</span>
+                            <h2 style="margin:0;font-size:1.1em;color:#16324F;line-height:1.3;">외부 시스템 허브</h2>
+                            <span style="font-size:0.75em;color:#1D4E89;font-weight:700;">자주 쓰는 연계 시스템은 하단에서 바로 이동</span>
                         </div>
                     </div>
                 </div>
@@ -2078,7 +2100,8 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                             <div class="form-group"><label>교육 참여</label><input type="number" id="stat-enrolled" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                             <div class="form-group"><label>중도 탈락</label><input type="number" id="stat-dropouts" class="form-input" placeholder="0" min="0"></div>
                             <div class="form-group"><label>수료 인원</label><input type="number" id="stat-completed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
-                            <div class="form-group"><label>취업 인원</label><input type="number" id="stat-employed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
+                            <div class="form-group"><label>취업 인원 <small style="color:#075985;font-weight:800;">9월 30일 기준</small></label><input type="number" id="stat-employed" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
+                            <div class="form-group"><label>취업 인원 <small style="color:#3730A3;font-weight:800;">9월 30일 이후</small></label><input type="number" id="stat-employed-after" class="form-input" placeholder="0" min="0" oninput="calcRates()"></div>
                         </div>
                         <div class="stat-quick-actions">
                             <button type="button" class="stat-quick-btn" onclick="fillFromInterviewPassed()">⚡ 면접합격값으로 참여 인원 채우기</button>
@@ -2092,8 +2115,16 @@ body { background: radial-gradient(circle at 10% 0%, #FFF1DB 0, #FFF7ED 30rem, #
                                 <div class="stat-rate-value" id="auto-completion-rate" style="color:#0891B2;">—</div>
                             </div>
                             <div class="stat-rate-item">
-                                <div class="stat-rate-label">💼 취업률</div>
+                                <div class="stat-rate-label">💼 취업률 <small style="font-size:0.72em;color:#075985;">9월 30일 기준</small></div>
                                 <div class="stat-rate-value" id="auto-employment-rate" style="color:#059669;">—</div>
+                            </div>
+                            <div class="stat-rate-item">
+                                <div class="stat-rate-label">💼 취업률 <small style="font-size:0.72em;color:#3730A3;">9월 30일 이후</small></div>
+                                <div class="stat-rate-value" id="auto-employment-rate-after" style="color:#059669;">—</div>
+                            </div>
+                            <div class="stat-rate-item">
+                                <div class="stat-rate-label">💼 취업률 합계</div>
+                                <div class="stat-rate-value" id="auto-employment-rate-total" style="color:#059669;">—</div>
                             </div>
                         </div>
                         <button onclick="saveStatistics()" class="btn btn-primary desktop-save-btn" style="margin-top:12px;">💾 인원 현황 저장</button>
@@ -2233,7 +2264,7 @@ function getInitialCourses() {
         statistics: { 
             category: base.category, 
             capacity: base.capacity,
-            applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 
+            applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 
         },
         checklist: TASKS.map(task => ({ task, isCompleted: false, startDate: "", endDate: "", note: "" }))
     }));
@@ -2512,6 +2543,34 @@ function escHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
+function employmentParts(stats) {
+    const asOf = Number(stats && stats.employed) || 0;
+    const after = Number(stats && stats.employedAfter) || 0;
+    return { asOf, after, total: asOf + after };
+}
+
+function percentRate(part, whole) {
+    return whole > 0 ? Math.round((part / whole) * 100) : 0;
+}
+
+function personnelRateMarkup(rate) {
+    const color = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#DC2626';
+    const start = rate >= 80 ? '#10B981' : rate >= 50 ? '#F59E0B' : '#DC2626';
+    const end = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#B91C1C';
+    return `<div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+        <div style="width:36px;height:8px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
+            <div style="width:${Math.min(rate, 100)}%;height:100%;background:linear-gradient(90deg,${start},${end});"></div>
+        </div>
+        <span style="font-weight:800;font-size:1.05em;color:${color};min-width:38px;">${rate}%</span>
+    </div>`;
+}
+
+function paintRate(el, rate) {
+    if (!el) return;
+    el.textContent = rate !== null ? rate + '%' : '—';
+    el.style.color = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : rate !== null ? '#DC2626' : '#94A3B8';
+}
+
 function renderKPISummary() {
     const el = document.getElementById('kpi-summary-section');
     if (!el || !courses || courses.length === 0) return;
@@ -2526,13 +2585,16 @@ function renderKPISummary() {
         else statusCounts.unknown++;
     });
 
-    let totalPassed = 0, totalCompleted = 0, totalEmployed = 0;
+    let totalPassed = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
     courses.forEach(c => {
         const s = c.statistics || {};
+        const emp = employmentParts(s);
         totalPassed    += s.passed    || 0;
         totalCompleted += s.completed || 0;
-        totalEmployed  += s.employed  || 0;
+        totalEmployedAsOf += emp.asOf;
+        totalEmployedAfter += emp.after;
     });
+    const totalEmployed = totalEmployedAsOf + totalEmployedAfter;
 
     const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
     const selectedGoalAchievement = selectedGoal > 0 ? Math.round((totalPassed / selectedGoal) * 100) : 0;
@@ -2585,7 +2647,7 @@ function renderKPISummary() {
                 <div class="kpi-icon">💼</div>
                 <div class="kpi-value">${erRate}%</div>
                 <div class="kpi-label">전체 취업률</div>
-                <div class="kpi-sublabel">${totalEmployed}명 취업 · 목표 ${PROGRAM_TARGETS.employmentRate}%</div>
+                <div class="kpi-sublabel">${totalEmployed}명 합계 · 9.30 ${totalEmployedAsOf}명 · 이후 ${totalEmployedAfter}명</div>
             </div>
             ${issueCount > 0 ? `
             <div class="kpi-card kpi-danger">
@@ -2610,7 +2672,7 @@ function renderCourseProgressBoard() {
         const stats = course.statistics || {};
         const passed    = stats.passed    || 0;
         const completed = stats.completed || 0;
-        const employed  = stats.employed  || 0;
+        const employed  = employmentParts(stats).total;
         const capacity  = stats.capacity  || 0;
         const hasIssue  = course.specialNotes && course.specialNotes.trim() !== '';
 
@@ -2676,15 +2738,20 @@ function renderPostManagementKPIs() {
     const container = document.getElementById('postmgmt-section');
     if (!container || !courses || courses.length === 0) return;
 
-    let totalPassed = 0, totalCompleted = 0, totalEmployed = 0;
+    let totalPassed = 0, totalCompleted = 0, totalEmployedAsOf = 0, totalEmployedAfter = 0;
     courses.forEach(c => {
         const s = c.statistics || {};
+        const emp = employmentParts(s);
         totalPassed    += Number(s.passed)    || 0;
         totalCompleted += Number(s.completed) || 0;
-        totalEmployed  += Number(s.employed)  || 0;
+        totalEmployedAsOf += emp.asOf;
+        totalEmployedAfter += emp.after;
     });
+    const totalEmployed = totalEmployedAsOf + totalEmployedAfter;
     const totalCR = totalPassed    > 0 ? Math.round((totalCompleted / totalPassed)    * 100) : 0;
     const totalER = totalCompleted > 0 ? Math.round((totalEmployed  / totalCompleted) * 100) : 0;
+    const totalERAsOf = percentRate(totalEmployedAsOf, totalCompleted);
+    const totalERAfter = percentRate(totalEmployedAfter, totalCompleted);
     const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
     const selectedGoalAchievement = selectedGoal > 0 ? Math.round((totalPassed / selectedGoal) * 100) : 0;
     const crGoal = PROGRAM_TARGETS.completionRate;
@@ -2694,16 +2761,18 @@ function renderPostManagementKPIs() {
         const s = course.statistics || {};
         const passed    = Number(s.passed)    || 0;
         const completed = Number(s.completed) || 0;
-        const employed  = Number(s.employed)  || 0;
+        const emp = employmentParts(s);
         const cr = passed    > 0 ? Math.round((completed / passed)    * 100) : 0;
-        const er = completed > 0 ? Math.round((employed  / completed) * 100) : 0;
+        const er = percentRate(emp.total, completed);
+        const erAsOf = percentRate(emp.asOf, completed);
+        const erAfter = percentRate(emp.after, completed);
         const crColor   = cr >= 90 ? '#047857' : cr >= 70 ? '#0891B2' : cr > 0 ? '#D97706' : '#94A3B8';
         const erColor   = er >= 70 ? '#047857' : er >= 50 ? '#0891B2' : er > 0 ? '#D97706' : '#94A3B8';
         const crBg      = cr >= 90 ? 'linear-gradient(90deg,#10B981,#059669)' : cr >= 70 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : cr > 0 ? 'linear-gradient(90deg,#FBBF24,#D97706)' : 'linear-gradient(90deg,#CBD5E1,#94A3B8)';
         const erBg      = er >= 70 ? 'linear-gradient(90deg,#10B981,#059669)' : er >= 50 ? 'linear-gradient(90deg,#38BDF8,#0891B2)' : er > 0 ? 'linear-gradient(90deg,#FBBF24,#D97706)' : 'linear-gradient(90deg,#CBD5E1,#94A3B8)';
         const crAch     = cr > 0 ? `<span style="font-size:0.7em;font-weight:700;color:${cr>=crGoal?'#059669':'#D97706'};margin-left:4px;">${cr>=crGoal?'✅ 목표달성':'목표 '+crGoal+'%'}</span>` : '';
         const erAch     = er > 0 ? `<span style="font-size:0.7em;font-weight:700;color:${er>=erGoal?'#059669':'#D97706'};margin-left:4px;">${er>=erGoal?'✅ 목표달성':'목표 '+erGoal+'%'}</span>` : '';
-        const noData    = passed === 0 && completed === 0 && employed === 0;
+        const noData    = passed === 0 && completed === 0 && emp.total === 0;
         return `
             <tr class="postmgmt-row${noData ? ' postmgmt-nodata' : ''}">
                 <td class="postmgmt-course-cell"><span style="--course-color:${course.color || '#0891B2'}"></span>${escHtml(course.name)}</td>
@@ -2717,7 +2786,21 @@ function renderPostManagementKPIs() {
                     </div>
                     ${crAch}
                 </td>
-                <td style="text-align:center;font-weight:700;color:#1E293B;">${employed}<small style="display:block;color:#94A3B8;font-size:0.78em;">${completed > 0 ? '/ '+completed+'명' : '미집계'}</small></td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${emp.asOf}<small style="display:block;color:#94A3B8;font-size:0.78em;">${completed > 0 ? '/ '+completed+'명' : '미집계'}</small></td>
+                <td style="min-width:140px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;"><div style="width:${Math.min(erAsOf,100)}%;height:100%;background:${erBg};border-radius:5px;"></div></div>
+                        <span style="font-weight:900;font-size:1em;color:${erColor};min-width:36px;">${erAsOf}%</span>
+                    </div>
+                </td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${emp.after}<small style="display:block;color:#94A3B8;font-size:0.78em;">${completed > 0 ? '/ '+completed+'명' : '미집계'}</small></td>
+                <td style="min-width:140px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;"><div style="width:${Math.min(erAfter,100)}%;height:100%;background:${erBg};border-radius:5px;"></div></div>
+                        <span style="font-weight:900;font-size:1em;color:${erColor};min-width:36px;">${erAfter}%</span>
+                    </div>
+                </td>
+                <td style="text-align:center;font-weight:700;color:#1E293B;">${emp.total}<small style="display:block;color:#94A3B8;font-size:0.78em;">${completed > 0 ? '/ '+completed+'명' : '미집계'}</small></td>
                 <td style="min-width:160px;">
                     <div style="display:flex;align-items:center;gap:8px;">
                         <div style="flex:1;height:9px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
@@ -2744,11 +2827,11 @@ function renderPostManagementKPIs() {
                     <div style="font-size:0.73em;color:#065F46;">${totalCompleted} / ${totalPassed}명 · 목표 ${crGoal}% ${totalCR >= crGoal ? '✅' : `<span style="color:#D97706;">▼ ${crGoal - totalCR}%p 부족</span>`}</div>
                     <div style="height:6px;background:#BBF7D0;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalCR/crGoal*100))}%;height:100%;background:${totalCrBg};border-radius:3px;"></div></div>
                 </div>
-                <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);border:1px solid #FED7AA;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
-                    <div style="font-size:0.78em;font-weight:700;color:#C2410C;letter-spacing:.3px;">💼 전체 취업률</div>
+                <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#F0F9FF 0%,#E0F2FE 100%);border:1px solid #BAE6FD;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
+                    <div style="font-size:0.78em;font-weight:700;color:#075985;letter-spacing:.3px;">💼 전체 취업률 합계</div>
                     <div style="font-size:1.9em;font-weight:900;color:${totalErColor};line-height:1.1;">${totalER}%</div>
-                    <div style="font-size:0.73em;color:#7C2D12;">${totalEmployed} / ${totalCompleted}명 · 목표 ${erGoal}% ${totalER >= erGoal ? '✅' : `<span style="color:#D97706;">▼ ${erGoal - totalER}%p 부족</span>`}</div>
-                    <div style="height:6px;background:#FED7AA;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalER/erGoal*100))}%;height:100%;background:${totalErBg};border-radius:3px;"></div></div>
+                    <div style="font-size:0.73em;color:#0C4A6E;">9.30 ${totalEmployedAsOf}명(${totalERAsOf}%) · 이후 ${totalEmployedAfter}명(${totalERAfter}%) · 목표 ${erGoal}% ${totalER >= erGoal ? '✅' : `<span style="color:#D97706;">▼ ${erGoal - totalER}%p 부족</span>`}</div>
+                    <div style="height:6px;background:#BAE6FD;border-radius:3px;margin-top:4px;overflow:hidden;"><div style="width:${Math.min(100, Math.round(totalER/erGoal*100))}%;height:100%;background:${totalErBg};border-radius:3px;"></div></div>
                 </div>
                 <div style="flex:1;min-width:140px;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;">
                     <div style="font-size:0.78em;font-weight:700;color:#1D4ED8;letter-spacing:.3px;">👥 선발 / 수료 / 취업</div>
@@ -2763,10 +2846,12 @@ function renderPostManagementKPIs() {
                         <tr>
                             <th>과정명</th>
                             <th colspan="2" class="postmgmt-completion-head">📊 수료 성과 <small style="font-size:0.72em;font-weight:600;">목표 ${crGoal}%</small></th>
-                            <th colspan="2" class="postmgmt-employment-head">💼 취업 성과 <small style="font-size:0.72em;font-weight:600;">목표 ${erGoal}%</small></th>
+                            <th colspan="2" class="postmgmt-employment-head">💼 9월 30일 기준 <small style="font-size:0.72em;font-weight:600;">목표 ${erGoal}%</small></th>
+                            <th colspan="2" class="postmgmt-employment-later-head">💼 10월 1일 이후 <small style="font-size:0.72em;font-weight:600;">목표 ${erGoal}%</small></th>
+                            <th colspan="2" class="postmgmt-employment-total-head">💼 합계 <small style="font-size:0.72em;font-weight:600;">목표 ${erGoal}%</small></th>
                         </tr>
                         <tr>
-                            <th></th><th>수료(명)</th><th>수료율(%)</th><th>취업(명)</th><th>취업률(%)</th>
+                            <th></th><th>수료(명)</th><th>수료율(%)</th><th>취업(명)</th><th>취업률(%)</th><th>취업(명)</th><th>취업률(%)</th><th>취업(명)</th><th>취업률(%)</th>
                         </tr>
                     </thead>
                     <tbody>${postRows}</tbody>
@@ -2895,14 +2980,17 @@ function renderOverview() {
     statsTbody.innerHTML = '';
     const totalStats = courses.reduce((total, course) => {
         const stats = course.statistics || {};
-        ['capacity', 'applications', 'interviews', 'passed', 'enrolled', 'dropouts', 'completed', 'employed'].forEach(key => {
+        ['capacity', 'applications', 'interviews', 'passed', 'enrolled', 'dropouts', 'completed', 'employed', 'employedAfter'].forEach(key => {
             total[key] += Number(stats[key]) || 0;
         });
         return total;
-    }, { capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 });
+    }, { capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 });
     const totalInterviewRate = totalStats.applications > 0 ? Math.round((totalStats.interviews / totalStats.applications) * 100) : 0;
     const totalCompletionRate = totalStats.passed > 0 ? Math.round((totalStats.completed / totalStats.passed) * 100) : 0;
-    const totalEmploymentRate = totalStats.completed > 0 ? Math.round((totalStats.employed / totalStats.completed) * 100) : 0;
+    const totalEmployed = totalStats.employed + (totalStats.employedAfter || 0);
+    const totalEmploymentAsOfRate = percentRate(totalStats.employed, totalStats.completed);
+    const totalEmploymentAfterRate = percentRate(totalStats.employedAfter, totalStats.completed);
+    const totalEmploymentRate = percentRate(totalEmployed, totalStats.completed);
     const selectedGoal = Number(PROGRAM_TARGETS.selected) || 0;
     const selectedAchievement = selectedGoal > 0 ? Math.round((totalStats.passed / selectedGoal) * 100) : 0;
     const completionAchievement = Math.round((totalCompletionRate / PROGRAM_TARGETS.completionRate) * 100);
@@ -2920,7 +3008,7 @@ function renderOverview() {
             <div class="personnel-summary-item"><div class="personnel-summary-label">면접참여율</div><div class="personnel-summary-value" style="color:#0891B2;">${totalInterviewRate}% <small>(${totalStats.interviews.toLocaleString()} / ${totalStats.applications.toLocaleString()}명)</small></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">${selBadge} 선발 달성</div><div class="personnel-summary-value" style="color:#6366F1;">${selectedAchievement}% <small>${totalStats.passed} / ${selectedGoal}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, selectedAchievement)}%;background:linear-gradient(90deg,#818CF8,#4F46E5);"></span></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">${crBadge} 수료율 달성</div><div class="personnel-summary-value" style="color:#059669;">${totalCompletionRate}% <small>/ 목표 ${PROGRAM_TARGETS.completionRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, completionAchievement)}%;background:linear-gradient(90deg,#34D399,#059669);"></span></div></div>
-            <div class="personnel-summary-item"><div class="personnel-summary-label">${erBadge} 취업률 달성</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>/ 목표 ${PROGRAM_TARGETS.employmentRate}%</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
+            <div class="personnel-summary-item"><div class="personnel-summary-label">${erBadge} 취업률 달성</div><div class="personnel-summary-value" style="color:#D97706;">${totalEmploymentRate}% <small>합계 ${totalEmployed}명 · 9.30 ${totalStats.employed}명 · 이후 ${totalStats.employedAfter}명</small></div><div class="summary-meter"><span style="width:${Math.min(100, employmentAchievement)}%;background:linear-gradient(90deg,#FBBF24,#D97706);"></span></div></div>
             <div class="personnel-summary-item"><div class="personnel-summary-label">중도탈락 잔여 허용</div><div class="personnel-summary-value" style="color:${additionalDropoutsAllowed > 0 ? '#059669' : '#DC2626'};">${additionalDropoutsAllowed}<small>명 (한도 ${maxDropouts}명 · 현재 ${totalStats.dropouts}명)</small></div><div class="summary-meter"><span style="width:${maxDropouts > 0 ? Math.min(100, (totalStats.dropouts / maxDropouts) * 100) : 100}%;background:linear-gradient(90deg,#F59E0B,#DC2626);"></span></div></div>
         `;
     }
@@ -2946,19 +3034,22 @@ function renderOverview() {
         <td><span class="stat-number high">${totalStats.completed}</span></td>
         <td><strong style="color:${totalCompletionRate >= 80 ? '#059669' : totalCompletionRate >= 50 ? '#D97706' : '#DC2626'};">${totalCompletionRate}%</strong></td>
         <td><span class="stat-number high">${totalStats.employed}</span></td>
+        <td><strong style="color:${totalEmploymentAsOfRate >= 80 ? '#059669' : totalEmploymentAsOfRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentAsOfRate}%</strong></td>
+        <td><span class="stat-number high">${totalStats.employedAfter}</span></td>
+        <td><strong style="color:${totalEmploymentAfterRate >= 80 ? '#059669' : totalEmploymentAfterRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentAfterRate}%</strong></td>
+        <td><span class="stat-number high">${totalEmployed}</span></td>
         <td><strong style="color:${totalEmploymentRate >= 80 ? '#059669' : totalEmploymentRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentRate}%</strong></td>
     `;
     courses.forEach(course => {
-        const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 };
+        const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 };
         const capacity = stats.capacity || 0;
         const applications = stats.applications || 0;
         const interviews = stats.interviews || 0;
         const interviewRate = applications > 0 ? Math.round((interviews / applications) * 100) : 0;
         const passed = stats.passed || 0;
         const completed = stats.completed || 0;
-        const employed = stats.employed || 0;
+        const emp = employmentParts(stats);
         const completionRate = passed > 0 ? Math.round((completed / passed) * 100) : 0;
-        const employmentRate = completed > 0 ? Math.round((employed / completed) * 100) : 0;
         
         const row = statsTbody.insertRow();
         row.innerHTML = `
@@ -2990,15 +3081,12 @@ function renderOverview() {
                     <span style="font-weight: 800; font-size: 1.15em; color: ${completionRate >= 80 ? '#059669' : completionRate >= 50 ? '#D97706' : '#DC2626'}; min-width: 45px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">${completionRate}%</span>
                 </div>
             </td>
-            <td><span class="stat-number high" style="font-weight: 700;">${employed}</span></td>
-            <td>
-                <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                    <div style="width: 50px; height: 10px; background: linear-gradient(90deg, #F1F5F9 0%, #E2E8F0 100%); border-radius: 5px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
-                        <div style="width: ${employmentRate}%; height: 100%; background: linear-gradient(90deg, ${employmentRate >= 80 ? '#10B981' : employmentRate >= 50 ? '#F59E0B' : '#DC2626'} 0%, ${employmentRate >= 80 ? '#059669' : employmentRate >= 50 ? '#D97706' : '#B91C1C'} 100%); box-shadow: 0 0 8px ${employmentRate >= 80 ? 'rgba(16, 185, 129, 0.5)' : employmentRate >= 50 ? 'rgba(245, 158, 11, 0.5)' : 'rgba(220, 38, 38, 0.5)'};"></div>
-                    </div>
-                    <span style="font-weight: 800; font-size: 1.15em; color: ${employmentRate >= 80 ? '#059669' : employmentRate >= 50 ? '#D97706' : '#DC2626'}; min-width: 45px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">${employmentRate}%</span>
-                </div>
-            </td>
+            <td><span class="stat-number high" style="font-weight: 700;">${emp.asOf}</span></td>
+            <td>${personnelRateMarkup(percentRate(emp.asOf, completed))}</td>
+            <td><span class="stat-number high" style="font-weight: 700;">${emp.after}</span></td>
+            <td>${personnelRateMarkup(percentRate(emp.after, completed))}</td>
+            <td><span class="stat-number high" style="font-weight: 700;">${emp.total}</span></td>
+            <td>${personnelRateMarkup(percentRate(emp.total, completed))}</td>
         `;
     });
 }
@@ -3180,17 +3268,17 @@ window.printPersonnelSummary = function() {
                     gap: 12px;
                     padding-bottom: 10px;
                     margin-bottom: 12px;
-                    border-bottom: 2px solid #B45309;
+                    border-bottom: 2px solid #1D4E89;
                 }
                 .print-title h1 {
                     margin: 0;
                     font-size: 18pt;
-                    color: #7C2D12;
+                    color: #16324F;
                     letter-spacing: -0.4px;
                 }
                 .print-title span {
                     font-size: 9pt;
-                    color: #9A3412;
+                    color: #1D4E89;
                     font-weight: 700;
                 }
                 .personnel-summary {
@@ -3203,13 +3291,13 @@ window.printPersonnelSummary = function() {
                     position: relative;
                     overflow: hidden;
                     padding: 10px 12px;
-                    border: 1px solid #E7D7C7;
+                    border: 1px solid #D5E3EE;
                     border-radius: 10px;
-                    border-color: #E7D7C7 !important;
-                    background: linear-gradient(135deg, #FFF9F2 0%, #FFFFFF 100%) !important;
+                    border-color: #D5E3EE !important;
+                    background: linear-gradient(135deg, #F4F8FB 0%, #FFFFFF 100%) !important;
                 }
                 .personnel-summary-label {
-                    color: #7C6A58;
+                    color: #5C738C;
                     font-size: 8pt;
                     font-weight: 800;
                     margin-bottom: 4px;
@@ -3221,7 +3309,7 @@ window.printPersonnelSummary = function() {
                     line-height: 1.15;
                 }
                 .personnel-summary-value small {
-                    color: #7C6A58;
+                    color: #5C738C;
                     font-size: 0.62em;
                     font-weight: 700;
                 }
@@ -3229,7 +3317,7 @@ window.printPersonnelSummary = function() {
                     height: 5px;
                     margin-top: 8px;
                     border-radius: 999px;
-                    background: #F1E1CF;
+                    background: #D5E3EE;
                     overflow: hidden;
                 }
                 .summary-meter span {
@@ -3264,15 +3352,15 @@ window.printPersonnelSummary = function() {
                 .data-table th,
                 .data-table td {
                     padding: 4px 3px !important;
-                    border-color: #E7D7C7 !important;
-                    border: 1px solid #E7D7C7;
+                    border-color: #D5E3EE !important;
+                    border: 1px solid #D5E3EE;
                     text-align: center;
                     vertical-align: middle;
                 }
                 .personnel-data-table thead th {
                     font-size: 7.4pt !important;
-                    color: #7C2D12;
-                    background: linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%);
+                    color: #16324F;
+                    background: linear-gradient(135deg, #E8F3FB 0%, #F7FBFE 100%);
                 }
                 .personnel-data-table tbody td {
                     font-size: 8pt !important;
@@ -3282,25 +3370,27 @@ window.printPersonnelSummary = function() {
                     word-break: keep-all;
                 }
                 .personnel-data-table thead th[rowspan] {
-                    background: linear-gradient(135deg, #FFF7ED, #FFF1DB);
+                    background: linear-gradient(135deg, #E8F3FB, #F7FBFE);
                 }
-                .personnel-data-table .stage-select { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #92400E; }
-                .personnel-data-table .stage-education { background: linear-gradient(135deg, #ECFCCB, #DCFCE7); color: #166534; }
-                .personnel-data-table .stage-aftercare { background: linear-gradient(135deg, #FFEDD5, #FED7AA); color: #C2410C; }
+                .personnel-data-table .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
+                .personnel-data-table .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
+                .personnel-data-table .stage-aftercare { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); color: #075985; }
+                .personnel-data-table .stage-aftercare-later { background: linear-gradient(135deg, #E0E7FF, #C7D2FE); color: #3730A3; }
+                .personnel-data-table .stage-aftercare-total { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #1E3A8A; }
                 .stat-number {
                     display: inline-block;
                     min-width: 32px;
                     padding: 3px 7px;
                     border-radius: 999px;
                     font-weight: 800;
-                    background: #FFF1DB;
-                    color: #9A3412;
+                    background: #E0F2FE;
+                    color: #075985;
                 }
                 .stat-number.high { background: #DCFCE7; color: #166534; }
                 .stat-number.low { background: #FEE2E2; color: #B91C1C; }
                 .personnel-total-row td {
                     font-weight: 900;
-                    background: #FFF7ED !important;
+                    background: #E8F3FB !important;
                 }
             </style>
         </head>
@@ -3803,7 +3893,7 @@ function updateCourseDisplay(course) {
 
     renderReferenceLinks(course.referenceLinks || '');
 
-    const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0 };
+    const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 };
     document.getElementById('stat-category').value = stats.category || '';
     document.getElementById('stat-capacity').value = stats.capacity || 0;
     document.getElementById('stat-applications').value = stats.applications || 0;
@@ -3813,6 +3903,7 @@ function updateCourseDisplay(course) {
     document.getElementById('stat-dropouts').value = stats.dropouts || 0;
     document.getElementById('stat-completed').value = stats.completed || 0;
     document.getElementById('stat-employed').value = stats.employed || 0;
+    document.getElementById('stat-employed-after').value = stats.employedAfter || 0;
     calcRates();
 
     renderChecklist(course);
@@ -4097,6 +4188,7 @@ window.saveStatistics = async function() {
     course.statistics.dropouts = parseInt(document.getElementById('stat-dropouts').value) || 0;
     course.statistics.completed = parseInt(document.getElementById('stat-completed').value) || 0;
     course.statistics.employed = parseInt(document.getElementById('stat-employed').value) || 0;
+    course.statistics.employedAfter = parseInt(document.getElementById('stat-employed-after').value) || 0;
     
     // 부분 업데이트 (statistics 필드만)
     await updateDoc(doc(db, 'courses', String(currentCourseId)), {
@@ -4104,6 +4196,7 @@ window.saveStatistics = async function() {
     });
     
     alert('통계가 저장되었습니다!');
+    renderOverview();
 }
 
 // 섹션 접기/펼치기
@@ -4119,20 +4212,17 @@ window.calcRates = function() {
     const passed    = parseInt(document.getElementById('stat-passed')?.value)    || 0;
     const completed = parseInt(document.getElementById('stat-completed')?.value) || 0;
     const employed  = parseInt(document.getElementById('stat-employed')?.value)  || 0;
+    const employedAfter = parseInt(document.getElementById('stat-employed-after')?.value) || 0;
 
     const completionRate = passed > 0 ? Math.round(completed / passed * 100) : null;
     const employmentRate = completed > 0 ? Math.round(employed / completed * 100) : null;
+    const employmentAfterRate = completed > 0 ? Math.round(employedAfter / completed * 100) : null;
+    const employmentTotalRate = completed > 0 ? Math.round((employed + employedAfter) / completed * 100) : null;
 
-    const crEl = document.getElementById('auto-completion-rate');
-    const erEl = document.getElementById('auto-employment-rate');
-    if (crEl) {
-        crEl.textContent = completionRate !== null ? completionRate + '%' : '—';
-        crEl.style.color = completionRate >= 80 ? '#059669' : completionRate >= 50 ? '#D97706' : completionRate !== null ? '#DC2626' : '#94A3B8';
-    }
-    if (erEl) {
-        erEl.textContent = employmentRate !== null ? employmentRate + '%' : '—';
-        erEl.style.color = employmentRate >= 80 ? '#059669' : employmentRate >= 50 ? '#D97706' : employmentRate !== null ? '#DC2626' : '#94A3B8';
-    }
+    paintRate(document.getElementById('auto-completion-rate'), completionRate);
+    paintRate(document.getElementById('auto-employment-rate'), employmentRate);
+    paintRate(document.getElementById('auto-employment-rate-after'), employmentAfterRate);
+    paintRate(document.getElementById('auto-employment-rate-total'), employmentTotalRate);
 }
 
 window.fillFromInterviewPassed = function() {
@@ -4152,17 +4242,17 @@ window.autoCalculateDropouts = function() {
 };
 
 window.pasteStatisticsLine = function() {
-    const input = prompt('정원,접수,면접,합격,참여,탈락,수료,취업 순서로 숫자를 붙여넣으세요.\n예: 20,25,22,20,19,1,18,12');
+    const input = prompt('정원,접수,면접,합격,참여,탈락,수료,취업(9월30일),취업(이후) 순서로 숫자를 붙여넣으세요.\n예: 20,25,22,20,19,1,18,8,4\n이후 취업이 없으면 마지막 숫자는 생략할 수 있습니다.');
     if (!input) return;
     const values = input.split(/[,\t]/).map(v => parseInt(v.trim(), 10));
-    if (values.length !== 8 || values.some(v => Number.isNaN(v) || v < 0)) {
-        alert('형식이 올바르지 않습니다. 숫자 8개를 콤마(,) 또는 탭으로 입력해 주세요.');
+    if ((values.length !== 8 && values.length !== 9) || values.some(v => Number.isNaN(v) || v < 0)) {
+        alert('형식이 올바르지 않습니다. 숫자 8개 또는 9개를 콤마(,) 또는 탭으로 입력해 주세요.');
         return;
     }
-    const ids = ['stat-capacity', 'stat-applications', 'stat-interviews', 'stat-passed', 'stat-enrolled', 'stat-dropouts', 'stat-completed', 'stat-employed'];
+    const ids = ['stat-capacity', 'stat-applications', 'stat-interviews', 'stat-passed', 'stat-enrolled', 'stat-dropouts', 'stat-completed', 'stat-employed', 'stat-employed-after'];
     ids.forEach((id, i) => {
         const el = document.getElementById(id);
-        if (el) el.value = Math.max(values[i], 0);
+        if (el) el.value = Math.max(values[i] || 0, 0);
     });
     calcRates();
 };
