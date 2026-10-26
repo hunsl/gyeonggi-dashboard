@@ -544,26 +544,32 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
 #personnel-card .card-header h2::after { content: ' · 목표 대비 성과'; color: #1D4E89; font-size: 0.68em; font-weight: 800; margin-left: 6px; }
 #personnel-card .personnel-table-container { margin: 0; padding: 8px 18px 0; overflow-x: auto; }
 #personnel-card .personnel-data-table thead th { color: #334155; font-size: 0.78em; letter-spacing: 0.1px; }
-#personnel-card .personnel-data-table { width: 100%; min-width: 1180px; table-layout: auto; }
+#personnel-card .personnel-data-table { width: 100%; min-width: 1240px; table-layout: fixed; border-collapse: collapse; }
+#personnel-card .col-cat { width: 112px; }
+#personnel-card .col-name { width: 160px; }
+#personnel-card .col-num { width: 58px; }
+#personnel-card .col-interview { width: 72px; }
+#personnel-card .col-rate { width: 108px; }
 #personnel-card .personnel-data-table th,
-#personnel-card .personnel-data-table td { padding: 10px 6px; font-size: 0.76em; }
+#personnel-card .personnel-data-table td { padding: 8px 4px; font-size: 0.76em; text-align: center; vertical-align: middle; }
 #personnel-card .personnel-data-table tbody td { font-size: 0.84em; }
-#personnel-card .personnel-data-table tbody td .stat-number { font-size: 1.16em; font-weight: 800; padding: 5px 10px; line-height: 1.15; }
-#personnel-card .personnel-data-table tbody td strong { font-size: 1.12em; letter-spacing: -0.1px; }
+#personnel-card .personnel-data-table tbody td .stat-number { display: inline-block; min-width: 28px; font-size: 1em; font-weight: 800; padding: 2px 6px; line-height: 1.2; }
 #personnel-card .personnel-data-table tbody td:nth-child(1) { white-space: nowrap; }
 #personnel-card .personnel-data-table tbody td:nth-child(1) span { white-space: nowrap; }
-#personnel-card .personnel-data-table tbody td:nth-child(2) { width: 156px; text-align: left; word-break: keep-all; }
-#personnel-card .personnel-data-table thead tr:nth-child(3) th.stage-select { padding-left: 4px; padding-right: 4px; white-space: nowrap; }
-#personnel-card .personnel-data-table tbody td.select-cell { padding-left: 3px; padding-right: 3px; }
-#personnel-card .personnel-data-table tbody td.select-cell .stat-number { padding: 2px 6px; font-size: 1em; }
-.select-rate { display: flex; flex-direction: column; align-items: center; line-height: 1.15; white-space: nowrap; }
-.select-rate strong { font-size: 1.05em; color: #1E293B; }
-.select-rate span { font-size: 0.78em; font-weight: 800; }
+#personnel-card .personnel-data-table tbody td:nth-child(2) { text-align: left; word-break: keep-all; }
+.course-name-cell i { display: inline-block; width: 4px; height: 14px; margin-right: 6px; border-radius: 2px; vertical-align: -2px; }
+.select-rate { line-height: 1.15; white-space: nowrap; }
+.select-rate strong { display: block; font-size: 1.05em; color: #1E293B; }
+.select-rate span { display: block; font-size: 0.78em; font-weight: 800; }
+.rate-meter { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.rate-meter i { display: block; width: 42px; height: 7px; border-radius: 999px; background: #E8EEF5; overflow: hidden; }
+.rate-meter i b { display: block; height: 100%; border-radius: inherit; }
+.rate-meter span { min-width: 38px; font-weight: 800; font-size: 1.02em; text-align: right; }
 #personnel-card .personnel-table-container::before { display: none; }
 #personnel-card .personnel-data-table thead tr:first-child th { padding-top: 11px; padding-bottom: 9px; font-size: 0.86em; color: #0F172A; border-bottom: 1px solid rgba(255,255,255,0.75); }
 #personnel-card .personnel-data-table thead tr:first-child th small { display: block; margin-top: 3px; font-size: 0.66em; font-weight: 700; opacity: 0.72; letter-spacing: 0; }
 #personnel-card .personnel-data-table thead tr:nth-child(2) th { padding-top: 8px; padding-bottom: 8px; font-size: 0.76em; font-weight: 800; }
-#personnel-card .personnel-data-table thead tr:nth-child(3) th { padding-top: 8px; padding-bottom: 10px; font-size: 0.72em; }
+#personnel-card .personnel-data-table thead tr:nth-child(3) th { padding-top: 7px; padding-bottom: 8px; font-size: 0.72em; white-space: nowrap; line-height: 1.2; }
 #personnel-card .personnel-data-table thead th[rowspan] { vertical-align: middle; background: linear-gradient(135deg, #F8FAFC, #EEF2F7); }
 #personnel-card .personnel-data-table thead .stage-select { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); color: #4338CA; }
 #personnel-card .personnel-data-table thead .stage-education { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); color: #047857; }
@@ -659,7 +665,7 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
     .personnel-summary { grid-template-columns: repeat(2, 1fr); padding: 12px 14px 2px; }
     #personnel-card .personnel-table-container { margin: 0 -14px; padding: 0 14px; overflow-x: auto; }
     #personnel-card .personnel-table-container::before { content: '← 좌우로 스크롤하세요 →'; display: block; text-align: center; font-size: 0.75em; color: #94A3B8; padding: 4px 0 8px; }
-    #personnel-card .personnel-data-table { min-width: 1180px; table-layout: auto; }
+    #personnel-card .personnel-data-table { min-width: 1240px; table-layout: fixed; }
     .stat-rate-box { grid-template-columns: 1fr 1fr; }
     .schedule-management-layout { grid-template-columns: 1fr; padding: 14px 14px 8px; }
     .schedule-focus-body { padding: 12px 14px 14px; }
@@ -1817,6 +1823,15 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                 <div class="personnel-summary" id="personnel-summary" aria-label="전체 인원 요약"></div>
                 <div class="table-container personnel-table-container">
                     <table class="data-table personnel-data-table">
+                        <colgroup>
+                            <col class="col-cat">
+                            <col class="col-name">
+                            <col class="col-num"><col class="col-num"><col class="col-interview"><col class="col-num">
+                            <col class="col-num"><col class="col-num"><col class="col-num"><col class="col-rate">
+                            <col class="col-num"><col class="col-rate">
+                            <col class="col-num"><col class="col-rate">
+                            <col class="col-num"><col class="col-rate">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th rowspan="3">구분</th>
@@ -1835,16 +1850,16 @@ body { background: radial-gradient(circle at 10% 0%, #E7F2FA 0, #F4F8FB 30rem, #
                                 <th class="stage-select">접수</th>
                                 <th class="stage-select">면접<br><small>인원·참여율</small></th>
                                 <th class="stage-select">합격</th>
-                                <th class="stage-education">교육참여(명)</th>
-                                <th class="stage-education">탈락(명)</th>
-                                <th class="stage-education">수료(명)</th>
-                                <th class="stage-education">수료율<br><small>수료/참여</small></th>
-                                <th class="stage-aftercare">취업(명)</th>
-                                <th class="stage-aftercare">취업률(%)</th>
-                                <th class="stage-aftercare-later">취업(명)</th>
-                                <th class="stage-aftercare-later">취업률(%)</th>
-                                <th class="stage-aftercare-total">취업(명)</th>
-                                <th class="stage-aftercare-total">취업률(%)</th>
+                                <th class="stage-education">참여</th>
+                                <th class="stage-education">탈락</th>
+                                <th class="stage-education">수료</th>
+                                <th class="stage-education">수료율</th>
+                                <th class="stage-aftercare">인원</th>
+                                <th class="stage-aftercare">비율</th>
+                                <th class="stage-aftercare-later">인원</th>
+                                <th class="stage-aftercare-later">비율</th>
+                                <th class="stage-aftercare-total">인원</th>
+                                <th class="stage-aftercare-total">비율</th>
                             </tr>
                         </thead>
                         <tbody id="statistics-table-body"></tbody>
@@ -2567,14 +2582,8 @@ function interviewCell(interviews, applications, rate) {
 
 function personnelRateMarkup(rate) {
     const color = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#DC2626';
-    const start = rate >= 80 ? '#10B981' : rate >= 50 ? '#F59E0B' : '#DC2626';
-    const end = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#B91C1C';
-    return `<div style="display:flex;align-items:center;gap:6px;justify-content:center;">
-        <div style="width:36px;height:8px;background:#F1F5F9;border-radius:5px;overflow:hidden;">
-            <div style="width:${Math.min(rate, 100)}%;height:100%;background:linear-gradient(90deg,${start},${end});"></div>
-        </div>
-        <span style="font-weight:800;font-size:1.05em;color:${color};min-width:38px;">${rate}%</span>
-    </div>`;
+    const fill = rate >= 80 ? '#059669' : rate >= 50 ? '#D97706' : '#DC2626';
+    return `<div class="rate-meter"><i><b style="width:${Math.min(rate, 100)}%;background:${fill};"></b></i><span style="color:${color};">${rate}%</span></div>`;
 }
 
 function paintRate(el, rate) {
@@ -3039,13 +3048,13 @@ function renderOverview() {
         <td><span class="stat-number high">${totalStats.enrolled}</span></td>
         <td><span class="stat-number low">${totalStats.dropouts}</span></td>
         <td><span class="stat-number high">${totalStats.completed}</span></td>
-        <td><strong style="color:${totalCompletionRate >= 80 ? '#059669' : totalCompletionRate >= 50 ? '#D97706' : '#DC2626'};">${totalCompletionRate}%</strong></td>
+        <td>${personnelRateMarkup(totalCompletionRate)}</td>
         <td><span class="stat-number high">${totalStats.employed}</span></td>
-        <td><strong style="color:${totalEmploymentAsOfRate >= 80 ? '#059669' : totalEmploymentAsOfRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentAsOfRate}%</strong></td>
+        <td>${personnelRateMarkup(totalEmploymentAsOfRate)}</td>
         <td><span class="stat-number high">${totalStats.employedAfter}</span></td>
-        <td><strong style="color:${totalEmploymentAfterRate >= 80 ? '#059669' : totalEmploymentAfterRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentAfterRate}%</strong></td>
+        <td>${personnelRateMarkup(totalEmploymentAfterRate)}</td>
         <td><span class="stat-number high">${totalEmployed}</span></td>
-        <td><strong style="color:${totalEmploymentRate >= 80 ? '#059669' : totalEmploymentRate >= 50 ? '#D97706' : '#DC2626'};">${totalEmploymentRate}%</strong></td>
+        <td>${personnelRateMarkup(totalEmploymentRate)}</td>
     `;
     courses.forEach(course => {
         const stats = course.statistics || { category: '', capacity: 0, applications: 0, interviews: 0, passed: 0, enrolled: 0, dropouts: 0, completed: 0, employed: 0, employedAfter: 0 };
@@ -3061,9 +3070,8 @@ function renderOverview() {
         const row = statsTbody.insertRow();
         row.innerHTML = `
             <td><span style="display: inline-block; padding: 4px 10px; background: ${getCategoryColor(stats.category)}; color: white; border-radius: 6px; font-size: 0.85em; font-weight: 600;">${stats.category || '-'}</span></td>
-            <td style="text-align: left; font-weight: 600; color: #1E293B;">
-                <span style="display: inline-block; width: 4px; height: 16px; background: ${course.color}; border-radius: 2px; margin-right: 8px; vertical-align: middle;"></span>
-                ${course.name}
+            <td class="course-name-cell">
+                <i style="background:${course.color};"></i>${course.name}
             </td>
             <td class="select-cell"><span class="stat-number" style="background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); color: #6366F1; font-weight: 700;">${capacity}</span></td>
             <td class="select-cell"><span class="stat-number">${stats.applications || 0}</span></td>
@@ -3071,15 +3079,8 @@ function renderOverview() {
             <td class="select-cell"><span class="stat-number high">${stats.passed || 0}</span></td>
             <td><span class="stat-number high">${stats.enrolled || 0}</span></td>
             <td><span class="stat-number low">${stats.dropouts || 0}</span></td>
-            <td><span class="stat-number high" style="font-weight: 700;">${completed}</span></td>
-            <td>
-                <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                    <div style="width: 50px; height: 10px; background: linear-gradient(90deg, #F1F5F9 0%, #E2E8F0 100%); border-radius: 5px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
-                        <div style="width: ${completionRate}%; height: 100%; background: linear-gradient(90deg, ${completionRate >= 80 ? '#10B981' : completionRate >= 50 ? '#F59E0B' : '#DC2626'} 0%, ${completionRate >= 80 ? '#059669' : completionRate >= 50 ? '#D97706' : '#B91C1C'} 100%); box-shadow: 0 0 8px ${completionRate >= 80 ? 'rgba(16, 185, 129, 0.5)' : completionRate >= 50 ? 'rgba(245, 158, 11, 0.5)' : 'rgba(220, 38, 38, 0.5)'};"></div>
-                    </div>
-                    <span style="font-weight: 800; font-size: 1.15em; color: ${completionRate >= 80 ? '#059669' : completionRate >= 50 ? '#D97706' : '#DC2626'}; min-width: 45px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">${completionRate}%</span>
-                </div>
-            </td>
+            <td><span class="stat-number high">${completed}</span></td>
+            <td>${personnelRateMarkup(completionRate)}</td>
             <td><span class="stat-number high" style="font-weight: 700;">${emp.asOf}</span></td>
             <td>${personnelRateMarkup(percentRate(emp.asOf, completed))}</td>
             <td><span class="stat-number high" style="font-weight: 700;">${emp.after}</span></td>
@@ -3334,6 +3335,7 @@ window.printPersonnelSummary = function() {
                 .table-container::before {
                     display: none !important;
                 }
+                col { width: auto !important; }
                 .personnel-data-table,
                 .data-table {
                     width: 100% !important;
