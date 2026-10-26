@@ -59,6 +59,17 @@ test('board uses labelled completion ratios and shows genuine zero employment ra
     assert.equal(JSON.stringify(a.context.fixture), before);
 });
 
+test('weekday calendar columns stay on Monday through Friday', () => {
+    const a = app();
+    assert.equal(
+        a.run('JSON.stringify(calendarWeekdays(2026, 9).slice(0, 5).map(d => [d.month + 1, d.day, d.dow]))'),
+        '[[9,28,1],[9,29,2],[9,30,3],[10,1,4],[10,2,5]]'
+    );
+    assert.equal(a.run('calendarWeekdays(2026, 9).find(d => d.month === 9 && d.day === 26).dow'), 1);
+    assert.equal(a.run('calendarWeekdays(2026, 9).some(d => d.dow === 0 || d.dow === 6)'), false);
+    assert.equal(a.run('calendarWeekdays(2026, 9).every((d, i) => d.dow === (i % 5) + 1)'), true);
+});
+
 test('page startup with empty storage performs no database write or initialization', async () => {
     const a = app();
     a.context.collection = () => ({});
